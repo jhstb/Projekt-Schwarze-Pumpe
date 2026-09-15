@@ -1,0 +1,14 @@
+{
+  "repository": "jhstb/projekt-Schwarze-Pumpe",
+  "opportunity_anchor": "60 ha project-specific opportunity anchor",
+  "funnel": [
+    "TARGET",
+    "PRIORITY",
+    "CONTACTED",
+    "QUALIFIED",
+    "SITE_REVIEW",
+    "INVESTMENT_CASE",
+    "NEGOTIATION",
+    "INVESTMENT"
+  ]
+}

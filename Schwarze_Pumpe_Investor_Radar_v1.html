@@ -1,0 +1,71 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Schwarze Pumpe – Investor Radar</title>
+<style>
+body{margin:0;background:#f5f7fa;color:#172033;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+header{background:#173b67;color:#fff;padding:22px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+h1{margin:0 0 4px;font-size:23px}.sub{opacity:.8}.actions{display:flex;gap:8px;flex-wrap:wrap}
+button{border:1px solid #dfe4ea;background:#fff;color:#172033;padding:8px 12px;border-radius:7px;cursor:pointer;font-weight:600}
+header button{background:#ffffff15;color:#fff;border-color:#ffffff55}
+main{max-width:1500px;margin:auto;padding:22px}.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:18px}
+.kpi,.panel,.dialog{background:#fff;border:1px solid #dfe4ea;border-radius:10px}.kpi{padding:14px}.kpi b{display:block;font-size:25px}.kpi span,.small{color:#697386;font-size:12px}
+.panel{padding:15px;margin-bottom:16px}.filters{display:grid;grid-template-columns:1.4fr repeat(3,160px);gap:9px}
+input,select,textarea{width:100%;padding:9px;border:1px solid #dfe4ea;border-radius:6px;background:#fff;color:#172033;box-sizing:border-box}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;border-bottom:1px solid #dfe4ea;padding:10px 8px;vertical-align:middle}
+th{font-size:12px;color:#697386;text-transform:uppercase}.company{font-weight:700}.badge{display:inline-block;padding:3px 7px;border-radius:999px;font-size:11px;font-weight:700;background:#edf1f5}
+.Aplus{background:#e4f2eb;color:#237a57}.A{background:#eaf0f8;color:#24537e}.Aminus{background:#f4efe1;color:#a36a00}.Bplus{background:#f0edf7;color:#654a8d}
+.due{color:#a33b3b;font-weight:700}.today{color:#a36a00;font-weight:700}.notice{font-size:12px;color:#697386;margin-top:9px}
+.modal{display:none;position:fixed;inset:0;background:#0008;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}
+.dialog{width:min(850px,100%);max-height:92vh;overflow:auto;padding:22px}.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}.full{grid-column:1/-1}
+label{display:block;font-size:12px;font-weight:700;color:#697386;margin-bottom:5px}textarea{min-height:85px;resize:vertical}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+@media(max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}.filters{grid-template-columns:1fr 1fr}.filters input{grid-column:1/-1}}
+@media(max-width:650px){.kpis{grid-template-columns:repeat(2,1fr)}.form{grid-template-columns:1fr}.full{grid-column:auto}header{flex-direction:column;align-items:flex-start}main{padding:12px}}
+</style></head><body>
+<header><div><h1>Schwarze Pumpe – Investor Radar</h1><div class="sub">International Investor Acquisition · lokale Speicherung im Browser</div></div>
+<div class="actions"><button onclick="exportData()">Export</button><button onclick="document.getElementById('file').click()">Import</button><button onclick="resetData()">Reset</button><input id="file" type="file" accept=".json" hidden onchange="importData(event)"></div></header>
+<main><div id="kpis" class="kpis"></div>
+<section class="panel"><div class="filters">
+<input id="q" placeholder="Investor suchen …" oninput="render()">
+<select id="tier" onchange="render()"><option value="">Alle Tiers</option><option>Tier 1</option><option>Tier 2</option></select>
+<select id="priority" onchange="render()"><option value="">Alle Prioritäten</option><option>A+</option><option>A</option><option>A−</option><option>B+</option></select>
+<select id="status" onchange="render()"></select></div>
+<div class="notice"><b>ONE INVESTOR – ONE OWNER – ONE MESSAGE – ONE NEXT STEP.</b> Änderungen werden automatisch lokal gespeichert.</div></section>
+<section class="panel"><table><thead><tr><th>Investor</th><th>Tier</th><th>Priority</th><th>Status</th><th>Owner</th><th>Letzter Kontakt</th><th>Nächster Schritt</th><th>Fällig</th><th></th></tr></thead>
+<tbody id="rows"></tbody></table></section></main>
+<div id="modal" class="modal"><div class="dialog"><h2 id="title"></h2><div class="form">
+<div><label>Unternehmen</label><input id="company" disabled></div><div><label>Tier</label><select id="e-tier"><option>Tier 1</option><option>Tier 2</option></select></div>
+<div><label>Priorität</label><select id="e-priority"><option>A+</option><option>A</option><option>A−</option><option>B+</option></select></div>
+<div><label>Status</label><select id="e-status"></select></div><div><label>Owner</label><input id="owner"></div><div><label>Letzter Kontakt</label><input id="last" type="date"></div>
+<div><label>Nächster Schritt</label><input id="next"></div><div><label>Fällig am</label><input id="due" type="date"></div>
+<div class="full"><label>Investment Trigger</label><textarea id="trigger"></textarea></div>
+<div class="full"><label>Investment-Hypothese für Schwarze Pumpe</label><textarea id="hypothesis"></textarea></div>
+<div class="full"><label>Ansprechpartner / Zugang</label><textarea id="contact"></textarea></div>
+<div class="full"><label>Notizen</label><textarea id="notes"></textarea></div>
+</div><div class="modal-actions"><button onclick="closeModal()">Abbrechen</button><button onclick="saveEdit()">Speichern</button></div></div></div>
+<script>
+const KEY="SP_INVESTOR_RADAR_V1";
+const STAT=["TARGET","PRIORITY","A+ / A","CONTACTED","QUALIFIED","SITE_REVIEW","INVESTMENT_CASE","NEGOTIATION","INVESTMENT"];
+const BASE=[["XPENG","Tier 1","A+","PRIORITY"],["BYD","Tier 1","A+","PRIORITY"],["CATL","Tier 1","A+","PRIORITY"],["BASF Battery Materials","Tier 1","A+","PRIORITY"],["VinFast","Tier 1","A","PRIORITY"],["Great Wall Motor","Tier 1","A","PRIORITY"],["LG Energy Solution","Tier 2","A","TARGET"],["Redwood Materials","Tier 2","A","TARGET"],["Ascend Elements / AE Elemental","Tier 2","A−","TARGET"],["WuXi Biologics","Tier 2","A−","TARGET"],["Samsung Biologics","Tier 2","A−","TARGET"],["Samsung SDI","Tier 2","A−","TARGET"],["EVE Energy","Tier 2","A−","TARGET"],["Umicore","Tier 2","B+","TARGET"]];
+let data=JSON.parse(localStorage.getItem(KEY)||"null")||BASE.map((x,i)=>({id:i+1,company:x[0],tier:x[1],priority:x[2],status:x[3],owner:"",last:"",next:"",due:"",trigger:"",hypothesis:"",contact:"",notes:""}));
+let editId=null;
+const $=id=>document.getElementById(id), esc=s=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+function persist(){localStorage.setItem(KEY,JSON.stringify(data))}
+function pc(p){return p==="A+"?"Aplus":p==="A"?"A":p==="A−"?"Aminus":"Bplus"}
+function render(){
+ if($("status").options.length===0) STAT.forEach(s=>$("status").insertAdjacentHTML("beforeend",`<option>${s}</option>`));
+ let q=$("q").value.toLowerCase(),t=$("tier").value,p=$("priority").value,s=$("status").value;
+ let a=data.filter(x=>(!q||JSON.stringify(x).toLowerCase().includes(q))&&(!t||x.tier===t)&&(!p||x.priority===p)&&(!s||x.status===s));
+ $("rows").innerHTML=a.length?a.map(x=>{let today=new Date().toISOString().slice(0,10),dc=x.due&&x.due<today?"due":x.due===today?"today":"";
+ return `<tr><td><div class="company">${esc(x.company)}</div><div class="small">${esc(x.contact).slice(0,65)}</div></td><td>${x.tier}</td><td><span class="badge ${pc(x.priority)}">${x.priority}</span></td><td>${x.status}</td><td>${esc(x.owner)}</td><td>${x.last}</td><td>${esc(x.next)}</td><td class="${dc}">${x.due}</td><td><button onclick="edit(${x.id})">Bearbeiten</button></td></tr>`}).join(""):`<tr><td colspan="9" style="text-align:center;padding:35px;color:#697386">Keine Treffer.</td></tr>`;
+ let n=s=>data.filter(x=>x.status===s).length,today=new Date().toISOString().slice(0,10),due=data.filter(x=>x.due&&x.due<=today&&x.status!=="INVESTMENT").length;
+ $("kpis").innerHTML=[["Targets",data.length],["Priority",n("PRIORITY")+n("A+ / A")],["Contacted",n("CONTACTED")],["Qualified",n("QUALIFIED")],["Site Review",n("SITE_REVIEW")],["Heute fällig",due]].map(k=>`<div class="kpi"><b>${k[1]}</b><span>${k[0]}</span></div>`).join("");
+}
+function edit(id){editId=id;let x=data.find(a=>a.id===id);$("title").textContent=x.company+" bearbeiten";$("company").value=x.company;$("e-tier").value=x.tier;$("e-priority").value=x.priority;$("e-status").innerHTML=STAT.map(s=>`<option>${s}</option>`).join("");$("e-status").value=x.status;$("owner").value=x.owner;$("last").value=x.last;$("next").value=x.next;$("due").value=x.due;$("trigger").value=x.trigger;$("hypothesis").value=x.hypothesis;$("contact").value=x.contact;$("notes").value=x.notes;$("modal").classList.add("open")}
+function closeModal(){$("modal").classList.remove("open");editId=null}
+function saveEdit(){let x=data.find(a=>a.id===editId);Object.assign(x,{tier:$("e-tier").value,priority:$("e-priority").value,status:$("e-status").value,owner:$("owner").value,last:$("last").value,next:$("next").value,due:$("due").value,trigger:$("trigger").value,hypothesis:$("hypothesis").value,contact:$("contact").value,notes:$("notes").value});persist();closeModal();render()}
+function exportData(){let b=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="Schwarze_Pumpe_Investor_Radar_Export.json";a.click()}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!Array.isArray(x))throw 1;data=x;persist();render();alert("Import erfolgreich.");}catch{alert("Keine gültige Radar-Datei.")}};r.readAsText(f);e.target.value=""}
+function resetData(){if(confirm("Lokale Änderungen wirklich verwerfen?")){localStorage.removeItem(KEY);location.reload()}}
+render();
+</script></body></html>
