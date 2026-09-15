@@ -3,5 +3,6 @@
   "contactMaster": "contacts.json",
   "acquisitionMaster": "investors.json",
   "activityMaster": "activities.json",
-  "syncPolicy": "Three-way merge by immutable investorId; contact fields are mastered in contacts.json; acquisition fields are mastered in investors.json; activities remain in activities.json; conflicts never overwrite silently."
+  "syncPolicy": "Three-way merge by immutable investorId. Contact fields are mastered in contacts.json; acquisition fields are mastered in investors.json; activities remain in activities.json. Conflicts never overwrite silently.",
+  "lastSync": "2026-09-15T10:00:19.660Z"
 }
