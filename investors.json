@@ -12,7 +12,8 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "XPENG"
   },
   {
     "id": 2,
@@ -27,7 +28,8 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "BYD"
   },
   {
     "id": 3,
@@ -42,7 +44,8 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "CATL"
   },
   {
     "id": 4,
@@ -57,7 +60,8 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "BASF-BATTERY-MATERIALS"
   },
   {
     "id": 5,
@@ -72,7 +76,8 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "VINFAST"
   },
   {
     "id": 6,
@@ -87,7 +92,8 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "GWM"
   },
   {
     "id": 7,
@@ -102,7 +108,8 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "LGES"
   },
   {
     "id": 8,
@@ -117,7 +124,8 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "REDWOOD"
   },
   {
     "id": 9,
@@ -132,7 +140,8 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "ASCEND-ELEMENTS"
   },
   {
     "id": 10,
@@ -147,7 +156,8 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "WUXI-BIOLOGICS"
   },
   {
     "id": 11,
@@ -162,7 +172,8 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "SAMSUNG-BIOLOGICS"
   },
   {
     "id": 12,
@@ -177,7 +188,8 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "SAMSUNG-SDI"
   },
   {
     "id": 13,
@@ -192,7 +204,8 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "EVE-ENERGY"
   },
   {
     "id": 14,
@@ -207,6 +220,7 @@
     "trigger": "",
     "hypothesis": "",
     "contact": "",
-    "notes": ""
+    "notes": "",
+    "investorId": "UMICORE"
   }
 ]

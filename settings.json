@@ -1,14 +1,7 @@
 {
-  "repository": "jhstb/projekt-Schwarze-Pumpe",
-  "opportunity_anchor": "60 ha project-specific opportunity anchor",
-  "funnel": [
-    "TARGET",
-    "PRIORITY",
-    "CONTACTED",
-    "QUALIFIED",
-    "SITE_REVIEW",
-    "INVESTMENT_CASE",
-    "NEGOTIATION",
-    "INVESTMENT"
-  ]
+  "version": "4.1",
+  "contactMaster": "contacts.json",
+  "acquisitionMaster": "investors.json",
+  "activityMaster": "activities.json",
+  "syncPolicy": "Three-way merge by immutable investorId; contact fields are mastered in contacts.json; acquisition fields are mastered in investors.json; activities remain in activities.json; conflicts never overwrite silently."
 }
