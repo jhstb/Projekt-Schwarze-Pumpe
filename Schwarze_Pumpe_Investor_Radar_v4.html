@@ -139,7 +139,7 @@ function mergeThreeWay(base,local,remote){
  return {investors:inv.items,contacts:con.items,activities:mergeActivities(base?.activities||[],local.activities,remote.activities),conflicts:[...inv.conflicts,...con.conflicts]};
 }
 async function pullRemote(){
- const a=await githubFile("data/investors.json"),b=await githubFile("data/activities.json"),c=await githubFile("data/contacts.json");
+ const a=await githubFile("investors.json"),b=await githubFile("activities.json"),c=await githubFile("contacts.json");
  return {investors:JSON.parse(decode64(a.content)),activities:JSON.parse(decode64(b.content)),contacts:JSON.parse(decode64(c.content)),shas:{investors:a.sha,activities:b.sha,contacts:c.sha}};
 }
 async function pullGitHub(){
@@ -172,12 +172,12 @@ async function pushGitHub(){
   }
   const out={investors:merged.investors,contacts:merged.contacts,activities:merged.activities};
   $("syncMsg").textContent="Schreibe zusammengeführten Stand…";
-  await putGit("data/investors.json",JSON.stringify(out.investors,null,2),"Sync investor radar",remote.shas.investors);
-  await putGit("data/activities.json",JSON.stringify(out.activities,null,2),"Sync investor activities",remote.shas.activities);
-  await putGit("data/contacts.json",JSON.stringify(out.contacts,null,2),"Sync investor contact master",remote.shas.contacts);
+  await putGit("investors.json",JSON.stringify(out.investors,null,2),"Sync investor radar",remote.shas.investors);
+  await putGit("activities.json",JSON.stringify(out.activities,null,2),"Sync investor activities",remote.shas.activities);
+  await putGit("contacts.json",JSON.stringify(out.contacts,null,2),"Sync investor contact master",remote.shas.contacts);
   const settings={version:APP_VERSION,contactMaster:"contacts.json",acquisitionMaster:"investors.json",activityMaster:"activities.json",syncPolicy:"Three-way merge by immutable investorId. Contact fields are mastered in contacts.json; acquisition fields are mastered in investors.json; activities remain in activities.json. Conflicts never overwrite silently.",lastSync:new Date().toISOString()};
-  let oldSettings=null;try{oldSettings=await githubFile("data/settings.json")}catch{}
-  await putGit("data/settings.json",JSON.stringify(settings,null,2),"Update radar settings",oldSettings?.sha);
+  let oldSettings=null;try{oldSettings=await githubFile("settings.json")}catch{}
+  await putGit("settings.json",JSON.stringify(settings,null,2),"Update radar settings",oldSettings?.sha);
   data=out.investors;contacts=out.contacts;activities=out.activities;saveLocal();saveBaseSnapshot(out);render();
   $("syncMsg").textContent="GitHub-Sync erfolgreich. Merge geprüft, keine Konflikte, vier Datenstände aktualisiert.";
  }catch(e){$("syncMsg").textContent="Fehler: "+e.message}
