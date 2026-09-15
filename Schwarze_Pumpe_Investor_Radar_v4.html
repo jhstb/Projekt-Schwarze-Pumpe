@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Schwarze Pumpe – Investor Radar v4.1</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f6f8;color:#172033;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+header{background:#173b67;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+h1{margin:0;font-size:23px}.sub{opacity:.8;margin-top:4px}.actions{display:flex;gap:7px;flex-wrap:wrap}
+button{font:inherit;border:1px solid #ccd3dc;border-radius:7px;background:#fff;color:#172033;padding:8px 11px;font-weight:600;cursor:pointer}
+button:hover{background:#eef3f8}.headerbtn{background:#ffffff12;color:#fff;border-color:#ffffff55}.headerbtn:hover{background:#ffffff25}
+main{max-width:1550px;margin:auto;padding:18px}.kpis{display:grid;grid-template-columns:repeat(8,1fr);gap:9px;margin-bottom:12px}.kpi{background:#fff;border:1px solid #dfe4ea;border-radius:9px;padding:11px}.kpi b{display:block;font-size:23px}.kpi span{font-size:12px;color:#687386}
+.panel{background:#fff;border:1px solid #dfe4ea;border-radius:9px;padding:13px;margin-bottom:12px}.filters{display:grid;grid-template-columns:1.5fr repeat(4,150px);gap:8px}
+input,select,textarea{font:inherit;width:100%;padding:9px;border:1px solid #ccd3dc;border-radius:6px;background:#fff;color:#172033}textarea{min-height:80px;resize:vertical}
+.funnel{display:flex;gap:7px;flex-wrap:wrap}.stage{background:#eef2f6;border-color:#d7dee7}.stage.active{background:#173b67;color:#fff;border-color:#173b67}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;border-bottom:1px solid #e7eaee;vertical-align:middle}th{font-size:10px;text-transform:uppercase;color:#687386}.row{cursor:pointer}.row:hover{background:#f7f9fb}.company{font-weight:700}.small{font-size:11px;color:#687386}
+.ampel{font-size:16px}.red{color:#a33b3b}.yellow{color:#9a6500}.green{color:#237a57}.prio{font-weight:700}.Aplus{color:#237a57}.A{color:#24537e}.Aminus{color:#9a6500}.Bplus{color:#654a8d}
+.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:16px;z-index:9999}.modal.open{display:flex}.box{background:#fff;border-radius:10px;width:min(900px,100%);max-height:94vh;overflow:auto;padding:20px}.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}label{font-size:12px;font-weight:700;color:#687386;display:block;margin-bottom:4px}.modalfoot{display:flex;justify-content:flex-end;gap:7px;margin-top:13px}.history{border-top:1px solid #e7eaee;margin-top:14px;padding-top:12px}.activity{padding:7px 0;border-bottom:1px solid #eef0f2}.muted{color:#687386;font-size:12px}.repo{font:12px ui-monospace,monospace}.contactmaster{background:#f7f9fb;border:1px solid #dfe4ea;border-radius:7px;padding:10px;display:grid;gap:6px}.contactmaster b{display:block}.contactmaster span{margin-left:6px}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(4,1fr)}.filters{grid-template-columns:1fr 1fr}.filters input{grid-column:1/-1}}
+@media(max-width:650px){.kpis{grid-template-columns:repeat(2,1fr)}.form{grid-template-columns:1fr}.full{grid-column:auto}header{display:block}.actions{margin-top:12px}}
+</style>
+</head>
+<body>
+<header><div><h1>Schwarze Pumpe – Investor Radar v4.1</h1><div class="sub">International Investor Acquisition · <span class="repo">jhstb/projekt-Schwarze-Pumpe</span></div></div>
+<div class="actions"><button class="headerbtn" id="jsonOut">JSON Export</button><button class="headerbtn" id="csvOut">CSV Export</button><button class="headerbtn" id="jsonInBtn">Import</button><button class="headerbtn" id="resetBtn">Reset Demo</button><button class="headerbtn" id="syncBtn">GitHub Sync</button><input id="jsonIn" type="file" accept=".json" hidden></div></header>
+<main>
+<div id="kpis" class="kpis"></div>
+<section class="panel"><div class="filters">
+<input id="search" placeholder="Investor, Trigger, Hypothese, Owner …">
+<select id="tier"><option value="">Alle Tiers</option><option>Tier 1</option><option>Tier 2</option></select>
+<select id="priority"><option value="">Alle Prioritäten</option><option>A+</option><option>A</option><option>A−</option><option>B+</option></select>
+<select id="status"></select><select id="signal"><option value="">Alle Ampeln</option><option value="green">🟢 Im Plan</option><option value="yellow">🟡 Aufmerksamkeit</option><option value="red">🔴 Überfällig / blockiert</option></select>
+</div><div class="muted" style="margin-top:8px"><b>ONE INVESTOR – ONE OWNER – ONE MESSAGE – ONE NEXT STEP.</b> · <b>Status</b> = Akquisitionsphase; <b>Priority</b> = Priorität. Owner/Next Action/Datum ändern den Status nicht. · Die 60 ha sind der konkrete Opportunity Anchor – nicht die Verkaufsbotschaft.</div></section>
+<section class="panel"><div id="funnel" class="funnel"></div></section>
+<section class="panel"><table><thead><tr><th>Ampel</th><th>Investor</th><th>Tier</th><th>Priority</th><th>Status</th><th>Owner</th><th>Letzter Kontakt</th><th>Next Action</th><th>Fällig</th></tr></thead><tbody id="rows"></tbody></table></section>
+</main>
+
+<div id="editor" class="modal"><div class="box"><h2 id="editorTitle"></h2><div class="form">
+<div><label>Unternehmen</label><input id="eCompany" disabled></div><div><label>Tier</label><select id="eTier"><option>Tier 1</option><option>Tier 2</option></select></div>
+<div><label>Priorität</label><select id="ePriority"><option>A+</option><option>A</option><option>A−</option><option>B+</option></select></div><div><label>Status</label><select id="eStatus"></select></div>
+<div><label>Owner</label><input id="eOwner"></div><div><label>Letzter Kontakt</label><input id="eLast" type="date"></div>
+<div class="full"><label>Next Action</label><input id="eNext"></div><div><label>Fällig am</label><input id="eDue" type="date"></div>
+<div class="full"><label>Investment Trigger</label><textarea id="eTrigger"></textarea></div><div class="full"><label>Investment Hypothesis</label><textarea id="eHypothesis"></textarea></div>
+<div class="full"><label>Kontakt-Master · wird aus contacts.json synchronisiert</label><div id="contactMaster" class="contactmaster"><div><b id="cDecision">—</b><span id="cFunction" class="muted"></span></div><div id="cRoute">—</div><div id="cAccess">—</div><div id="cAhk">—</div><div id="cSource" class="muted">—</div></div></div><div class="full"><label>Radar-Kontaktnotiz</label><textarea id="eContact"></textarea></div><div class="full"><label>Notizen</label><textarea id="eNotes"></textarea></div>
+</div>
+<div class="history"><b>Activity History</b><div style="display:flex;gap:7px;margin:8px 0"><select id="aType"><option>Contact</option><option>Call</option><option>Email</option><option>AHK Introduction</option><option>Executive Access</option><option>Site Review</option><option>Other</option></select><input id="aNote" placeholder="Was ist passiert / was wurde vereinbart?"><button id="addAct">+ Aktivität</button></div><div id="history"></div></div>
+<div class="modalfoot"><button id="cancelEdit">Abbrechen</button><button id="saveEdit">Speichern</button></div>
+</div></div>
+
+<div id="sync" class="modal"><div class="box"><h2>GitHub Sync</h2><p>Repository: <b class="repo">jhstb/projekt-Schwarze-Pumpe</b></p>
+<div class="form"><div><label>Owner</label><input id="ghOwner" value="jhstb"></div><div><label>Repository</label><input id="ghRepo" value="projekt-Schwarze-Pumpe"></div><div><label>Branch</label><input id="ghBranch" value="main"></div><div><label>Token – nur diese Sitzung</label><input id="ghToken" type="password"></div></div>
+<p class="muted">Der Token wird nicht gespeichert. Für produktiven Mehrbenutzerbetrieb ist später OAuth/Backend die bessere Lösung.</p><div class="modalfoot"><button id="cancelSync">Abbrechen</button><button id="pull">Aus GitHub laden</button><button id="push">Nach GitHub schreiben</button></div><div id="syncMsg" class="muted"></div></div></div>
+
+<script>
+"use strict";
+const APP_VERSION="4.1";
+const STATUS=["TARGET","PRIORITY","CONTACTED","QUALIFIED","SITE_REVIEW","INVESTMENT_CASE","NEGOTIATION","INVESTMENT"];
+const SEED=[{"id": 1, "company": "XPENG", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 2, "company": "BYD", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 3, "company": "CATL", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 4, "company": "BASF Battery Materials", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 5, "company": "VinFast", "tier": "Tier 1", "priority": "A", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 6, "company": "Great Wall Motor", "tier": "Tier 1", "priority": "A", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 7, "company": "LG Energy Solution", "tier": "Tier 2", "priority": "A", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 8, "company": "Redwood Materials", "tier": "Tier 2", "priority": "A", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 9, "company": "Ascend Elements / AE Elemental", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 10, "company": "WuXi Biologics", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 11, "company": "Samsung Biologics", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 12, "company": "Samsung SDI", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 13, "company": "EVE Energy", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 14, "company": "Umicore", "tier": "Tier 2", "priority": "B+", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}];
+let data=JSON.parse(localStorage.getItem("SP_V4_DATA")||localStorage.getItem("SP_V3_DATA")||"null")||SEED;
+let activities=JSON.parse(localStorage.getItem("SP_V4_ACT")||localStorage.getItem("SP_V3_ACT")||"[]");
+let contacts=JSON.parse(localStorage.getItem("SP_V4_CONTACTS")||"null");
+const CONTACT_SEED=[{"investorId":"XPENG","company":"XPENG","priority":"A+","country":"China","sector":"Automotive / EV","decisionMaker":"Dr. Hongdi Brian Gu","currentFunction":"Vice Chairman & President","verificationDate":"","directContactRoute":"Direct executive approach","personalAccess":"","introducer":"","ahkOffice":"AHK Guangzhou","ahkContact":"Jan Roennfeld – crgz@china.ahk.de","ahkAssignment":"Executive access, investor intelligence, European expansion triggers, target introductions","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"High","notes":"Executive route READY; role should be rechecked immediately before dispatch."},{"investorId":"BYD","company":"BYD","priority":"A+","country":"China","sector":"Automotive / EV / Battery","decisionMaker":"Stella Li","currentFunction":"Executive Vice President","verificationDate":"","directContactRoute":"Direct executive approach","personalAccess":"","introducer":"","ahkOffice":"AHK China","ahkContact":"Oliver Oehms – crbj@china.ahk.de / Michael Kern – crsh@china.ahk.de / Jan Roennfeld – crgz@china.ahk.de","ahkAssignment":"Executive access, investor intelligence, European expansion triggers, target introductions","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"High","notes":"Executive route READY; direct address to be verified before dispatch."},{"investorId":"CATL","company":"CATL","priority":"A+","country":"China","sector":"Battery / ESS","decisionMaker":"Amanda Xu","currentFunction":"CTO ESS & President ESS Europe","verificationDate":"","directContactRoute":"Direct executive approach","personalAccess":"","introducer":"","ahkOffice":"AHK Shanghai","ahkContact":"Michael Kern – crsh@china.ahk.de","ahkAssignment":"Executive access, investor intelligence, European expansion triggers, target introductions","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"High","notes":"Executive route READY; direct address to be verified before dispatch."},{"investorId":"BASF-BATTERY-MATERIALS","company":"BASF Battery Materials","priority":"A+","country":"Germany","sector":"Battery Materials / Circular Economy","decisionMaker":"Dr. Daniel Schönfelder","currentFunction":"President Battery Materials","verificationDate":"","directContactRoute":"Direct corporate / executive route","personalAccess":"","introducer":"","ahkOffice":"","ahkContact":"","ahkAssignment":"","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"High","notes":"Open ecosystem / circular-value-chain discussion; role should be rechecked immediately before outreach."},{"investorId":"VINFAST","company":"VinFast","priority":"A","country":"Vietnam","sector":"Automotive / EV","decisionMaker":"Pham Nhat Quan Anh","currentFunction":"current Global CEO","verificationDate":"","directContactRoute":"Existing personal relationship first","personalAccess":"Existing personal relationship/contact route","introducer":"","ahkOffice":"AHK Vietnam","ahkContact":"Peter Kompalla – Delegate / Björn Koslowski – Deputy Delegate","ahkAssignment":"VinFast reactivation, Vietnam industrial-investment intelligence","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"High","notes":"REACTIVATION. Use personal relationship before cold outreach."},{"investorId":"GWM","company":"Great Wall Motor","priority":"A","country":"China","sector":"Automotive / EV","decisionMaker":"European decision-maker – TO VERIFY","currentFunction":"","verificationDate":"","directContactRoute":"ACCESS RESEARCH","personalAccess":"","introducer":"","ahkOffice":"AHK Beijing / North China","ahkContact":"Oliver Oehms – crbj@china.ahk.de / Kathrin Wolfsgruber – North China","ahkAssignment":"Executive access, investor intelligence, European expansion triggers, target introductions","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"Medium","notes":"Verify current Europe manufacturing decision owner before direct message."},{"investorId":"LGES","company":"LG Energy Solution","priority":"A","country":"South Korea","sector":"Battery / ESS","decisionMaker":"","currentFunction":"","verificationDate":"","directContactRoute":"","personalAccess":"","introducer":"","ahkOffice":"AHK Korea","ahkContact":"Felix Kalkowsky – VP / Young-Min Kim – Deputy Director Investment Promotion / Jihee Jeong – Energy & Environment","ahkAssignment":"Battery, ESS and biopharma decision chains; investment-trigger intelligence and warm introductions","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"Medium","notes":"Company explicitly assigned to AHK Korea network."},{"investorId":"REDWOOD","company":"Redwood Materials","priority":"A","country":"USA","sector":"Battery Recycling / Circular Economy","decisionMaker":"","currentFunction":"","verificationDate":"","directContactRoute":"","personalAccess":"","introducer":"","ahkOffice":"AHK USA","ahkContact":"Christoph Schemionek – President & CEO / Daniela Berger-Huza – Director Projects & Business Operations / Amal Khaled – Director Programs & Trade Missions","ahkAssignment":"US investment intelligence; European scaling requirements","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"Medium","notes":"Company explicitly assigned to AHK USA network."},{"investorId":"ASCEND-ELEMENTS","company":"Ascend Elements / AE Elemental","priority":"A−","country":"USA","sector":"Battery Recycling / Circular Economy","decisionMaker":"","currentFunction":"","verificationDate":"","directContactRoute":"","personalAccess":"","introducer":"","ahkOffice":"AHK USA","ahkContact":"Christoph Schemionek – President & CEO / Daniela Berger-Huza – Director Projects & Business Operations / Amal Khaled – Director Programs & Trade Missions","ahkAssignment":"US investment intelligence; European scaling requirements","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"Medium","notes":"Company explicitly assigned to AHK USA network."},{"investorId":"WUXI-BIOLOGICS","company":"WuXi Biologics","priority":"A−","country":"","sector":"","decisionMaker":"","currentFunction":"","verificationDate":"","directContactRoute":"","personalAccess":"","introducer":"","ahkOffice":"","ahkContact":"","ahkAssignment":"","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"TO VERIFY","notes":"No company-specific contact entry in current Tier-1/AHK contact book; verify route."},{"investorId":"SAMSUNG-BIOLOGICS","company":"Samsung Biologics","priority":"A−","country":"South Korea","sector":"Biopharma","decisionMaker":"","currentFunction":"","verificationDate":"","directContactRoute":"","personalAccess":"","introducer":"","ahkOffice":"AHK Korea","ahkContact":"Felix Kalkowsky – VP / Young-Min Kim – Deputy Director Investment Promotion / Jihee Jeong – Energy & Environment","ahkAssignment":"Battery, ESS and biopharma decision chains; investment-trigger intelligence and warm introductions","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"Medium","notes":"Company explicitly assigned to AHK Korea network."},{"investorId":"SAMSUNG-SDI","company":"Samsung SDI","priority":"A−","country":"South Korea","sector":"Battery / ESS","decisionMaker":"","currentFunction":"","verificationDate":"","directContactRoute":"","personalAccess":"","introducer":"","ahkOffice":"AHK Korea","ahkContact":"Felix Kalkowsky – VP / Young-Min Kim – Deputy Director Investment Promotion / Jihee Jeong – Energy & Environment","ahkAssignment":"Battery, ESS and biopharma decision chains; investment-trigger intelligence and warm introductions","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"Medium","notes":"Company explicitly assigned to AHK Korea network."},{"investorId":"EVE-ENERGY","company":"EVE Energy","priority":"A−","country":"","sector":"","decisionMaker":"","currentFunction":"","verificationDate":"","directContactRoute":"","personalAccess":"","introducer":"","ahkOffice":"","ahkContact":"","ahkAssignment":"","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"TO VERIFY","notes":"No company-specific contact entry in current Tier-1/AHK contact book; verify route."},{"investorId":"UMICORE","company":"Umicore","priority":"B+","country":"","sector":"","decisionMaker":"","currentFunction":"","verificationDate":"","directContactRoute":"","personalAccess":"","introducer":"","ahkOffice":"","ahkContact":"","ahkAssignment":"","source":"Executive & AHK Contact Book 14-09-2026 v2","confidence":"TO VERIFY","notes":"No company-specific contact entry in current Tier-1/AHK contact book; verify route."}];
+contacts=contacts||CONTACT_SEED;
+const CONTACT_FIELDS=["company","country","sector","decisionMaker","currentFunction","verificationDate","directContactRoute","personalAccess","introducer","ahkOffice","ahkContact","ahkAssignment","source","confidence","notes"];
+const IDS={1:"XPENG",2:"BYD",3:"CATL",4:"BASF-BATTERY-MATERIALS",5:"VINFAST",6:"GWM",7:"LGES",8:"REDWOOD",9:"ASCEND-ELEMENTS",10:"WUXI-BIOLOGICS",11:"SAMSUNG-BIOLOGICS",12:"SAMSUNG-SDI",13:"EVE-ENERGY",14:"UMICORE"};
+data.forEach(x=>{if(!x.investorId)x.investorId=IDS[x.id]||String(x.id)});
+let currentId=null;
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const today=()=>new Date().toISOString().slice(0,10);
+function saveLocal(){localStorage.setItem("SP_V4_DATA",JSON.stringify(data));localStorage.setItem("SP_V4_ACT",JSON.stringify(activities));localStorage.setItem("SP_V4_CONTACTS",JSON.stringify(contacts))}
+function signal(x){if(x.status==="INVESTMENT")return"green";if(x.due&&x.due<today())return"red";if(!x.owner||!x.next||!x.due)return"yellow";return"green"}
+function signalIcon(s){return s==="green"?"🟢":s==="yellow"?"🟡":"🔴"}
+function populateStatus(){ $("status").innerHTML='<option value="">Alle Status</option>'+STATUS.map(s=>`<option value="${s}">${s}</option>`).join(""); }
+function render(){
+ const q=$("search").value.trim().toLowerCase(), tier=$("tier").value, pr=$("priority").value, st=$("status").value, sg=$("signal").value;
+ const list=data.filter(x=>(!q||JSON.stringify(x).toLowerCase().includes(q))&&(!tier||x.tier===tier)&&(!pr||x.priority===pr)&&(!st||x.status===st)&&(!sg||signal(x)===sg));
+ $("rows").innerHTML=list.map(x=>`<tr class="row" data-id="${x.id}"><td class="${signal(x)}">${signalIcon(signal(x))}</td><td><div class="company">${esc(x.company)}</div><div class="small">${esc(x.trigger).slice(0,70)}</div></td><td>${esc(x.tier)}</td><td class="prio ${x.priority==="A+"?"Aplus":x.priority==="A"?"A":x.priority==="A−"?"Aminus":"Bplus"}">${esc(x.priority)}</td><td>${esc(x.status)}</td><td>${esc(x.owner)}</td><td>${esc(x.last)}</td><td>${esc(x.next)}</td><td>${esc(x.due)}</td></tr>`).join("")||'<tr><td colspan="9" style="padding:30px;text-align:center" class="muted">Keine Treffer.</td></tr>';
+ $("funnel").innerHTML=STATUS.map(s=>`<button class="stage ${st===s?"active":""}" data-stage="${s}">${s} <b>${data.filter(x=>x.status===s).length}</b></button>`).join("");
+ const attention=data.filter(x=>signal(x)==="yellow").length, overdue=data.filter(x=>signal(x)==="red").length;
+ $("kpis").innerHTML=[["Targets",data.length],["Priority",data.filter(x=>x.status==="PRIORITY").length],["Contacted",data.filter(x=>x.status==="CONTACTED").length],["Qualified",data.filter(x=>x.status==="QUALIFIED").length],["Site Review",data.filter(x=>x.status==="SITE_REVIEW").length],["Investment Cases",data.filter(x=>x.status==="INVESTMENT_CASE").length],["🟡 Aufmerksamkeit",attention],["🔴 Überfällig / blockiert",overdue]].map(k=>`<div class="kpi"><b>${k[1]}</b><span>${k[0]}</span></div>`).join("");
+}
+function openEditor(id){
+ currentId=id;const x=data.find(v=>v.id===id);if(!x)return;
+ $("eStatus").innerHTML=STATUS.map(s=>`<option value="${s}">${s}</option>`).join("");
+ $("editorTitle").textContent=x.company+" bearbeiten";$("eCompany").value=x.company;$("eTier").value=x.tier;$("ePriority").value=x.priority;$("eStatus").value=x.status;
+ $("eOwner").value=x.owner;$("eLast").value=x.last;$("eNext").value=x.next;$("eDue").value=x.due;$("eTrigger").value=x.trigger;$("eHypothesis").value=x.hypothesis;$("eContact").value=x.contact;$("eNotes").value=x.notes;
+ renderContact(x.investorId);renderHistory();$("editor").classList.add("open");
+}
+function getContact(investorId){return contacts.find(c=>c.investorId===investorId)||null}
+function renderContact(investorId){const c=getContact(investorId);if(!c){["cDecision","cFunction","cRoute","cAccess","cAhk","cSource"].forEach(id=>$(id).textContent="—");return}$("cDecision").textContent=c.decisionMaker||"Kein verifizierter Entscheider hinterlegt";$("cFunction").textContent=c.currentFunction?" · "+c.currentFunction:"";$("cRoute").textContent=(c.directContactRoute||"Kein direkter Kontaktweg hinterlegt")+(c.country?" · "+c.country:"");$("cAccess").textContent=c.personalAccess||c.introducer||"Kein persönlicher Zugang hinterlegt";$("cAhk").textContent=c.ahkOffice?(c.ahkOffice+" · "+(c.ahkContact||"")):"Keine AHK-Zuordnung hinterlegt";$("cSource").textContent=(c.source||"Quelle unbekannt")+" · Confidence: "+(c.confidence||"TO VERIFY")}
+function mergeContacts(incoming){const map=new Map(contacts.map(c=>[c.investorId,c]));incoming.forEach(c=>{if(!c.investorId)return;const old=map.get(c.investorId)||{investorId:c.investorId};CONTACT_FIELDS.forEach(k=>{if(c[k]!==undefined)old[k]=c[k]});map.set(c.investorId,old)});contacts=[...map.values()];saveLocal();if(currentId){const x=data.find(v=>v.id===currentId);if(x)renderContact(x.investorId)}render()}
+function syncRadarFromContacts(){data.forEach(x=>{const c=getContact(x.investorId);if(c&&c.company&&x.company!==c.company){/* stable Investor-ID wins; company name in radar is not overwritten */}});saveLocal();render()}
+function renderHistory(){const list=activities.filter(a=>a.investorId===currentId).sort((a,b)=>b.date.localeCompare(a.date));$("history").innerHTML=list.length?list.map(a=>`<div class="activity"><b>${esc(a.type)}</b> <span class="muted">${new Date(a.date).toLocaleString("de-DE")}</span><div>${esc(a.note)}</div></div>`).join(""):'<div class="muted">Noch keine Aktivitäten.</div>'}
+function closeEditor(){$("editor").classList.remove("open");currentId=null}
+function saveEditor(){const x=data.find(v=>v.id===currentId); if(!x)return; const old=x.status; const selectedStatus=$("eStatus").value; const newStatus=STATUS.includes(selectedStatus)?selectedStatus:old; Object.assign(x,{tier:$("eTier").value,priority:$("ePriority").value,owner:$("eOwner").value,last:$("eLast").value,next:$("eNext").value,due:$("eDue").value,trigger:$("eTrigger").value,hypothesis:$("eHypothesis").value,contact:$("eContact").value,notes:$("eNotes").value}); x.status=newStatus;if(old!==x.status)activities.push({id:Date.now(),investorId:x.id,date:new Date().toISOString(),type:"Status Change",note:old+" → "+x.status});saveLocal();closeEditor();render()}
+function addActivity(){const note=$("aNote").value.trim();if(!note)return;activities.push({id:Date.now(),investorId:currentId,date:new Date().toISOString(),type:$("aType").value,note});$("aNote").value="";saveLocal();renderHistory()}
+function download(name,text,type){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove()}
+function exportJSON(){download("Schwarze_Pumpe_Investor_Radar_v4.json",JSON.stringify({version:APP_VERSION,investors:data,contacts,activities},null,2),"application/json")}
+function exportCSV(){const h=["investorId","company","tier","priority","status","owner","last","next","due","trigger","hypothesis","contact","notes"];const c=[h.join(";"),...data.map(x=>h.map(k=>`"${String(x[k]??"").replaceAll('"','""')}"`).join(";"))].join("\\n");download("Schwarze_Pumpe_Investor_Radar_v3.csv",c,"text/csv;charset=utf-8")}
+async function githubFile(path){
+ const url=`https://api.github.com/repos/${$("ghOwner").value}/${$("ghRepo").value}/contents/${path}?ref=${encodeURIComponent($("ghBranch").value)}`;
+ const r=await fetch(url,{headers:ghHeaders()});
+ if(!r.ok)throw new Error(`${path}: ${r.status} ${await r.text()}`);
+ return r.json();
+}
+function ghHeaders(){return {"Accept":"application/vnd.github+json","Authorization":"Bearer "+$("ghToken").value,"X-GitHub-Api-Version":"2022-11-28"}}
+function decode64(s){return new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\n/g,"")),c=>c.charCodeAt(0)))}
+function encode64(s){const bytes=new TextEncoder().encode(s);let bin="";bytes.forEach(b=>bin+=String.fromCharCode(b));return btoa(bin)}
+function canonical(v){return JSON.stringify(v??null)}
+const INVESTOR_FIELDS=["company","tier","priority","status","owner","last","next","due","trigger","hypothesis","contact","notes"];
+function mergeObjectMap(base,local,remote,key,fields){
+ const bm=new Map((base||[]).map(x=>[String(x[key]),x])), lm=new Map((local||[]).map(x=>[String(x[key]),x])), rm=new Map((remote||[]).map(x=>[String(x[key]),x]));
+ const ids=[...new Set([...bm.keys(),...lm.keys(),...rm.keys()])]; const out=[]; const conflicts=[];
+ for(const id of ids){
+  const b=bm.get(id)||null,l=lm.get(id)||null,r=rm.get(id)||null;
+  if(!l && r){out.push(r);continue} if(l && !r){out.push(l);continue} if(!l&&!r)continue;
+  const o={...(b||{}),...(r||{}),...(l||{})};
+  for(const f of fields){const bv=b?.[f],lv=l?.[f],rv=r?.[f];
+   if(canonical(lv)===canonical(bv)) o[f]=rv;
+   else if(canonical(rv)===canonical(bv)) o[f]=lv;
+   else if(canonical(lv)===canonical(rv)) o[f]=lv;
+   else {o[f]=lv;conflicts.push(`${id}.${f}`)}
+  }
+  o[key]=l?.[key]||r?.[key]||b?.[key]; out.push(o);
+ }
+ return {items:out,conflicts};
+}
+function mergeActivities(base,local,remote){
+ const map=new Map();
+ [...(base||[]),...(remote||[]),...(local||[])].forEach(a=>{if(a?.id!=null)map.set(String(a.id),a)});
+ return [...map.values()].sort((a,b)=>String(a.date||"").localeCompare(String(b.date||"")));
+}
+function saveBaseSnapshot(remote){localStorage.setItem("SP_V41_BASE",JSON.stringify(remote));localStorage.setItem("SP_V41_BASE_AT",new Date().toISOString())}
+function loadBaseSnapshot(){try{return JSON.parse(localStorage.getItem("SP_V41_BASE")||"null")}catch{return null}}
+function localBundle(){return {investors:data,contacts,activities}}
+function mergeThreeWay(base,local,remote){
+ const inv=mergeObjectMap(base?.investors||[],local.investors,remote.investors,"investorId",INVESTOR_FIELDS);
+ const con=mergeObjectMap(base?.contacts||[],local.contacts,remote.contacts,"investorId",CONTACT_FIELDS);
+ return {investors:inv.items,contacts:con.items,activities:mergeActivities(base?.activities||[],local.activities,remote.activities),conflicts:[...inv.conflicts,...con.conflicts]};
+}
+async function pullRemote(){
+ const a=await githubFile("data/investors.json"),b=await githubFile("data/activities.json"),c=await githubFile("data/contacts.json");
+ return {investors:JSON.parse(decode64(a.content)),activities:JSON.parse(decode64(b.content)),contacts:JSON.parse(decode64(c.content)),shas:{investors:a.sha,activities:b.sha,contacts:c.sha}};
+}
+async function pullGitHub(){
+ try{
+  if(!$("ghToken").value)throw new Error("GitHub-Token fehlt.");
+  $("syncMsg").textContent="Lade GitHub-Stand und gleiche Änderungen kontrolliert ab…";
+  const remote=await pullRemote(),base=loadBaseSnapshot();
+  if(!base){data=remote.investors.map(x=>{if(!x.investorId)x.investorId=IDS[x.id]||String(x.id);return x});contacts=remote.contacts;activities=remote.activities;saveLocal();saveBaseSnapshot({investors:data,contacts,activities});$("syncMsg").textContent="Erster Pull: GitHub ist jetzt Referenzstand. Änderungen lokal bitte danach normal speichern.";render();return}
+  const merged=mergeThreeWay(base,localBundle(),remote);
+  data=merged.investors.map(x=>{if(!x.investorId)x.investorId=IDS[x.id]||String(x.id);return x});contacts=merged.contacts;activities=merged.activities;saveLocal();saveBaseSnapshot({investors:data,contacts,activities});render();
+  $("syncMsg").textContent=merged.conflicts.length?`Merge abgeschlossen. ${merged.conflicts.length} Konflikt(e) wurden bewusst zugunsten der lokalen Änderung markiert: ${merged.conflicts.slice(0,5).join(", ")}${merged.conflicts.length>5?" …":""}`:"Merge abgeschlossen: keine Konflikte. Lokale und GitHub-Änderungen wurden zusammengeführt.";
+ }catch(e){$("syncMsg").textContent="Fehler: "+e.message}
+}
+async function putGit(path,text,msg,expectedSha){
+ const body={message:msg,content:encode64(text),branch:$("ghBranch").value};if(expectedSha)body.sha=expectedSha;
+ const url=`https://api.github.com/repos/${$("ghOwner").value}/${$("ghRepo").value}/contents/${path}`;
+ const r=await fetch(url,{method:"PUT",headers:{...ghHeaders(),"Content-Type":"application/json"},body:JSON.stringify(body)});
+ if(!r.ok)throw new Error(`${path}: ${r.status} ${await r.text()}`);return r.json();
+}
+async function pushGitHub(){
+ try{
+  if(!$("ghToken").value)throw new Error("GitHub-Token fehlt.");
+  $("syncMsg").textContent="Prüfe aktuellen GitHub-Stand vor dem Schreiben…";
+  const remote=await pullRemote(),base=loadBaseSnapshot();
+  if(!base)throw new Error("Noch kein Basisstand vorhanden. Bitte einmal 'Aus GitHub laden' ausführen.");
+  const merged=mergeThreeWay(base,localBundle(),remote);
+  if(merged.conflicts.length){
+   data=merged.investors;contacts=merged.contacts;activities=merged.activities;saveLocal();render();
+   throw new Error("Sync wegen echter Merge-Konflikte gestoppt: "+merged.conflicts.slice(0,8).join(", ")+". Lokale Version bleibt erhalten; bitte Konflikt im Radar prüfen und danach erneut synchronisieren.");
+  }
+  const out={investors:merged.investors,contacts:merged.contacts,activities:merged.activities};
+  $("syncMsg").textContent="Schreibe zusammengeführten Stand…";
+  await putGit("data/investors.json",JSON.stringify(out.investors,null,2),"Sync investor radar",remote.shas.investors);
+  await putGit("data/activities.json",JSON.stringify(out.activities,null,2),"Sync investor activities",remote.shas.activities);
+  await putGit("data/contacts.json",JSON.stringify(out.contacts,null,2),"Sync investor contact master",remote.shas.contacts);
+  const settings={version:APP_VERSION,contactMaster:"contacts.json",acquisitionMaster:"investors.json",activityMaster:"activities.json",syncPolicy:"Three-way merge by immutable investorId. Contact fields are mastered in contacts.json; acquisition fields are mastered in investors.json; activities remain in activities.json. Conflicts never overwrite silently.",lastSync:new Date().toISOString()};
+  let oldSettings=null;try{oldSettings=await githubFile("data/settings.json")}catch{}
+  await putGit("data/settings.json",JSON.stringify(settings,null,2),"Update radar settings",oldSettings?.sha);
+  data=out.investors;contacts=out.contacts;activities=out.activities;saveLocal();saveBaseSnapshot(out);render();
+  $("syncMsg").textContent="GitHub-Sync erfolgreich. Merge geprüft, keine Konflikte, vier Datenstände aktualisiert.";
+ }catch(e){$("syncMsg").textContent="Fehler: "+e.message}
+}
+$("rows").addEventListener("click",e=>{const row=e.target.closest(".row");if(row)openEditor(Number(row.dataset.id))});
+$("funnel").addEventListener("click",e=>{const b=e.target.closest("[data-stage]");if(b){$("status").value=b.dataset.stage;render()}});
+["search","tier","priority","status","signal"].forEach(id=>$(id).addEventListener("input",render));
+$("resetBtn").addEventListener("click",()=>{if(confirm("Lokale V3-Daten wirklich auf Ausgangsstand zurücksetzen?")){localStorage.removeItem("SP_V4_DATA");localStorage.removeItem("SP_V4_ACT");localStorage.removeItem("SP_V4_CONTACTS");localStorage.removeItem("SP_V41_BASE");localStorage.removeItem("SP_V41_BASE_AT");location.reload()}});
+$("jsonOut").addEventListener("click",exportJSON);$("csvOut").addEventListener("click",exportCSV);$("jsonInBtn").addEventListener("click",()=>$("jsonIn").click());
+$("jsonIn").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);data=Array.isArray(o)?o:o.investors;data.forEach(x=>{if(!x.investorId)x.investorId=IDS[x.id]||String(x.id)});activities=o.activities||[];if(o.contacts)contacts=o.contacts;saveLocal();render();alert("Import erfolgreich.")}catch{alert("Ungültige Radar-Datei.")}};r.readAsText(f)});
+$("cancelEdit").addEventListener("click",closeEditor);$("saveEdit").addEventListener("click",saveEditor);$("addAct").addEventListener("click",addActivity);
+$("syncBtn").addEventListener("click",()=>$("sync").classList.add("open"));$("cancelSync").addEventListener("click",()=>$("sync").classList.remove("open"));
+$("pull").addEventListener("click",pullGitHub);$("push").addEventListener("click",pushGitHub);
+populateStatus();render();
+</script></body></html>
