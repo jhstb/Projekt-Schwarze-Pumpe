@@ -5,52 +5,56 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Schwarze Pumpe · Project Hub</title>
 <style>
-:root{--bg:#f4f7f8;--card:#fff;--ink:#12303a;--muted:#6d7d82;--line:#dbe4e7;--accent:#0b6f78;--accent2:#174b57;--red:#c52d2d;--amber:#e5a900;--green:#39a844}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.wrap{max-width:1180px;margin:auto;padding:28px}header{padding:28px 0 24px}
-h1{font-size:38px;margin:0 0 6px;letter-spacing:-1px}h2{margin:0;font-size:17px}p{color:var(--muted)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 6px 20px #12303a0b}
-.hero{background:linear-gradient(135deg,var(--accent2),var(--accent));color:white;border:0}.hero h2{font-size:25px}.hero p{color:#d8eef0}.big{font-size:34px;font-weight:750;margin:12px 0}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.stat{background:#ffffff18;border:1px solid #ffffff30;border-radius:12px;padding:11px}.stat b{display:block;font-size:21px}.stat span{font-size:11px;opacity:.85}
-.actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}.btn{display:inline-block;padding:11px 15px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid var(--line);color:var(--ink);background:white}.hero .btn{color:var(--accent2);border:0}
-.full{grid-column:1/-1}.list{margin:12px 0 0;padding:0;list-style:none}.list li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:20px}.pill{font-size:12px;padding:5px 8px;border-radius:99px;background:#eef3f4;color:var(--accent2);white-space:nowrap}.pill.red{background:#fbeaea;color:var(--red)}.pill.amber{background:#fff5d9;color:#8a6500}.empty{color:var(--muted)}
-.metric{font-size:29px;font-weight:750;margin-top:9px}.sub{font-size:12px;color:var(--muted);margin-top:3px}
-footer{padding:28px 0;color:var(--muted);font-size:12px}
-@media(max-width:760px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.stats{grid-template-columns:1fr 1fr}h1{font-size:29px}}
+:root{--bg:#f3f7f8;--card:#fff;--ink:#17323b;--muted:#718187;--line:#d9e3e6;--accent:#176f79;--deep:#174a56;--red:#c73535;--amber:#e0a500}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:1180px;margin:auto;padding:28px}
+header{padding:24px 0 22px}h1{font-size:38px;margin:0 0 5px;letter-spacing:-1px}h2{font-size:17px;margin:0}p{color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 6px 20px #17323b0b}
+.hero{background:linear-gradient(135deg,var(--deep),var(--accent));color:white;border:0}.hero p{color:#d9edf0}.hero h2{font-size:24px}.big{font-size:34px;font-weight:750;margin:12px 0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.stat{background:#ffffff18;border:1px solid #ffffff30;border-radius:12px;padding:11px}.stat b{display:block;font-size:21px}.stat span{font-size:11px;opacity:.86}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{display:inline-block;padding:11px 15px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid var(--line);color:var(--ink);background:#fff}.hero .btn{color:var(--deep);border:0}
+.full{grid-column:1/-1}.metric{font-size:29px;font-weight:750;margin-top:10px}.sub{font-size:12px;color:var(--muted);margin-top:3px}
+.list{list-style:none;padding:0;margin:12px 0 0}.list li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:18px}.pill{font-size:12px;padding:5px 8px;border-radius:99px;background:#edf3f4;color:var(--deep);white-space:nowrap}.pill.red{background:#fbeaea;color:var(--red)}.pill.amber{background:#fff5d7;color:#8a6500}.empty{color:var(--muted)}
+.focusgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}.focus{border:1px solid var(--line);border-radius:13px;padding:15px}.focus b{font-size:24px;display:block}.focus span{font-size:12px;color:var(--muted)}
+footer{padding:26px 0;color:var(--muted);font-size:12px}@media(max-width:760px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.stats{grid-template-columns:1fr 1fr}.focusgrid{grid-template-columns:1fr}h1{font-size:29px}}
 </style>
 </head>
 <body><div class="wrap">
-<header><h1>SCHWARZE PUMPE · PROJECT HUB</h1><p>International Investor Acquisition · shared project cockpit</p></header>
+<header><h1>SCHWARZE PUMPE · PROJECT HUB</h1><p>International Investor Acquisition · one place to see what matters</p></header>
 
 <div class="grid">
 <section class="card hero">
-<h2>PROJECT OVERVIEW</h2><div class="big" id="overall">Loading…</div>
+<h2>PROJECT OVERVIEW</h2><div class="big">Live project cockpit</div>
 <div class="stats">
 <div class="stat"><b id="investors">—</b><span>INVESTORS</span></div>
 <div class="stat"><b id="tier1">—</b><span>TIER 1</span></div>
-<div class="stat"><b id="owners">—</b><span>OWNERS OPEN</span></div>
-<div class="stat"><b id="overdue">—</b><span>OVERDUE</span></div>
+<div class="stat"><b id="ownerOpen">—</b><span>OWNERS OPEN</span></div>
+<div class="stat"><b id="owned">—</b><span>OWNED</span></div>
 </div>
 <div class="actions"><a class="btn" href="Schwarze_Pumpe_Investor_Radar_v4.html">OPEN INVESTOR RADAR →</a><a class="btn" href="netzplan_3.4.html">OPEN NETZPLAN →</a></div>
 </section>
 
 <section class="card">
 <h2>🔴 ACTION REQUIRED</h2>
-<div class="metric" id="actionMetric">—</div><div class="sub" id="actionSub">Loading…</div>
+<div class="metric" id="actionMetric">—</div><div class="sub">current investor-data gaps</div>
 <ul class="list" id="actionList"><li class="empty">Loading…</li></ul>
 </section>
 
 <section class="card">
-<h2>🟡 NEXT</h2>
-<div class="metric" id="nextMetric">—</div><div class="sub">based on the current investor data</div>
-<ul class="list" id="nextList"><li class="empty">Loading…</li></ul>
+<h2>🟡 TODAY'S FOCUS</h2>
+<div class="focusgrid">
+<div class="focus"><b id="tier1Open">—</b><span>Tier 1 without owner</span></div>
+<div class="focus"><b id="nextCount">—</b><span>dated next actions</span></div>
+<div class="focus"><b id="overdue">—</b><span>dated overdue</span></div>
+</div>
+<ul class="list" id="focusList"><li class="empty">Loading…</li></ul>
 </section>
 
 <section class="card">
 <h2>🗓 NETWORK PLAN</h2>
 <div class="metric" id="npVersion">V3.4</div>
-<div class="sub">current saved network-plan state</div>
+<div class="sub" id="npInfo">current saved network-plan state</div>
 <ul class="list">
+<li><span>Variant</span><span class="pill" id="npVariant">1</span></li>
 <li><span>Mode</span><span class="pill">ACTIVITY</span></li>
 <li><span>Data state</span><span class="pill">LIVE JSON</span></li>
 </ul>
@@ -63,7 +67,7 @@ footer{padding:28px 0;color:var(--muted);font-size:12px}
 <li><span>Investor Radar</span><span class="pill">LIVE</span></li>
 <li><span>Investor master</span><span class="pill">investors.json</span></li>
 <li><span>Activities master</span><span class="pill" id="activityState">CHECKING</span></li>
-<li><span>Network plan</span><span class="pill">V3.4</span></li>
+<li><span>Network plan</span><span class="pill" id="npStatus">V3.4</span></li>
 </ul>
 </section>
 
@@ -79,48 +83,48 @@ footer{padding:28px 0;color:var(--muted);font-size:12px}
 </section>
 </div>
 
-<footer>Project Hub V2.1 · existing repository data remain the source of truth.</footer>
+<footer>Project Hub V3 · existing repository data remain the source of truth.</footer>
 </div>
 
 <script>
 async function loadJSON(file){try{const r=await fetch(file,{cache:"no-store"});if(!r.ok)throw new Error();return await r.json()}catch(e){return null}}
 function arr(x){return Array.isArray(x)?x:(x&&Array.isArray(x.data)?x.data:[])}
 function t(v){return v==null?"":String(v).trim()}
-function dateValue(v){if(!t(v))return null;const d=new Date(v);return isNaN(d)?null:d}
+function d(v){if(!t(v))return null;const x=new Date(v);return isNaN(x)?null:x}
 function esc(v){return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
 (async()=>{
 const investors=arr(await loadJSON("investors.json"));
 const activities=arr(await loadJSON("activities.json"));
 const np=await loadJSON("netzplan.json");
-const today=new Date(); today.setHours(23,59,59,999);
+const today=new Date();today.setHours(23,59,59,999);
+const tier1=investors.filter(x=>t(x.tier).toLowerCase()==="tier 1");
+const owned=investors.filter(x=>t(x.owner));
+const openOwners=investors.filter(x=>!t(x.owner));
+const tier1Open=tier1.filter(x=>!t(x.owner));
+const dated=investors.map(x=>({...x,_due:d(x.due),_next:d(x.next)}));
+const overdue=dated.filter(x=>x._due&&x._due<today).sort((a,b)=>a._due-b._due);
+const upcoming=dated.filter(x=>x._next&&x._next>=today).sort((a,b)=>a._next-b._next);
 
-const tier1=investors.filter(x=>t(x.tier).toLowerCase()==="tier 1").length;
-const ownerOpen=investors.filter(x=>!t(x.owner)).length;
-const dated=investors.map(x=>({...x,_due:dateValue(x.due),_next:dateValue(x.next)}));
-const overdue=dated.filter(x=>x._due && x._due<today && !["done","completed","closed"].includes(t(x.status).toLowerCase())).sort((a,b)=>a._due-b._due);
-const upcoming=dated.filter(x=>x._next && x._next>=today).sort((a,b)=>a._next-b._next);
-const openActs=activities.filter(x=>!["done","completed","closed"].includes(t(x.status).toLowerCase()));
 document.getElementById("investors").textContent=investors.length;
-document.getElementById("tier1").textContent=tier1;
-document.getElementById("owners").textContent=ownerOpen;
+document.getElementById("tier1").textContent=tier1.length;
+document.getElementById("ownerOpen").textContent=openOwners.length;
+document.getElementById("owned").textContent=owned.length;
+document.getElementById("actionMetric").textContent=openOwners.length+" ownership gaps";
+document.getElementById("tier1Open").textContent=tier1Open.length;
+document.getElementById("nextCount").textContent=upcoming.length;
 document.getElementById("overdue").textContent=overdue.length;
-document.getElementById("overall").textContent=investors.length?"Live project cockpit":"Data not loaded";
-document.getElementById("actionMetric").textContent=overdue.length+" overdue";
-document.getElementById("actionSub").textContent=ownerOpen+" investor records still have no owner assigned";
 
-const al=document.getElementById("actionList"); al.innerHTML="";
-const actionItems=overdue.slice(0,5);
-if(!actionItems.length){al.innerHTML='<li class="empty">No dated overdue investor actions detected.</li>'}
-else actionItems.forEach(x=>{const li=document.createElement("li");li.innerHTML="<span>"+esc(x.company)+"</span><span class='pill red'>DUE "+esc(t(x.due))+"</span>";al.appendChild(li)});
+const al=document.getElementById("actionList");al.innerHTML="";
+if(!openOwners.length)al.innerHTML='<li class="empty">No ownership gaps.</li>';
+else openOwners.slice(0,5).forEach(x=>{const li=document.createElement("li");li.innerHTML="<span>"+esc(x.company)+"</span><span class='pill red'>OWNER OPEN</span>";al.appendChild(li)});
 
-const nl=document.getElementById("nextList"); nl.innerHTML="";
-document.getElementById("nextMetric").textContent=upcoming.length+" scheduled";
-if(upcoming.length) upcoming.slice(0,5).forEach(x=>{const li=document.createElement("li");li.innerHTML="<span>"+esc(x.company)+"<br><small>"+esc(t(x.next))+"</small></span><span class='pill amber'>NEXT</span>";nl.appendChild(li)});
-else if(openActs.length) openActs.slice(0,5).forEach(x=>{const li=document.createElement("li");li.innerHTML="<span>"+esc(t(x.title)||t(x.activity)||t(x.name)||"Activity")+"</span><span class='pill'>OPEN</span>";nl.appendChild(li)});
-else nl.innerHTML='<li class="empty">No dated next actions are currently stored.</li>';
+const fl=document.getElementById("focusList");fl.innerHTML="";
+if(tier1Open.length)tier1Open.forEach(x=>{const li=document.createElement("li");li.innerHTML="<span>"+esc(x.company)+"</span><span class='pill amber'>TIER 1 · OWNER OPEN</span>";fl.appendChild(li)});
+else if(upcoming.length)upcoming.slice(0,5).forEach(x=>{const li=document.createElement("li");li.innerHTML="<span>"+esc(x.company)+"</span><span class='pill amber'>NEXT</span>";fl.appendChild(li)});
+else fl.innerHTML='<li class="empty">No dated next actions are currently stored.</li>';
 
+if(np){if(t(np.version))document.getElementById("npVersion").textContent="V"+t(np.version);if(t(np.variant))document.getElementById("npVariant").textContent=t(np.variant);if(t(np.mode))document.getElementById("npInfo").textContent="current saved network-plan state · "+t(np.mode).toUpperCase();if(t(np.version))document.getElementById("npStatus").textContent="V"+t(np.version)}
 document.getElementById("activityState").textContent=activities.length?activities.length+" RECORDS":"EMPTY";
-if(np&&np.version)document.getElementById("npVersion").textContent="V"+t(np.version);
 })();
 </script>
 </body></html>
