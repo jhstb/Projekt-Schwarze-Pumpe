@@ -1,31 +1,41 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Schwarze Pumpe · Projektportal</title>
+<title>Schwarze Pumpe · Project Hub</title>
 <style>
-:root{--blue:#1f668f;--green:#3b8f68;--bg:#f4f6f8;--text:#17212b;--muted:#66727e;--border:#dce2e7}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-.wrap{max-width:1050px;margin:0 auto;padding:48px 28px}.card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:30px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.eyebrow{font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--blue);text-transform:uppercase}h1{font-size:36px;line-height:1.08;margin:8px 0 10px}p{color:var(--muted);font-size:17px;line-height:1.5}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px}.link{display:block;text-decoration:none;color:inherit;border:1px solid var(--border);border-radius:12px;padding:22px;background:#fff;transition:.15s}.link:hover{border-color:#9fb8c8;transform:translateY(-1px)}
-.link h2{margin:0 0 6px;font-size:21px}.link p{margin:0;font-size:14px}.tag{display:inline-block;margin-top:14px;padding:6px 9px;border-radius:7px;background:#eef4f7;color:var(--blue);font-size:12px;font-weight:800}
-.footer{margin-top:18px;color:var(--muted);font-size:12px}@media(max-width:700px){.grid{grid-template-columns:1fr}.wrap{padding:24px 16px}h1{font-size:30px}}
+:root{--bg:#f4f7f8;--card:#fff;--ink:#12303a;--muted:#6d7d82;--line:#dbe4e7;--accent:#0b6f78;--accent2:#174b57}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.wrap{max-width:1180px;margin:auto;padding:28px}header{padding:28px 0 24px}
+h1{font-size:38px;margin:0 0 6px;letter-spacing:-1px}h2{margin:0;font-size:17px}p{color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 6px 20px #12303a0b}
+.hero{background:linear-gradient(135deg,var(--accent2),var(--accent));color:white;border:0}.hero p{color:#d8eef0}.hero h2{font-size:25px}.big{font-size:34px;font-weight:750;margin:12px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#ffffff18;border:1px solid #ffffff30;border-radius:12px;padding:12px}.stat b{display:block;font-size:22px}.stat span{font-size:12px;opacity:.8}
+.actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}.btn{display:inline-block;padding:11px 15px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid var(--line);color:var(--ink);background:white}.hero .btn{color:var(--accent2);border:0}
+.full{grid-column:1/-1}.list{margin:12px 0 0;padding:0;list-style:none}.list li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:20px}.pill{font-size:12px;padding:5px 8px;border-radius:99px;background:#eef3f4;color:var(--accent2);white-space:nowrap}.empty{color:var(--muted)}
+footer{padding:28px 0;color:var(--muted);font-size:12px}@media(max-width:760px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.stats{grid-template-columns:1fr 1fr}}
 </style>
 </head>
-<body>
-<div class="wrap">
-<div class="card">
-<div class="eyebrow">Schwarze Pumpe · Internationale Investorenakquisition</div>
-<h1>Projektportal</h1>
-<p>Zentrale Einstiegsseite für den interaktiven Akquisitionsnetzplan und das Investor Radar.</p>
+<body><div class="wrap">
+<header><h1>SCHWARZE PUMPE · PROJECT HUB</h1><p>International Investor Acquisition · shared project cockpit</p></header>
 <div class="grid">
-<a class="link" href="netzplan_3.4.html"><h2>Interaktiver Netzplan</h2><p>Akquisitions- und Ressourcenplan 2026/27 · Varianten · Meilensteine · Entscheidungstore · Import/Export · GitHub-Sync.</p><span class="tag">NETZPLAN V3.4</span></a>
-<a class="link" href="Schwarze_Pumpe_Investor_Radar_v4.html"><h2>Investor Radar</h2><p>Priorisierte Zielunternehmen, Kontakte, Aktivitäten und Akquisitionspipeline.</p><span class="tag">INVESTOR RADAR V4</span></a>
+<section class="card hero"><h2>PROJECT OVERVIEW</h2><div class="big" id="overall">Loading…</div>
+<div class="stats"><div class="stat"><b id="investors">—</b><span>INVESTORS</span></div><div class="stat"><b id="owners">—</b><span>OWNERS OPEN</span></div><div class="stat"><b id="activities">—</b><span>OPEN ACTIVITIES</span></div></div>
+<div class="actions"><a class="btn" href="Schwarze_Pumpe_Investor_Radar_v4.html">OPEN INVESTOR RADAR →</a><a class="btn" href="Netzplan_V3_4.html">OPEN NETZPLAN →</a></div></section>
+<section class="card"><h2>🔴 ACTION REQUIRED</h2><ul class="list" id="actionList"><li class="empty">Loading…</li></ul></section>
+<section class="card"><h2>🟡 NEXT</h2><ul class="list" id="nextList"><li class="empty">Loading…</li></ul></section>
+<section class="card"><h2>🟢 PROJECT STATUS</h2><ul class="list"><li><span>Investor Radar</span><span class="pill">LIVE</span></li><li><span>Network Plan</span><span class="pill">LIVE</span></li><li><span>Shared data</span><span class="pill">JSON</span></li></ul></section>
+<section class="card full"><h2>QUICK ACCESS</h2><div class="actions"><a class="btn" href="Schwarze_Pumpe_Investor_Radar_v4.html">Investors</a><a class="btn" href="Netzplan_V3_4.html">Netzplan</a><a class="btn" href="contacts.json">Contacts JSON</a><a class="btn" href="activities.json">Activities JSON</a><a class="btn" href="investors.json">Investors JSON</a></div></section>
+</div><footer>Project Hub V1 · reads the existing repository data; existing tools remain unchanged.</footer>
 </div>
-<div class="footer">GitHub Pages · Projekt-Schwarze-Pumpe</div>
-</div>
-</div>
-</body>
-</html>
+<script>
+async function loadJSON(file){try{const r=await fetch(file,{cache:"no-store"});if(!r.ok)throw 0;return await r.json()}catch(e){return null}}
+function arr(x){return Array.isArray(x)?x:(x&&Array.isArray(x.data)?x.data:[])}
+function text(v){return v==null?"":String(v).trim()}
+(async()=>{const investors=arr(await loadJSON("investors.json"));const activities=arr(await loadJSON("activities.json"));
+const ownersOpen=investors.filter(x=>!text(x.owner)).length;const openActs=activities.filter(x=>{const s=(text(x.status)||"open").toLowerCase();return !["done","completed","closed"].includes(s)}).length;
+document.getElementById("investors").textContent=investors.length||"0";document.getElementById("owners").textContent=ownersOpen;document.getElementById("activities").textContent=openActs;document.getElementById("overall").textContent=investors.length?"Live project cockpit":"Data not loaded";
+const action=document.getElementById("actionList");action.innerHTML="";const missing=investors.filter(x=>!text(x.owner)).slice(0,5);if(!missing.length)action.innerHTML='<li class="empty">No open ownership items detected.</li>';else missing.forEach(x=>{const li=document.createElement("li");li.innerHTML="<span>"+(text(x.company)||text(x.name)||"Investor")+"</span><span class='pill'>OWNER OPEN</span>";action.appendChild(li)});
+const next=document.getElementById("nextList");next.innerHTML="";const items=activities.filter(x=>{const s=(text(x.status)||"open").toLowerCase();return !["done","completed","closed"].includes(s)}).slice(0,5);if(!items.length)next.innerHTML='<li class="empty">No open activities detected.</li>';else items.forEach(x=>{const li=document.createElement("li");li.innerHTML="<span>"+(text(x.title)||text(x.activity)||text(x.name)||"Activity")+"</span><span class='pill'>OPEN</span>";next.appendChild(li)})})();
+</script></body></html>
