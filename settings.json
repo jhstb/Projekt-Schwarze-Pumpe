@@ -1,8 +1,8 @@
 {
-  "version": "4.1",
+  "version": "4.5",
   "contactMaster": "contacts.json",
   "acquisitionMaster": "investors.json",
   "activityMaster": "activities.json",
   "syncPolicy": "Three-way merge by immutable investorId. Contact fields are mastered in contacts.json; acquisition fields are mastered in investors.json; activities remain in activities.json. Conflicts never overwrite silently.",
-  "lastSync": "2026-09-19T15:54:44.673Z"
+  "lastSync": "2026-09-20T13:37:58.134Z"
 }
