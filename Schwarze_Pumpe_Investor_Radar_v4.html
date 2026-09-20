@@ -40,7 +40,18 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;
 <div><label>Owner</label><input id="eOwner"></div><div><label>Letzter Kontakt</label><input id="eLast" type="date"></div>
 <div class="full"><label>Next Action</label><input id="eNext"></div><div><label>Fällig am</label><input id="eDue" type="date"></div>
 <div class="full"><label>Investment Trigger</label><textarea id="eTrigger"></textarea></div><div class="full"><label>Investment Hypothesis</label><textarea id="eHypothesis"></textarea></div>
-<div class="full"><label>Kontakt-Master · wird aus contacts.json synchronisiert</label><div id="contactMaster" class="contactmaster"><div><b id="cDecision">—</b><span id="cFunction" class="muted"></span></div><div id="cRoute">—</div><div id="cAccess">—</div><div id="cAhk">—</div><div id="cSource" class="muted">—</div></div></div><div class="full"><label>Radar-Kontaktnotiz</label><textarea id="eContact"></textarea></div><div class="full"><label>Notizen</label><textarea id="eNotes"></textarea></div>
+<div class="full"><label>Kontakt-Master · contacts.json</label><div id="contactMaster" class="contactmaster"><div><b id="cDecision">—</b><span id="cFunction" class="muted"></span></div><div id="cRoute">—</div><div id="cAccess">—</div><div id="cAhk">—</div><div id="cSource" class="muted">—</div><button type="button" id="editContactBtn">Kontakt-Master bearbeiten</button></div></div>
+<div id="contactEditor" class="modal"><div class="box"><h2 id="contactEditorTitle">Kontakt-Master bearbeiten</h2><div class="form">
+<div><label>Unternehmen</label><input id="cCompany" disabled></div><div><label>Land</label><input id="cCountry"></div>
+<div><label>Sektor</label><input id="cSector"></div><div><label>Decision Maker</label><input id="eDecisionMaker"></div>
+<div><label>Function / Role</label><input id="eCurrentFunction"></div><div><label>Verifizierungsdatum</label><input id="eVerificationDate" type="date"></div>
+<div class="full"><label>Direct Contact Route</label><input id="eDirectContactRoute"></div>
+<div><label>Personal Access</label><input id="ePersonalAccess"></div><div><label>Introducer</label><input id="eIntroducer"></div>
+<div><label>AHK Office</label><input id="eAhkOffice"></div><div><label>AHK Contact</label><input id="eAhkContact"></div>
+<div class="full"><label>AHK Assignment</label><textarea id="eAhkAssignment"></textarea></div>
+<div><label>Source</label><input id="eSource"></div><div><label>Confidence</label><select id="eConfidence"><option>High</option><option>Medium</option><option>Low</option><option>TO VERIFY</option></select></div>
+<div class="full"><label>Notes</label><textarea id="eContactNotes"></textarea></div>
+</div><div class="modalfoot"><button id="cancelContactEdit">Abbrechen</button><button id="saveContactEdit">Kontakt speichern</button></div></div></div><div class="full"><label>Radar-Kontaktnotiz</label><textarea id="eContact"></textarea></div><div class="full"><label>Notizen</label><textarea id="eNotes"></textarea></div>
 </div>
 <div class="history"><b>Activity History</b><div style="display:flex;gap:7px;margin:8px 0"><select id="aType"><option>Contact</option><option>Call</option><option>Email</option><option>AHK Introduction</option><option>Executive Access</option><option>Site Review</option><option>Other</option></select><input id="aNote" placeholder="Was ist passiert / was wurde vereinbart?"><button id="addAct">+ Aktivität</button></div><div id="history"></div></div>
 <div class="modalfoot"><button id="cancelEdit">Abbrechen</button><button id="saveEdit">Speichern</button></div>
@@ -52,7 +63,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;
 
 <script>
 "use strict";
-const APP_VERSION="4.1";
+const APP_VERSION="4.5";
 const STATUS=["TARGET","PRIORITY","CONTACTED","QUALIFIED","SITE_REVIEW","INVESTMENT_CASE","NEGOTIATION","INVESTMENT"];
 const SEED=[{"id": 1, "company": "XPENG", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 2, "company": "BYD", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 3, "company": "CATL", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 4, "company": "BASF Battery Materials", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 5, "company": "VinFast", "tier": "Tier 1", "priority": "A", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 6, "company": "Great Wall Motor", "tier": "Tier 1", "priority": "A", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 7, "company": "LG Energy Solution", "tier": "Tier 2", "priority": "A", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 8, "company": "Redwood Materials", "tier": "Tier 2", "priority": "A", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 9, "company": "Ascend Elements / AE Elemental", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 10, "company": "WuXi Biologics", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 11, "company": "Samsung Biologics", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 12, "company": "Samsung SDI", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 13, "company": "EVE Energy", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 14, "company": "Umicore", "tier": "Tier 2", "priority": "B+", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}];
 let data=JSON.parse(localStorage.getItem("SP_V4_DATA")||localStorage.getItem("SP_V3_DATA")||"null")||SEED;
@@ -88,6 +99,24 @@ function openEditor(id){
 }
 function getContact(investorId){return contacts.find(c=>c.investorId===investorId)||null}
 function renderContact(investorId){const c=getContact(investorId);if(!c){["cDecision","cFunction","cRoute","cAccess","cAhk","cSource"].forEach(id=>$(id).textContent="—");return}$("cDecision").textContent=c.decisionMaker||"Kein verifizierter Entscheider hinterlegt";$("cFunction").textContent=c.currentFunction?" · "+c.currentFunction:"";$("cRoute").textContent=(c.directContactRoute||"Kein direkter Kontaktweg hinterlegt")+(c.country?" · "+c.country:"");$("cAccess").textContent=c.personalAccess||c.introducer||"Kein persönlicher Zugang hinterlegt";$("cAhk").textContent=c.ahkOffice?(c.ahkOffice+" · "+(c.ahkContact||"")):"Keine AHK-Zuordnung hinterlegt";$("cSource").textContent=(c.source||"Quelle unbekannt")+" · Confidence: "+(c.confidence||"TO VERIFY")}
+function openContactEditor(){
+ const x=data.find(v=>v.id===currentId);if(!x)return;
+ const c=getContact(x.investorId)||{investorId:x.investorId,company:x.company};
+ $("contactEditorTitle").textContent=x.company+" · Kontakt-Master";
+ $("cCompany").value=c.company||x.company;$("cCountry").value=c.country||"";$("cSector").value=c.sector||"";
+ $("eDecisionMaker").value=c.decisionMaker||"";$("eCurrentFunction").value=c.currentFunction||"";$("eVerificationDate").value=c.verificationDate||"";
+ $("eDirectContactRoute").value=c.directContactRoute||"";$("ePersonalAccess").value=c.personalAccess||"";$("eIntroducer").value=c.introducer||"";
+ $("eAhkOffice").value=c.ahkOffice||"";$("eAhkContact").value=c.ahkContact||"";$("eAhkAssignment").value=c.ahkAssignment||"";
+ $("eSource").value=c.source||"";$("eConfidence").value=c.confidence||"TO VERIFY";$("eContactNotes").value=c.notes||"";
+ $("contactEditor").classList.add("open");
+}
+function closeContactEditor(){$("contactEditor").classList.remove("open")}
+function saveContactEditor(){
+ const x=data.find(v=>v.id===currentId);if(!x)return;
+ let c=getContact(x.investorId);if(!c){c={investorId:x.investorId,company:x.company};contacts.push(c)}
+ Object.assign(c,{company:x.company,country:$("cCountry").value.trim(),sector:$("cSector").value.trim(),decisionMaker:$("eDecisionMaker").value.trim(),currentFunction:$("eCurrentFunction").value.trim(),verificationDate:$("eVerificationDate").value,directContactRoute:$("eDirectContactRoute").value.trim(),personalAccess:$("ePersonalAccess").value.trim(),introducer:$("eIntroducer").value.trim(),ahkOffice:$("eAhkOffice").value.trim(),ahkContact:$("eAhkContact").value.trim(),ahkAssignment:$("eAhkAssignment").value.trim(),source:$("eSource").value.trim(),confidence:$("eConfidence").value,notes:$("eContactNotes").value.trim()});
+ saveLocal();renderContact(x.investorId);closeContactEditor();
+}
 function mergeContacts(incoming){const map=new Map(contacts.map(c=>[c.investorId,c]));incoming.forEach(c=>{if(!c.investorId)return;const old=map.get(c.investorId)||{investorId:c.investorId};CONTACT_FIELDS.forEach(k=>{if(c[k]!==undefined)old[k]=c[k]});map.set(c.investorId,old)});contacts=[...map.values()];saveLocal();if(currentId){const x=data.find(v=>v.id===currentId);if(x)renderContact(x.investorId)}render()}
 function syncRadarFromContacts(){data.forEach(x=>{const c=getContact(x.investorId);if(c&&c.company&&x.company!==c.company){/* stable Investor-ID wins; company name in radar is not overwritten */}});saveLocal();render()}
 function renderHistory(){const list=activities.filter(a=>a.investorId===currentId).sort((a,b)=>b.date.localeCompare(a.date));$("history").innerHTML=list.length?list.map(a=>`<div class="activity"><b>${esc(a.type)}</b> <span class="muted">${new Date(a.date).toLocaleString("de-DE")}</span><div>${esc(a.note)}</div></div>`).join(""):'<div class="muted">Noch keine Aktivitäten.</div>'}
@@ -188,7 +217,7 @@ $("funnel").addEventListener("click",e=>{const b=e.target.closest("[data-stage]"
 $("resetBtn").addEventListener("click",()=>{if(confirm("Lokale V3-Daten wirklich auf Ausgangsstand zurücksetzen?")){localStorage.removeItem("SP_V4_DATA");localStorage.removeItem("SP_V4_ACT");localStorage.removeItem("SP_V4_CONTACTS");localStorage.removeItem("SP_V41_BASE");localStorage.removeItem("SP_V41_BASE_AT");location.reload()}});
 $("jsonOut").addEventListener("click",exportJSON);$("csvOut").addEventListener("click",exportCSV);$("jsonInBtn").addEventListener("click",()=>$("jsonIn").click());
 $("jsonIn").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);data=Array.isArray(o)?o:o.investors;data.forEach(x=>{if(!x.investorId)x.investorId=IDS[x.id]||String(x.id)});activities=o.activities||[];if(o.contacts)contacts=o.contacts;saveLocal();render();alert("Import erfolgreich.")}catch{alert("Ungültige Radar-Datei.")}};r.readAsText(f)});
-$("cancelEdit").addEventListener("click",closeEditor);$("saveEdit").addEventListener("click",saveEditor);$("addAct").addEventListener("click",addActivity);
+$("cancelEdit").addEventListener("click",closeEditor);$("saveEdit").addEventListener("click",saveEditor);$("addAct").addEventListener("click",addActivity);$("editContactBtn").addEventListener("click",openContactEditor);$("cancelContactEdit").addEventListener("click",closeContactEditor);$("saveContactEdit").addEventListener("click",saveContactEditor);
 $("syncBtn").addEventListener("click",()=>$("sync").classList.add("open"));$("cancelSync").addEventListener("click",()=>$("sync").classList.remove("open"));
 $("pull").addEventListener("click",pullGitHub);$("push").addEventListener("click",pushGitHub);
 populateStatus();render();
