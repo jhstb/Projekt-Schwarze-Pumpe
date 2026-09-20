@@ -33,6 +33,10 @@ footer{padding:26px 0;color:var(--muted);font-size:12px}@media(max-width:760px){
 <footer>Project Hub V4 · existing repository data remain the source of truth.</footer>
 </div>
 <script>
+// Force a fresh data load when Safari restores the Hub from its back/forward cache.
+window.addEventListener("pageshow", function(event){
+  if(event.persisted){ window.location.reload(); }
+});
 async function loadJSON(file){try{const r=await fetch(file,{cache:"no-store"});if(!r.ok)throw new Error();return await r.json()}catch(e){return null}}
 function arr(x){return Array.isArray(x)?x:(x&&Array.isArray(x.data)?x.data:[])}
 function t(v){return v==null?"":String(v).trim()}
