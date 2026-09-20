@@ -1,7 +1,13 @@
 {
-  "version": "3.4",
-  "variant": 1,
+  "version": "4.0",
+  "projectStart": "2026-12-11",
   "mode": "activity",
-  "exportedAt": "2026-09-16T14:26:19.508Z",
-  "notes": "Netzplan UI-Zustand; operative Inhalte bleiben in der HTML-Datei."
+  "packages": [
+    {"name":"Analyse","start":"2026-12-11","durationDays":19,"hours":25,"cost":8750,"phase":0,"activity":"Markt beobachten, Zielunternehmen identifizieren, Investitionsanlässe und Europa-Strategien prüfen."},
+    {"name":"Priorisierung","start":"2026-12-18","durationDays":22,"hours":20,"cost":7000,"phase":0,"activity":"30 priorisierte Unternehmen bestimmen, A+/A herausarbeiten, Investitionshypothesen entwickeln."},
+    {"name":"Gezielte Ansprache","start":"2026-12-21","durationDays":65,"hours":40,"cost":14000,"phase":1,"activity":"Entscheidungsträger identifizieren, individuelle Ansprache vorbereiten, Kontakte aufbauen und nachfassen."},
+    {"name":"Qualifizierung & Vorbereitung 2027","start":"2027-01-21","durationDays":60,"hours":29,"cost":10150,"phase":2,"activity":"Investorgespräche vorbereiten und nachbereiten, Chancen qualifizieren, Standortanforderungen erfassen und nächste Schritte definieren."}
+  ],
+  "exportedAt": "2026-09-20T08:50:00+02:00",
+  "notes": "Operativer Netzplan V4.0; eine durchgehende Variante ab 11.12.2026. Projektstart und Modul-1-Zeiträume sind veränderbare Arbeitsplandaten."
 }
