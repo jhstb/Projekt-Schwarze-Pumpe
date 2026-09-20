@@ -15,7 +15,7 @@
     {
       "name": "Priorisierung",
       "start": "2026-12-18",
-      "durationDays": 22,
+      "durationDays": 20,
       "hours": 20,
       "cost": 7000,
       "phase": 0,
@@ -24,7 +24,7 @@
     {
       "name": "Gezielte Ansprache",
       "start": "2026-12-21",
-      "durationDays": 65,
+      "durationDays": 40,
       "hours": 40,
       "cost": 14000,
       "phase": 1,
@@ -40,6 +40,6 @@
       "activity": "Investorgespräche vorbereiten und nachbereiten, Chancen qualifizieren, Standortanforderungen erfassen und nächste Schritte definieren."
     }
   ],
-  "exportedAt": "2026-09-20T11:54:57.268Z",
+  "exportedAt": "2026-09-20T12:49:03.023Z",
   "notes": "Operativer Netzplan; Projektstart und Modul-1-Zeiträume sind veränderbare Arbeitsplandaten."
 }
