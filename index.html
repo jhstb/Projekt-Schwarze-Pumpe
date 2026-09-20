@@ -52,7 +52,8 @@ footer{padding:26px 0;color:var(--muted);font-size:12px}@media(max-width:760px){
 <footer>Project Hub V6 · investment postcard + visual network plan · existing repository data remain the source of truth.</footer>
 </div>
 <script>
-async function loadJSON(file){try{const r=await fetch(file+"?v="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error();return await r.json()}catch(e){return null}}
+const NETZPLAN_FALLBACK={version:"4.0",projectStart:"2026-12-11",mode:"activity",packages:[{name:"Analyse",start:"2026-12-11",durationDays:19,hours:25,cost:8750,phase:0,activity:"Markt beobachten, Zielunternehmen identifizieren, Investitionsanlässe und Europa-Strategien prüfen."},{name:"Priorisierung",start:"2026-12-18",durationDays:22,hours:20,cost:7000,phase:0,activity:"30 priorisierte Unternehmen bestimmen, A+/A herausarbeiten, Investitionshypothesen entwickeln."},{name:"Gezielte Ansprache",start:"2026-12-21",durationDays:65,hours:40,cost:14000,phase:1,activity:"Entscheidungsträger identifizieren, individuelle Ansprache vorbereiten, Kontakte aufbauen und nachfassen."},{name:"Qualifizierung & Vorbereitung 2027",start:"2027-01-21",durationDays:60,hours:29,cost:10150,phase:2,activity:"Investorgespräche vorbereiten und nachbereiten, Chancen qualifizieren, Standortanforderungen erfassen und nächste Schritte definieren."}]};
+async function loadJSON(file){try{const r=await fetch(file+"?v="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error();return await r.json()}catch(e){if(file==="netzplan.json")return NETZPLAN_FALLBACK;return null}}
 function arr(x){return Array.isArray(x)?x:(x&&Array.isArray(x.data)?x.data:[])}
 function t(v){return v==null?"":String(v).trim()}
 function d(v){if(!t(v))return null;const x=new Date(v);return isNaN(x)?null:x}
