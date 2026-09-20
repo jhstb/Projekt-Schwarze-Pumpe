@@ -1,0 +1,45 @@
+{
+  "version": "4.0",
+  "projectStart": "2026-12-11",
+  "mode": "activity",
+  "packages": [
+    {
+      "name": "Analyse",
+      "start": "2026-12-11",
+      "durationDays": 25,
+      "hours": 25,
+      "cost": 8750,
+      "phase": 0,
+      "activity": "Markt beobachten, Zielunternehmen identifizieren, Investitionsanlässe und Europa-Strategien prüfen."
+    },
+    {
+      "name": "Priorisierung",
+      "start": "2026-12-18",
+      "durationDays": 22,
+      "hours": 20,
+      "cost": 7000,
+      "phase": 0,
+      "activity": "30 priorisierte Unternehmen bestimmen, A+/A herausarbeiten, Investitionshypothesen entwickeln."
+    },
+    {
+      "name": "Gezielte Ansprache",
+      "start": "2026-12-21",
+      "durationDays": 65,
+      "hours": 40,
+      "cost": 14000,
+      "phase": 1,
+      "activity": "Entscheidungsträger identifizieren, individuelle Ansprache vorbereiten, Kontakte aufbauen und nachfassen."
+    },
+    {
+      "name": "Qualifizierung & Vorbereitung 2027",
+      "start": "2027-01-21",
+      "durationDays": 70,
+      "hours": 29,
+      "cost": 10150,
+      "phase": 2,
+      "activity": "Investorgespräche vorbereiten und nachbereiten, Chancen qualifizieren, Standortanforderungen erfassen und nächste Schritte definieren."
+    }
+  ],
+  "exportedAt": "2026-09-20T11:54:57.268Z",
+  "notes": "Operativer Netzplan; Projektstart und Modul-1-Zeiträume sind veränderbare Arbeitsplandaten."
+}
