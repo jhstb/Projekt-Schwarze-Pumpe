@@ -1,0 +1,208 @@
+{
+  "schema": "Investor Intelligence V1.2",
+  "lastUpdated": "2026-09-25",
+  "records": [
+    {
+      "investorId": "REFIRE",
+      "company": "REFIRE",
+      "intelligenceStatus": "ACTIVE",
+      "access": {
+        "type": "PERSONAL",
+        "location": "Shanghai",
+        "timing": "December 2026",
+        "confidence": "HIGH",
+        "accessHistory": "Direct personal access; Shanghai meeting planned."
+      },
+      "strategicTrigger": {
+        "text": "Expansion and development of hydrogen mobility and hydrogen technology applications in Europe.",
+        "status": "EVIDENCE"
+      },
+      "evidence": [
+        {
+          "text": "REFIRE has a European office/subsidiary in Stuttgart.",
+          "type": "CURRENT",
+          "confidence": "HIGH"
+        },
+        {
+          "text": "REFIRE describes activities spanning design, testing, prototyping, application engineering and manufacturing at scale.",
+          "type": "CURRENT",
+          "confidence": "HIGH"
+        },
+        {
+          "text": "A 2025 Hy24/REFIRE partnership was announced to accelerate hydrogen ecosystems in Europe and develop a Sino-European supply chain.",
+          "type": "CURRENT",
+          "confidence": "HIGH"
+        }
+      ],
+      "investmentHypothesis": {
+        "text": "REFIRE could potentially develop its existing European presence into a broader industrial operating platform as European customer demand, localisation requirements and hydrogen infrastructure develop.",
+        "status": "HYPOTHESIS"
+      },
+      "investmentQuestion": "What would REFIRE need in Europe to move from its existing European presence towards a larger industrial operating platform?",
+      "attackSheet": [
+        "How does REFIRE see the long-term role of Europe?",
+        "Which functions should remain in China and which need to be localised in Europe?",
+        "What European activities could move beyond sales, service and engineering?",
+        "What would trigger European assembly, manufacturing or other industrial capacity?",
+        "Which location factors would determine such a decision?"
+      ],
+      "meetingSignals": {
+        "status": "OPEN",
+        "signalStrength": "GREY"
+      },
+      "disqualifyingEvidence": [
+        "European activities remain primarily commercial or technical.",
+        "No additional European industrial capacity is required.",
+        "Manufacturing and assembly remain fully concentrated in existing Asian facilities."
+      ],
+      "nextAction": {
+        "type": "MEETING",
+        "description": "Qualify the next industrialisation step for Europe during the Shanghai meeting.",
+        "owner": "JH"
+      }
+    },
+    {
+      "investorId": "XIAOMI",
+      "company": "Xiaomi",
+      "intelligenceStatus": "ACTIVE",
+      "access": {
+        "type": "PERSONAL_NETWORK",
+        "location": "Germany / Europe",
+        "confidence": "HIGH",
+        "accessHistory": "Direct access through existing German and European network."
+      },
+      "strategicTrigger": {
+        "text": "European EV market entry combined with European R&D and design activity.",
+        "status": "EVIDENCE"
+      },
+      "evidence": [
+        {
+          "text": "Xiaomi established an EV R&D and Design Center in Munich in early 2025.",
+          "type": "CURRENT",
+          "confidence": "HIGH"
+        },
+        {
+          "text": "The Munich team contributed to the development of the Xiaomi YU7 GT.",
+          "type": "CURRENT",
+          "confidence": "HIGH"
+        },
+        {
+          "text": "Xiaomi's European activity currently provides evidence of market entry and R&D, but not a confirmed European vehicle production site.",
+          "type": "ASSESSMENT",
+          "confidence": "MEDIUM"
+        }
+      ],
+      "investmentHypothesis": {
+        "text": "Xiaomi could potentially develop broader European industrial functions beyond market entry and R&D, including localisation, supply-chain or manufacturing activities.",
+        "status": "HYPOTHESIS"
+      },
+      "investmentQuestion": "What role does Xiaomi see for Europe beyond sales, service and R&D?",
+      "attackSheet": [
+        "How does Xiaomi see the evolution of its European industrial footprint?",
+        "What role should Germany play?",
+        "What is the long-term role of Munich beyond R&D and design?",
+        "Is localisation of components or supply chains being considered?",
+        "Is European production part of the long-term perspective?"
+      ],
+      "meetingSignals": {
+        "status": "OPEN",
+        "signalStrength": "GREY"
+      },
+      "disqualifyingEvidence": [
+        "European strategy remains limited to sales, service and R&D.",
+        "No European manufacturing or localisation strategy is planned.",
+        "Industrial decisions for Europe remain entirely outside Europe."
+      ],
+      "nextAction": {
+        "type": "QUALIFICATION",
+        "description": "Use existing German/European access to determine whether Xiaomi has an industrialisation question beyond R&D.",
+        "owner": "JH"
+      }
+    },
+    {
+      "investorId": "NISSAN",
+      "company": "Nissan",
+      "intelligenceStatus": "REACTIVATION",
+      "access": {
+        "type": "PERSONAL",
+        "location": "Japan",
+        "confidence": "HIGH",
+        "accessHistory": "Personal visit in Japan; electric truck construction was already discussed at that time."
+      },
+      "strategicTrigger": {
+        "text": "Current European electrification and electric commercial vehicle activity provides an opportunity to re-qualify the historic electric-truck discussion.",
+        "status": "EVIDENCE"
+      },
+      "evidence": [
+        {
+          "text": "A previous personal discussion in Japan already covered electric truck construction.",
+          "type": "HISTORICAL",
+          "confidence": "HIGH"
+        },
+        {
+          "text": "Nissan is currently presenting the fully electric Interstar-e and Townstar EV in European commercial-vehicle applications.",
+          "type": "CURRENT",
+          "confidence": "HIGH"
+        },
+        {
+          "text": "Nissan continues to use European manufacturing capacity for vehicles serving the European market.",
+          "type": "CURRENT",
+          "confidence": "HIGH"
+        }
+      ],
+      "investmentHypothesis": {
+        "text": "Nissan may have an evolving European industrial requirement around electric commercial vehicles, but existing production capacity may also be sufficient.",
+        "status": "HYPOTHESIS"
+      },
+      "investmentQuestion": "When we discussed electric trucks in Japan, the subject was already on the table. How has that question evolved within Nissan since then?",
+      "attackSheet": [
+        "What has changed since we discussed electric trucks in Japan?",
+        "How does Nissan see the future of electric commercial vehicles in Europe?",
+        "Where are electric commercial vehicles for Europe currently developed and produced?",
+        "Does Nissan see a need for additional European production or assembly capacity?",
+        "What would determine such a location decision?"
+      ],
+      "meetingSignals": {
+        "status": "OPEN",
+        "signalStrength": "GREY"
+      },
+      "disqualifyingEvidence": [
+        "Existing European production footprint is sufficient.",
+        "No additional capacity for electric commercial vehicles is planned.",
+        "The historic electric-truck concept is no longer strategically relevant."
+      ],
+      "nextAction": {
+        "type": "REACTIVATE",
+        "description": "Reconnect through the historical Japan relationship and re-qualify the electric-truck question against Nissan's 2026 European strategy.",
+        "owner": "JH"
+      }
+    },
+    {
+      "investorId": "XPENG",
+      "company": "XPENG",
+      "intelligenceStatus": "CONTROL_CASE",
+      "access": {
+        "type": "RADAR_CONTACT",
+        "confidence": "MEDIUM"
+      },
+      "strategicTrigger": {
+        "text": "European expansion and potential European industrial/supply-chain development.",
+        "status": "WORKING_CONTEXT"
+      },
+      "investmentHypothesis": {
+        "text": "Potential European industrial or supply-chain platform.",
+        "status": "HYPOTHESIS"
+      },
+      "investmentQuestion": "What industrial functions would XPENG require in Europe beyond market access?",
+      "meetingSignals": {
+        "status": "OPEN",
+        "signalStrength": "GREY"
+      },
+      "nextAction": {
+        "type": "RADAR_CONTROL_CASE",
+        "description": "Use XPENG to test that Intelligence supplements, rather than replaces, existing Radar data.",
+        "owner": "JH"
+      }
+    }
+  ]
+}
