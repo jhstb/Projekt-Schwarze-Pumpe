@@ -1,13 +1,49 @@
 {
-  "version": "4.0",
+  "version": "4.1",
   "projectStart": "2026-12-11",
   "mode": "activity",
+  "variant": 1,
+  "hours": 305,
+  "cost": 106750,
+  "budgetCap": 107000,
   "packages": [
-    {"name":"Analyse","start":"2026-12-11","durationDays":19,"hours":25,"cost":8750,"phase":0,"activity":"Markt beobachten, Zielunternehmen identifizieren, Investitionsanlässe und Europa-Strategien prüfen."},
-    {"name":"Priorisierung","start":"2026-12-18","durationDays":22,"hours":20,"cost":7000,"phase":0,"activity":"30 priorisierte Unternehmen bestimmen, A+/A herausarbeiten, Investitionshypothesen entwickeln."},
-    {"name":"Gezielte Ansprache","start":"2026-12-21","durationDays":65,"hours":40,"cost":14000,"phase":1,"activity":"Entscheidungsträger identifizieren, individuelle Ansprache vorbereiten, Kontakte aufbauen und nachfassen."},
-    {"name":"Qualifizierung & Vorbereitung 2027","start":"2027-01-21","durationDays":60,"hours":29,"cost":10150,"phase":2,"activity":"Investorgespräche vorbereiten und nachbereiten, Chancen qualifizieren, Standortanforderungen erfassen und nächste Schritte definieren."}
+    {
+      "name": "Analyse",
+      "start": "2026-12-11",
+      "durationDays": 19,
+      "hours": 64,
+      "cost": 22400,
+      "phase": 0,
+      "activity": "Fokussierte Markt- und Unternehmensrecherche, Identifikation relevanter Entscheidungsträger und Entwicklung individueller Investitionshypothesen."
+    },
+    {
+      "name": "Priorisierung",
+      "start": "2026-12-18",
+      "durationDays": 22,
+      "hours": 36,
+      "cost": 12600,
+      "phase": 0,
+      "activity": "Verdichtung des Zieluniversums, Standort-/Wettbewerbsinformationen, Qualifizierung, Dokumentation und Koordination."
+    },
+    {
+      "name": "Gezielte Ansprache",
+      "start": "2026-12-21",
+      "durationDays": 65,
+      "hours": 120,
+      "cost": 42000,
+      "phase": 1,
+      "activity": "Individuelle Ansprache und Outreach, Relationship Management, Follow-up sowie Gespräche und virtuelle Meetings."
+    },
+    {
+      "name": "Qualifizierung & Vorbereitung 2027",
+      "start": "2027-01-21",
+      "durationDays": 60,
+      "hours": 85,
+      "cost": 29750,
+      "phase": 2,
+      "activity": "Bearbeitung qualifizierter Investitionschancen, Reisezeit und Vor-Ort-Termine sowie vertiefende Qualifizierung und Vorbereitung; darin 50 h Reise/Vor-Ort und 35 h qualifizierte Investitionschancen."
+    }
   ],
-  "exportedAt": "2026-09-20T08:50:00+02:00",
-  "notes": "Operativer Netzplan V4.0; eine durchgehende Variante ab 11.12.2026. Projektstart und Modul-1-Zeiträume sind veränderbare Arbeitsplandaten."
+  "exportedAt": "2026-09-25T08:30:00+02:00",
+  "notes": "Operativer Netzplan V4.1; durchgehende Variante ab 11.12.2026. Budgetrahmen: max. 305 h bzw. 107.000 € netto; rechnerischer Budgetwert 106.750 €. Die Stundenverteilung ist eine operative Budgetzuordnung innerhalb des Deckels."
 }
