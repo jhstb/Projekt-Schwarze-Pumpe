@@ -17,11 +17,14 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;
 .modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:16px;z-index:9999}.modal.open{display:flex}.box{background:#fff;border-radius:10px;width:min(900px,100%);max-height:94vh;overflow:auto;padding:20px}.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}label{font-size:12px;font-weight:700;color:#687386;display:block;margin-bottom:4px}.modalfoot{display:flex;justify-content:flex-end;gap:7px;margin-top:13px}.history{border-top:1px solid #e7eaee;margin-top:14px;padding-top:12px}.activity{padding:7px 0;border-bottom:1px solid #eef0f2}.muted{color:#687386;font-size:12px}.repo{font:12px ui-monospace,monospace}.contactmaster{background:#f7f9fb;border:1px solid #dfe4ea;border-radius:7px;padding:10px;display:grid;gap:6px}.contactmaster b{display:block}.contactmaster span{margin-left:6px}
 @media(max-width:1100px){.kpis{grid-template-columns:repeat(4,1fr)}.filters{grid-template-columns:1fr 1fr}.filters input{grid-column:1/-1}}
 @media(max-width:650px){.kpis{grid-template-columns:repeat(2,1fr)}.form{grid-template-columns:1fr}.full{grid-column:auto}header{display:block}.actions{margin-top:12px}}
+
+.intel-status{display:block;margin:4px 24px 0;color:#fff!important;font-size:12px;font-weight:600;background:#244d78;padding:5px 9px;border-radius:6px;width:max-content;max-width:calc(100% - 48px)}
+.intel-panel{margin-top:14px}.intel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.intel-card{border:1px solid #dfe4ea;border-radius:9px;padding:14px;background:#fff}.intel-card h3{margin:0 0 4px;font-size:17px}.intel-meta{font-size:11px;color:#687386;margin-bottom:10px}.intel-field{margin-top:9px}.intel-field b{display:block;font-size:10px;text-transform:uppercase;color:#687386;margin-bottom:3px}.intel-field div{line-height:1.4}.intel-badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 7px;border-radius:999px;background:#eef2f6}.intel-empty{color:#687386;font-size:12px}@media(max-width:700px){.intel-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header><div><h1>Schwarze Pumpe – Investor Radar v4.6</h1><div class="sub">International Investor Acquisition · <span class="repo">jhstb/projekt-Schwarze-Pumpe</span></div></div>
-<div class="actions"><a class="headerbtn" href="index.html" style="text-decoration:none;display:inline-flex;align-items:center">← PROJECT HUB</a><button class="headerbtn" id="intelRefresh" title="Strategische Intelligence aus investor_intelligence.json neu laden">↻ Intelligence aktualisieren</button><button class="headerbtn" id="jsonOut">JSON Export</button><button class="headerbtn" id="csvOut">CSV Export</button><button class="headerbtn" id="jsonInBtn">Import</button><button class="headerbtn" id="resetBtn">Reset Demo</button><button class="headerbtn" id="syncBtn">GitHub Sync</button><input id="jsonIn" type="file" accept=".json" hidden></div><span id="intelStatus" class="small" style="display:block;margin:4px 24px 0;color:#687386">Intelligence: wird geladen…</span></header>
+<div class="actions"><a class="headerbtn" href="index.html" style="text-decoration:none;display:inline-flex;align-items:center">← PROJECT HUB</a><button class="headerbtn" id="intelRefresh" title="Strategische Intelligence aus investor_intelligence.json neu laden">↻ Intelligence aktualisieren</button><button class="headerbtn" id="jsonOut">JSON Export</button><button class="headerbtn" id="csvOut">CSV Export</button><button class="headerbtn" id="jsonInBtn">Import</button><button class="headerbtn" id="resetBtn">Reset Demo</button><button class="headerbtn" id="syncBtn">GitHub Sync</button><input id="jsonIn" type="file" accept=".json" hidden></div><span id="intelStatus" class="intel-status" style="display:block;margin:4px 24px 0;color:#687386">Intelligence: wird geladen…</span></header>
 <main>
 <div id="kpis" class="kpis"></div>
 <section class="panel"><div class="filters">
@@ -33,6 +36,8 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;
 <section class="panel"><div id="funnel" class="funnel"></div></section>
 <section class="panel"><table><thead><tr><th>Ampel</th><th>Investor</th><th>Tier</th><th>Priority</th><th>Status</th><th>Owner</th><th>Letzter Kontakt</th><th>Next Action</th><th>Fällig</th></tr></thead><tbody id="rows"></tbody></table></section>
 </main>
+
+<section class="panel intel-panel" id="intelligencePanel"><h2 style="margin:0 0 4px">Strategic Intelligence</h2><div class="muted" style="margin-bottom:12px">Separate intelligence layer · does not create or alter Radar targets.</div><div id="intelligenceCards" class="intel-grid"></div></section>
 
 <div id="editor" class="modal"><div class="box"><h2 id="editorTitle"></h2><div class="form">
 <div><label>Unternehmen</label><input id="eCompany" disabled></div><div><label>Tier</label><select id="eTier"><option>Tier 1</option><option>Tier 2</option><option>Tier 3</option></select></div>
@@ -147,6 +152,25 @@ function saveLocal(){localStorage.setItem("SP_V4_DATA",JSON.stringify(data));loc
 function signal(x){if(x.status==="INVESTMENT")return"green";if(x.due&&x.due<today())return"red";if(!x.owner||!x.next||!x.due)return"yellow";return"green"}
 function signalIcon(s){return s==="green"?"🟢":s==="yellow"?"🟡":"🔴"}
 function populateStatus(){ $("status").innerHTML='<option value="">Alle Status</option>'+STATUS.map(s=>`<option value="${s}">${s}</option>`).join(""); }
+function renderIntelligenceCards(){
+ const host=$("intelligenceCards"); if(!host)return;
+ const list=intelligenceList();
+ if(!list.length){host.innerHTML='<div class="intel-empty">Keine Strategic-Intelligence-Datensätze geladen.</div>';return;}
+ const escI=v=>esc(v==null?'':(typeof v==='object'?(v.text||v.value||''):String(v)));
+ const textI=v=>escI(v);
+ host.innerHTML=list.map(i=>{
+  const a=i.access||{}; const ev=i.evidence||{}; const hyp=i.investmentHypothesis; const q=i.investmentQuestion; const trig=i.strategicTrigger; const na=i.nextAction; const ms=i.meetingSignals||{};
+  const signal=ms.currentSignal||ms.signal||i.signal||'';
+  return `<article class="intel-card"><h3>${textI(i.company||i.investorId)}</h3><div class="intel-meta">${textI(i.investorId)}${a.level?' · Access: '+textI(a.level):''}</div>
+  ${trig?`<div class="intel-field"><b>Strategic Trigger</b><div>${textI(trig)}</div></div>`:''}
+  ${hyp?`<div class="intel-field"><b>Investment Hypothesis</b><div>${textI(hyp)}</div></div>`:''}
+  ${q?`<div class="intel-field"><b>Investment Question</b><div>${textI(q)}</div></div>`:''}
+  ${signal?`<div class="intel-field"><b>Signal</b><div><span class="intel-badge">${textI(signal)}</span></div></div>`:''}
+  ${na?`<div class="intel-field"><b>Next Action</b><div>${textI(na)}</div></div>`:''}
+  </article>`;
+ }).join('');
+}
+
 function render(){
  const q=$("search").value.trim().toLowerCase(), tier=$("tier").value, pr=$("priority").value, st=$("status").value, sg=$("signal").value;
  const list=data.filter(x=>(!q||JSON.stringify(x).toLowerCase().includes(q))&&(!tier||x.tier===tier)&&(!pr||x.priority===pr)&&(!st||x.status===st)&&(!sg||signal(x)===sg));
@@ -288,6 +312,6 @@ $("jsonIn").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return
 $("cancelEdit").addEventListener("click",closeEditor);$("saveEdit").addEventListener("click",saveEditor);$("addAct").addEventListener("click",addActivity);
 $("syncBtn").addEventListener("click",()=>$("sync").classList.add("open"));$("cancelSync").addEventListener("click",()=>$("sync").classList.remove("open"));
 $("pull").addEventListener("click",pullGitHub);$("push").addEventListener("click",pushGitHub);
-applyInvestorMasterFields();saveLocal();populateStatus();render();
+applyInvestorMasterFields();saveLocal();populateStatus();render();renderIntelligenceCards();
 loadInvestorIntelligence();
 </script></body></html>
