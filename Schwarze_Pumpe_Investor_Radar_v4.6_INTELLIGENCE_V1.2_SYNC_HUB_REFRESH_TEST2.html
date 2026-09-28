@@ -57,7 +57,40 @@ let intelligenceById={};
 function intelligenceList(){return Object.values(intelligenceById||{});}
 function saveIntelligenceLocal(){localStorage.setItem("SP_V4_INTELLIGENCE",JSON.stringify({schema:INTELLIGENCE_SCHEMA,lastUpdated:new Date().toISOString().slice(0,10),records:intelligenceList()}));}
 function applyIntelligenceToRadar(){data.forEach(x=>{const i=intelligenceById[String(x.investorId)];if(i){if(i.strategicTrigger?.text!==undefined)x.trigger=i.strategicTrigger.text;if(i.investmentHypothesis?.text!==undefined)x.hypothesis=i.investmentHypothesis.text;}});}
-async function loadInvestorIntelligence(){const status=$("intelStatus");if(status)status.textContent="Intelligence: wird geladen…";try{const r=await fetch("investor_intelligence.json?cb="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);const o=await r.json(),list=Array.isArray(o)?o:(o.records||o.investors||[]);intelligenceById={};list.forEach(x=>{if(x?.investorId)intelligenceById[String(x.investorId)]=x;});saveIntelligenceLocal();applyIntelligenceToRadar();render();if(status)status.textContent=`Intelligence: ${list.length} Datensätze geladen`;return list.length;}catch(e){try{const o=JSON.parse(localStorage.getItem("SP_V4_INTELLIGENCE")||"null"),list=o?.records||o?.investors||[];intelligenceById={};list.forEach(x=>{if(x?.investorId)intelligenceById[String(x.investorId)]=x;});applyIntelligenceToRadar();render();if(status)status.textContent=`Intelligence: ${list.length} lokale Datensätze`;return list.length;}catch{if(status)status.textContent="Intelligence: nicht verfügbar";return 0;}}}
+async function loadInvestorIntelligence(){
+ const status=$("intelStatus");
+ const setStatus=t=>{if(status)status.textContent=t;};
+ setStatus("Intelligence: wird geladen…");
+ try{
+  const url=new URL("investor_intelligence.json",document.baseURI).href+"?cb="+Date.now();
+  const r=await fetch(url,{cache:"no-store"});
+  if(!r.ok)throw new Error("HTTP "+r.status);
+  const o=await r.json();
+  const list=Array.isArray(o)?o:(Array.isArray(o.records)?o.records:(Array.isArray(o.investors)?o.investors:[]));
+  intelligenceById={};
+  list.forEach(x=>{if(x?.investorId)intelligenceById[String(x.investorId)]=x;});
+  saveIntelligenceLocal();
+  applyIntelligenceToRadar();
+  render();
+  setStatus(`Intelligence: ${list.length} Datensätze geladen`);
+  return list.length;
+ }catch(e){
+  try{
+   const raw=localStorage.getItem("SP_V4_INTELLIGENCE");
+   const o=raw?JSON.parse(raw):null;
+   const list=Array.isArray(o)?o:(Array.isArray(o?.records)?o.records:(Array.isArray(o?.investors)?o.investors:[]));
+   intelligenceById={};
+   list.forEach(x=>{if(x?.investorId)intelligenceById[String(x.investorId)]=x;});
+   applyIntelligenceToRadar();render();
+   setStatus(`Intelligence: ${list.length} lokale Datensätze (Remote-Abruf fehlgeschlagen)`);
+   return list.length;
+  }catch(e2){
+   setStatus("Intelligence: nicht verfügbar");
+   return 0;
+  }
+ }
+}
+
 const APP_VERSION="4.6-INTELLIGENCE-SYNC-FIX1";
 const STATUS=["TARGET","PRIORITY","CONTACTED","QUALIFIED","SITE_REVIEW","INVESTMENT_CASE","NEGOTIATION","INVESTMENT"];
 const SEED=[{"id": 1, "company": "XPENG", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 2, "company": "BYD", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 3, "company": "CATL", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 4, "company": "BASF Battery Materials", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 5, "company": "VinFast", "tier": "Tier 1", "priority": "A", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 6, "company": "Great Wall Motor", "tier": "Tier 1", "priority": "A", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 7, "company": "LG Energy Solution", "tier": "Tier 2", "priority": "A", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 8, "company": "Redwood Materials", "tier": "Tier 2", "priority": "A", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 9, "company": "Ascend Elements / AE Elemental", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 10, "company": "WuXi Biologics", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 11, "company": "Samsung Biologics", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 12, "company": "Samsung SDI", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 13, "company": "EVE Energy", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 14, "company": "Umicore", "tier": "Tier 2", "priority": "B+", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}];
