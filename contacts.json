@@ -130,7 +130,10 @@
     "ahkAssignment": "Battery, ESS and biopharma decision chains; investment-trigger intelligence and warm introductions",
     "source": "Executive & AHK Contact Book 14-09-2026 v2",
     "confidence": "Medium",
-    "notes": "Company explicitly assigned to AHK Korea network."
+    "notes": "Company explicitly assigned to AHK Korea network.",
+    "ahkLast": "",
+    "ahkNext": "",
+    "ahkDue": ""
   },
   {
     "investorId": "REDWOOD",
@@ -149,7 +152,10 @@
     "ahkAssignment": "US investment intelligence; European scaling requirements",
     "source": "Executive & AHK Contact Book 14-09-2026 v2",
     "confidence": "Medium",
-    "notes": "Company explicitly assigned to AHK USA network."
+    "notes": "Company explicitly assigned to AHK USA network.",
+    "ahkLast": "",
+    "ahkNext": "",
+    "ahkDue": ""
   },
   {
     "investorId": "ASCEND-ELEMENTS",
