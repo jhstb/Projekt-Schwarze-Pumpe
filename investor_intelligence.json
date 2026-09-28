@@ -1,6 +1,6 @@
 {
   "schema": "Investor Intelligence V1.2",
-  "lastUpdated": "2026-09-25",
+  "lastUpdated": "2026-09-28",
   "records": [
     {
       "investorId": "REFIRE",
@@ -59,7 +59,10 @@
         "type": "MEETING",
         "description": "Qualify the next industrialisation step for Europe during the Shanghai meeting.",
         "owner": "JH"
-      }
+      },
+      "accessHistory": [
+        "otto"
+      ]
     },
     {
       "investorId": "XIAOMI",
