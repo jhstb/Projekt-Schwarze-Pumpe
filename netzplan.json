@@ -1,16 +1,12 @@
 {
-  "version": "4.1",
+  "version": "4.0",
   "projectStart": "2026-12-11",
   "mode": "activity",
-  "variant": 1,
-  "hours": 305,
-  "cost": 106750,
-  "budgetCap": 107000,
   "packages": [
     {
       "name": "Analyse",
       "start": "2026-12-11",
-      "durationDays": 19,
+      "durationDays": 31,
       "hours": 64,
       "cost": 22400,
       "phase": 0,
@@ -18,8 +14,8 @@
     },
     {
       "name": "Priorisierung",
-      "start": "2026-12-18",
-      "durationDays": 22,
+      "start": "2027-01-11",
+      "durationDays": 36,
       "hours": 36,
       "cost": 12600,
       "phase": 0,
@@ -27,8 +23,8 @@
     },
     {
       "name": "Gezielte Ansprache",
-      "start": "2026-12-21",
-      "durationDays": 65,
+      "start": "2027-02-24",
+      "durationDays": 172,
       "hours": 120,
       "cost": 42000,
       "phase": 1,
@@ -36,14 +32,14 @@
     },
     {
       "name": "Qualifizierung & Vorbereitung 2027",
-      "start": "2027-01-21",
-      "durationDays": 60,
+      "start": "2027-08-18",
+      "durationDays": 101,
       "hours": 85,
       "cost": 29750,
       "phase": 2,
       "activity": "Bearbeitung qualifizierter Investitionschancen, Reisezeit und Vor-Ort-Termine sowie vertiefende Qualifizierung und Vorbereitung; darin 50 h Reise/Vor-Ort und 35 h qualifizierte Investitionschancen."
     }
   ],
-  "exportedAt": "2026-09-25T08:30:00+02:00",
-  "notes": "Operativer Netzplan V4.1; durchgehende Variante ab 11.12.2026. Budgetrahmen: max. 305 h bzw. 107.000 € netto; rechnerischer Budgetwert 106.750 €. Die Stundenverteilung ist eine operative Budgetzuordnung innerhalb des Deckels."
+  "exportedAt": "2026-09-28T13:37:48.470Z",
+  "notes": "Operativer Netzplan V4.2; 305 h / 106.750 € netto; Projektstart 11.12.2026."
 }
