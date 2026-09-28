@@ -178,6 +178,7 @@ function render(){
  $("funnel").innerHTML=STATUS.map(s=>`<button class="stage ${st===s?"active":""}" data-stage="${s}">${s} <b>${data.filter(x=>x.status===s).length}</b></button>`).join("");
  const attention=data.filter(x=>signal(x)==="yellow").length, overdue=data.filter(x=>signal(x)==="red").length;
  $("kpis").innerHTML=[["Targets",data.length],["Priority",data.filter(x=>x.status==="PRIORITY").length],["Contacted",data.filter(x=>x.status==="CONTACTED").length],["Qualified",data.filter(x=>x.status==="QUALIFIED").length],["Site Review",data.filter(x=>x.status==="SITE_REVIEW").length],["Investment Cases",data.filter(x=>x.status==="INVESTMENT_CASE").length],["🟡 Aufmerksamkeit",attention],["🔴 Überfällig / blockiert",overdue]].map(k=>`<div class="kpi"><b>${k[1]}</b><span>${k[0]}</span></div>`).join("");
+ renderIntelligenceCards();
 }
 function openEditor(id){
  currentId=id;const x=data.find(v=>v.id===id);if(!x)return;
