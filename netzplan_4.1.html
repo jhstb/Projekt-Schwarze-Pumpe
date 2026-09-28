@@ -112,23 +112,32 @@ const ACT=[
 ["A24","M4","Energie / Logistik / Infrastruktur / technische Fragen","2027-02-15","2027-03-05",10,2],
 ["A25","M4","Reise / Vor-Ort-Termine / Site Reviews","2027-03-01","2027-03-21",50,2]
 ];
-// M1 activities are distributed across the currently selected M1 working period.
-// Hours remain fixed; only the calendar distribution changes when M1 duration changes.
-const m1BaseStart=parseDate("2026-12-11"), m1BaseEnd=parseDate("2026-12-18");
-const m1BaseDays=Math.max(1,diff("2026-12-11","2026-12-18"));
-const m1=plan.packages[0];
-const m1Start=parseDate(m1.start);
-const m1Days=Math.max(1,Number(m1.durationDays)||1);
-const m1Acts={
-A01:["2026-12-11","2026-12-12"],A02:["2026-12-11","2026-12-14"],A03:["2026-12-11","2026-12-15"],A04:["2026-12-14","2026-12-16"],
-A05:["2026-12-11","2026-12-18"],A06:["2026-12-14","2026-12-18"],A07:["2026-12-15","2026-12-18"],A08:["2026-12-17","2026-12-18"]
+// Activities are distributed across the currently selected module working period.
+// Hours remain fixed; only the calendar distribution changes when a module's
+// start or duration changes. This applies consistently to M1–M4.
+const moduleBase={
+  M1:{start:"2026-12-11",days:17},
+  M2:{start:"2026-12-18",days:22},
+  M3:{start:"2026-12-21",days:65},
+  M4:{start:"2027-01-21",days:60}
 };
-function mapM1Date(baseDate){
-  const offset=Math.max(0,Math.min(m1BaseDays,diff("2026-12-11",baseDate)));
-  return iso(new Date(m1Start.getTime()+Math.round(offset/m1BaseDays*m1Days)*86400000));
+const moduleIndex={M1:0,M2:1,M3:2,M4:3};
+function mapModuleDate(mod,baseDate){
+  const b=moduleBase[mod], p=plan.packages[moduleIndex[mod]];
+  const baseDays=Math.max(1,b.days);
+  const offset=Math.max(0,Math.min(baseDays,diff(b.start,baseDate)));
+  const currentStart=parseDate(p.start);
+  const currentDays=Math.max(1,Number(p.durationDays)||1);
+  return iso(new Date(currentStart.getTime()+Math.round(offset/baseDays*currentDays)*86400000));
 }
-ACT.forEach(a=>{if(a[1]==="M1"){a[3]=mapM1Date(m1Acts[a[0]][0]);a[4]=mapM1Date(m1Acts[a[0]][1]);}});
-
+ACT.forEach(a=>{
+  const mod=a[1];
+  if(moduleBase[mod]){
+    a[3]=mapModuleDate(mod,a[3]);
+    a[4]=mapModuleDate(mod,a[4]);
+    if(mod==="M4") a[6]=3;
+  }
+});
 let h='<div class="yearband"><div></div><div class="y2026">2026 · Startphase</div><div class="y2027">2027 · fortlaufende Vertiefung</div></div><div class="nhead"><div>Aktivität</div>'+months.map(m=>'<div>'+m+'</div>').join('')+'</div>';
 let lastModule='';
 ACT.forEach(a=>{
