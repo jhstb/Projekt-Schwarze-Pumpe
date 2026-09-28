@@ -4,5 +4,5 @@
   "acquisitionMaster": "investors.json",
   "activityMaster": "activities.json",
   "syncPolicy": "Three-way merge by immutable investorId. Contact fields are mastered in contacts.json; acquisition fields are mastered in investors.json; activities remain in activities.json; strategic intelligence is mastered in investor_intelligence.json. Conflicts never overwrite silently.",
-  "lastSync": "2026-09-28T09:49:57.277Z"
+  "lastSync": "2026-09-28T09:51:24.921Z"
 }
