@@ -1,0 +1,409 @@
+{
+  "version": "4.2",
+  "projectStart": "2026-12-11",
+  "projectEnd": "2027-03-21",
+  "mode": "activity",
+  "rate": 350,
+  "budgetMax": 107000,
+  "totalHours": 305,
+  "totalCost": 106750,
+  "budgetHeadroom": 250,
+  "targetPool": 100,
+  "workingUniverse": 50,
+  "priority": 30,
+  "focus": 10,
+  "packages": [
+    {
+      "id": "M1",
+      "name": "Analyse",
+      "hours": 64,
+      "cost": 22400,
+      "activities": [
+        "A01",
+        "A02",
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07",
+        "A08"
+      ]
+    },
+    {
+      "id": "M2",
+      "name": "Priorisierung",
+      "hours": 36,
+      "cost": 12600,
+      "activities": [
+        "A09",
+        "A10",
+        "A11",
+        "A12",
+        "A13",
+        "A14"
+      ]
+    },
+    {
+      "id": "M3",
+      "name": "Gezielte Ansprache",
+      "hours": 120,
+      "cost": 42000,
+      "activities": [
+        "A15",
+        "A16",
+        "A17",
+        "A18",
+        "A19",
+        "A20",
+        "A21"
+      ]
+    },
+    {
+      "id": "M4",
+      "name": "Qualifizierung & Vorbereitung 2027",
+      "hours": 85,
+      "cost": 29750,
+      "activities": [
+        "A22",
+        "A23",
+        "A24",
+        "A25"
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "id": "A01",
+      "module": "M1",
+      "title": "100er Target-Pool prüfen und aktualisieren",
+      "start": "2026-12-11",
+      "end": "2026-12-12",
+      "hours": 12,
+      "dependsOn": [],
+      "result": "Belastbarer Target-Pool"
+    },
+    {
+      "id": "A02",
+      "module": "M1",
+      "title": "50er praktisches Arbeitsuniversum definieren",
+      "start": "2026-12-11",
+      "end": "2026-12-14",
+      "hours": 8,
+      "dependsOn": [
+        "A01"
+      ],
+      "result": "50 aktive Unternehmen"
+    },
+    {
+      "id": "A03",
+      "module": "M1",
+      "title": "Investitionstrigger und Europa-Strategien analysieren",
+      "start": "2026-12-11",
+      "end": "2026-12-15",
+      "hours": 10,
+      "dependsOn": [
+        "A01"
+      ],
+      "result": "Investment Trigger"
+    },
+    {
+      "id": "A04",
+      "module": "M1",
+      "title": "Company Fit / Schwarze-Pumpe-Fit prüfen",
+      "start": "2026-12-14",
+      "end": "2026-12-16",
+      "hours": 6,
+      "dependsOn": [
+        "A02",
+        "A03"
+      ],
+      "result": "Fit-Bewertung"
+    },
+    {
+      "id": "A05",
+      "module": "M1",
+      "title": "Executive Investment Brochure finalisieren",
+      "start": "2026-12-11",
+      "end": "2026-12-18",
+      "hours": 10,
+      "dependsOn": [
+        "A03",
+        "A04"
+      ],
+      "result": "Investor Brochure"
+    },
+    {
+      "id": "A06",
+      "module": "M1",
+      "title": "Executive PowerPoint aufbereiten",
+      "start": "2026-12-14",
+      "end": "2026-12-18",
+      "hours": 6,
+      "dependsOn": [
+        "A05"
+      ],
+      "result": "Executive Presentation"
+    },
+    {
+      "id": "A07",
+      "module": "M1",
+      "title": "Investor Intelligence / Investment Hypotheses vervollständigen",
+      "start": "2026-12-15",
+      "end": "2026-12-18",
+      "hours": 8,
+      "dependsOn": [
+        "A03",
+        "A04"
+      ],
+      "result": "Intelligence / Hypothesen"
+    },
+    {
+      "id": "A08",
+      "module": "M1",
+      "title": "Analyse dokumentieren / Priorisierung vorbereiten",
+      "start": "2026-12-17",
+      "end": "2026-12-18",
+      "hours": 4,
+      "dependsOn": [
+        "A01",
+        "A02",
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07"
+      ],
+      "result": "Priorisierungsgrundlage"
+    },
+    {
+      "id": "A09",
+      "module": "M2",
+      "title": "30 Priority-Unternehmen bestimmen",
+      "start": "2026-12-18",
+      "end": "2026-12-22",
+      "hours": 8,
+      "dependsOn": [
+        "A08"
+      ],
+      "result": "Priority-30"
+    },
+    {
+      "id": "A10",
+      "module": "M2",
+      "title": "10 A+/A-Unternehmen herausarbeiten",
+      "start": "2026-12-21",
+      "end": "2026-12-23",
+      "hours": 6,
+      "dependsOn": [
+        "A09"
+      ],
+      "result": "A+/A-10"
+    },
+    {
+      "id": "A11",
+      "module": "M2",
+      "title": "Entscheidungsträger / Zugangslinien recherchieren",
+      "start": "2026-12-18",
+      "end": "2026-12-23",
+      "hours": 4,
+      "dependsOn": [
+        "A09",
+        "A10"
+      ],
+      "result": "Executive Access Map"
+    },
+    {
+      "id": "A12",
+      "module": "M2",
+      "title": "Attack Sheets für priorisierte Unternehmen",
+      "start": "2026-12-21",
+      "end": "2026-12-24",
+      "hours": 8,
+      "dependsOn": [
+        "A09",
+        "A10",
+        "A11"
+      ],
+      "result": "Individuelle Attack Sheets"
+    },
+    {
+      "id": "A13",
+      "module": "M2",
+      "title": "AHK-/Netzwerkzugänge einordnen",
+      "start": "2026-12-22",
+      "end": "2026-12-24",
+      "hours": 2,
+      "dependsOn": [
+        "A11"
+      ],
+      "result": "Zugangslinien"
+    },
+    {
+      "id": "A14",
+      "module": "M2",
+      "title": "Priorisierung / Next Steps dokumentieren",
+      "start": "2026-12-28",
+      "end": "2027-01-08",
+      "hours": 8,
+      "dependsOn": [
+        "A09",
+        "A10",
+        "A11",
+        "A12",
+        "A13"
+      ],
+      "result": "Outreach-Pipeline"
+    },
+    {
+      "id": "A15",
+      "module": "M3",
+      "title": "Individuelle Erstansprache",
+      "start": "2026-12-21",
+      "end": "2027-01-15",
+      "hours": 30,
+      "dependsOn": [
+        "A12",
+        "A14"
+      ],
+      "result": "Erstkontakte"
+    },
+    {
+      "id": "A16",
+      "module": "M3",
+      "title": "Executive Access / persönliche Zugänge",
+      "start": "2027-01-04",
+      "end": "2027-01-22",
+      "hours": 20,
+      "dependsOn": [
+        "A15"
+      ],
+      "result": "Relevante Gesprächspartner"
+    },
+    {
+      "id": "A17",
+      "module": "M3",
+      "title": "Follow-up / Relationship Management",
+      "start": "2027-01-04",
+      "end": "2027-01-29",
+      "hours": 25,
+      "dependsOn": [
+        "A15",
+        "A16"
+      ],
+      "result": "Aktive Beziehungen"
+    },
+    {
+      "id": "A18",
+      "module": "M3",
+      "title": "Investorgespräche vorbereiten / durchführen",
+      "start": "2027-01-11",
+      "end": "2027-02-12",
+      "hours": 20,
+      "dependsOn": [
+        "A16"
+      ],
+      "parallelTo": [
+        "A17"
+      ],
+      "result": "Qualifizierte Gespräche"
+    },
+    {
+      "id": "A19",
+      "module": "M3",
+      "title": "Individuelle Investment Hypotheses / Gesprächsvorbereitung",
+      "start": "2027-01-11",
+      "end": "2027-02-12",
+      "hours": 10,
+      "dependsOn": [
+        "A17",
+        "A18"
+      ],
+      "result": "Gesprächsunterlagen"
+    },
+    {
+      "id": "A20",
+      "module": "M3",
+      "title": "Adress-/Kontaktarbeit und CRM",
+      "start": "2026-12-21",
+      "end": "2027-02-12",
+      "hours": 8,
+      "dependsOn": [
+        "A15",
+        "A16",
+        "A17",
+        "A18"
+      ],
+      "result": "Aktualisierte Kontakte/Aktivitäten"
+    },
+    {
+      "id": "A21",
+      "module": "M3",
+      "title": "Konkreten nächsten Schritt je Opportunity festlegen",
+      "start": "2027-02-01",
+      "end": "2027-02-23",
+      "hours": 7,
+      "dependsOn": [
+        "A18",
+        "A19",
+        "A20"
+      ],
+      "result": "Next Action"
+    },
+    {
+      "id": "A22",
+      "module": "M4",
+      "title": "Konkrete Investitionschancen qualifizieren",
+      "start": "2027-02-01",
+      "end": "2027-02-19",
+      "hours": 15,
+      "dependsOn": [
+        "A18",
+        "A21"
+      ],
+      "result": "Qualified Opportunities"
+    },
+    {
+      "id": "A23",
+      "module": "M4",
+      "title": "Investment Need / Timing / Standortanforderungen erfassen",
+      "start": "2027-02-08",
+      "end": "2027-02-26",
+      "hours": 10,
+      "dependsOn": [
+        "A22"
+      ],
+      "result": "Requirement Profile"
+    },
+    {
+      "id": "A24",
+      "module": "M4",
+      "title": "Energie / Logistik / Infrastruktur / technische Fragen",
+      "start": "2027-02-15",
+      "end": "2027-03-05",
+      "hours": 10,
+      "dependsOn": [
+        "A23"
+      ],
+      "result": "Technischer Fit"
+    },
+    {
+      "id": "A25",
+      "module": "M4",
+      "title": "Reise / Vor-Ort-Termine / Site Reviews",
+      "start": "2027-03-01",
+      "end": "2027-03-21",
+      "hours": 50,
+      "dependsOn": [
+        "A22",
+        "A23",
+        "A24"
+      ],
+      "result": "Site Reviews"
+    }
+  ],
+  "notes": {
+    "projectWorkStart": "2026-12-11",
+    "networkLogic": "Der Netzplan ist ein Netzwerk; Aktivitäten können parallel laufen.",
+    "siteReviews": "A25 umfasst Reise, Vor-Ort-Termine und Site Reviews für qualifizierte Investitionschancen; keine garantierte Anzahl von Site Reviews."
+  }
+}
