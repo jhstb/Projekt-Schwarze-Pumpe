@@ -17,11 +17,14 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;
 .modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:16px;z-index:9999}.modal.open{display:flex}.box{background:#fff;border-radius:10px;width:min(900px,100%);max-height:94vh;overflow:auto;padding:20px}.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}label{font-size:12px;font-weight:700;color:#687386;display:block;margin-bottom:4px}.modalfoot{display:flex;justify-content:flex-end;gap:7px;margin-top:13px}.history{border-top:1px solid #e7eaee;margin-top:14px;padding-top:12px}.activity{padding:7px 0;border-bottom:1px solid #eef0f2}.muted{color:#687386;font-size:12px}.repo{font:12px ui-monospace,monospace}.contactmaster{background:#f7f9fb;border:1px solid #dfe4ea;border-radius:7px;padding:10px;display:grid;gap:6px}.contactmaster b{display:block}.contactmaster span{margin-left:6px}
 @media(max-width:1100px){.kpis{grid-template-columns:repeat(4,1fr)}.filters{grid-template-columns:1fr 1fr}.filters input{grid-column:1/-1}}
 @media(max-width:650px){.kpis{grid-template-columns:repeat(2,1fr)}.form{grid-template-columns:1fr}.full{grid-column:auto}header{display:block}.actions{margin-top:12px}}
+.intel-status{display:block;margin:4px 24px 0;color:#fff!important;font-size:12px;font-weight:600;background:#244d78;padding:5px 9px;border-radius:6px;width:max-content;max-width:calc(100% - 48px)}
+.intel-panel{margin-top:14px}.intel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.intel-card{border:1px solid #dfe4ea;border-radius:9px;padding:14px;background:#fff;cursor:pointer;transition:box-shadow .15s,transform .15s}.intel-card:hover{box-shadow:0 3px 12px rgba(0,0,0,.08);transform:translateY(-1px)}.intel-card h3{margin:0 0 4px;font-size:17px}.intel-meta{font-size:11px;color:#687386;margin-bottom:10px}.intel-field{margin-top:9px}.intel-field b{display:block;font-size:10px;text-transform:uppercase;color:#687386;margin-bottom:3px}.intel-field div{line-height:1.4}.intel-badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 7px;border-radius:999px;background:#eef2f6}.intel-empty{color:#687386;font-size:12px}@media(max-width:700px){.intel-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
 <header><a href="index.html" style="color:#fff;text-decoration:none;font-weight:700;white-space:nowrap">← PROJECT HUB</a><div><h1>Schwarze Pumpe – Investor Radar v4.6</h1><div class="sub">International Investor Acquisition · <span class="repo">jhstb/projekt-Schwarze-Pumpe</span></div></div>
-<div class="actions"><button class="headerbtn" id="jsonOut">JSON Export</button><button class="headerbtn" id="csvOut">CSV Export</button><button class="headerbtn" id="jsonInBtn">Import</button><button class="headerbtn" id="resetBtn">Reset Demo</button><button class="headerbtn" id="syncBtn">GitHub Sync</button><input id="jsonIn" type="file" accept=".json" hidden></div></header>
+<div class="actions"><button class="headerbtn" id="jsonOut">JSON Export</button><button class="headerbtn" id="csvOut">CSV Export</button><button class="headerbtn" id="jsonInBtn">Import</button><button class="headerbtn" id="resetBtn">Reset Demo</button><button class="headerbtn" id="syncBtn">GitHub Sync</button><input id="jsonIn" type="file" accept=".json" hidden></div><span id="intelStatus" class="intel-status" style="display:block;margin:4px 24px 0;color:#687386">Intelligence: wird geladen…</span></header>
 <main>
 <div id="kpis" class="kpis"></div>
 <section class="panel"><div class="filters">
@@ -33,6 +36,8 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;
 <section class="panel"><div id="funnel" class="funnel"></div></section>
 <section class="panel"><table><thead><tr><th>Ampel</th><th>Investor</th><th>Tier</th><th>Priority</th><th>Status</th><th>Owner</th><th>Letzter Kontakt</th><th>Next Action</th><th>Fällig</th></tr></thead><tbody id="rows"></tbody></table></section>
 </main>
+
+<section class="panel intel-panel" id="intelligencePanel"><h2 style="margin:0 0 4px">Strategic Intelligence</h2><div class="muted" style="margin-bottom:12px">Separate intelligence layer · does not create or alter Radar targets.</div><div id="intelligenceCards" class="intel-grid"></div></section>
 
 <div id="editor" class="modal"><div class="box"><h2 id="editorTitle"></h2><div class="form">
 <div><label>Unternehmen</label><input id="eCompany" disabled></div><div><label>Tier</label><select id="eTier"><option>Tier 1</option><option>Tier 2</option><option>Tier 3</option></select></div>
@@ -46,6 +51,22 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;
 <div class="modalfoot"><button id="cancelEdit">Abbrechen</button><button id="saveEdit">Speichern</button></div>
 </div></div>
 
+<div id="intelEditor" class="modal"><div class="box"><h2 id="intelEditorTitle">Strategic Intelligence bearbeiten</h2>
+<div class="form">
+<div><label>Company</label><input id="ieCompany" readonly></div><div><label>Intelligence Status</label><select id="ieStatus"><option>ACTIVE</option><option>INACTIVE</option></select></div>
+<div class="full"><label>Access</label><textarea id="ieAccess" rows="4"></textarea></div>
+<div class="full"><label>Strategic Trigger</label><textarea id="ieTrigger" rows="4"></textarea></div>
+<div class="full"><label>Evidence</label><textarea id="ieEvidence" rows="5"></textarea></div>
+<div class="full"><label>Investment Hypothesis</label><textarea id="ieHypothesis" rows="4"></textarea></div>
+<div class="full"><label>Investment Question</label><textarea id="ieQuestion" rows="3"></textarea></div>
+<div class="full"><label>Attack Sheet</label><textarea id="ieAttack" rows="5"></textarea></div>
+<div class="full"><label>Meeting Signals</label><textarea id="ieSignals" rows="5"></textarea></div>
+<div class="full"><label>Disqualifying Evidence</label><textarea id="ieDisqualifying" rows="4"></textarea></div>
+<div class="full"><label>Next Action</label><textarea id="ieNext" rows="4"></textarea></div>
+<div class="full"><label>Access History</label><textarea id="ieHistory" rows="5"></textarea></div>
+</div><div class="muted" style="margin-top:8px">Strukturierte Felder dürfen als JSON bearbeitet werden; einfacher Text bleibt ebenfalls zulässig.</div>
+<div class="modalfoot"><button id="cancelIntelEdit">Abbrechen</button><button id="saveIntelEdit">Speichern</button></div></div></div>
+
 <div id="sync" class="modal"><div class="box"><h2>GitHub Sync</h2><p>Repository: <b class="repo">jhstb/projekt-Schwarze-Pumpe</b></p>
 <div class="form"><div><label>Owner</label><input id="ghOwner" value="jhstb"></div><div><label>Repository</label><input id="ghRepo" value="projekt-Schwarze-Pumpe"></div><div><label>Branch</label><input id="ghBranch" value="main"></div><div><label>Token – nur diese Sitzung</label><input id="ghToken" type="password"></div></div>
 <p class="muted">Der Token wird nicht gespeichert. Für produktiven Mehrbenutzerbetrieb ist später OAuth/Backend die bessere Lösung.</p><div class="modalfoot"><button id="cancelSync">Abbrechen</button><button id="pull">Aus GitHub laden</button><button id="push">Nach GitHub schreiben</button></div><div id="syncMsg" class="muted"></div></div></div>
@@ -57,7 +78,39 @@ let intelligenceById={};
 function intelligenceList(){return Object.values(intelligenceById||{});}
 function saveIntelligenceLocal(){localStorage.setItem("SP_V4_INTELLIGENCE",JSON.stringify({schema:INTELLIGENCE_SCHEMA,lastUpdated:new Date().toISOString().slice(0,10),records:intelligenceList()}));}
 function applyIntelligenceToRadar(){data.forEach(x=>{const i=intelligenceById[String(x.investorId)];if(i){if(i.strategicTrigger?.text!==undefined)x.trigger=i.strategicTrigger.text;if(i.investmentHypothesis?.text!==undefined)x.hypothesis=i.investmentHypothesis.text;}});}
-async function loadInvestorIntelligence(){try{const r=await fetch("investor_intelligence.json?cb="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error();const o=await r.json(),list=Array.isArray(o)?o:(o.records||o.investors||[]);intelligenceById={};list.forEach(x=>{if(x?.investorId)intelligenceById[String(x.investorId)]=x;});saveIntelligenceLocal();applyIntelligenceToRadar();render();}catch(e){try{const o=JSON.parse(localStorage.getItem("SP_V4_INTELLIGENCE")||"null"),list=o?.records||o?.investors||[];intelligenceById={};list.forEach(x=>{if(x?.investorId)intelligenceById[String(x.investorId)]=x;});applyIntelligenceToRadar();}catch{}}}
+async function loadInvestorIntelligence(){
+ const status=$("intelStatus");
+ const setStatus=t=>{if(status)status.textContent=t;};
+ setStatus("Intelligence: wird geladen…");
+ try{
+  const url=new URL("investor_intelligence.json",document.baseURI).href+"?cb="+Date.now();
+  const r=await fetch(url,{cache:"no-store"});
+  if(!r.ok)throw new Error("HTTP "+r.status);
+  const o=await r.json();
+  const list=Array.isArray(o)?o:(Array.isArray(o.records)?o.records:(Array.isArray(o.investors)?o.investors:[]));
+  intelligenceById={};
+  list.forEach(x=>{if(x?.investorId)intelligenceById[String(x.investorId)]=x;});
+  saveIntelligenceLocal();
+  applyIntelligenceToRadar();
+  render();
+  setStatus(`Intelligence: ${list.length} Datensätze geladen`);
+  return list.length;
+ }catch(e){
+  try{
+   const raw=localStorage.getItem("SP_V4_INTELLIGENCE");
+   const o=raw?JSON.parse(raw):null;
+   const list=Array.isArray(o)?o:(Array.isArray(o?.records)?o.records:(Array.isArray(o?.investors)?o.investors:[]));
+   intelligenceById={};
+   list.forEach(x=>{if(x?.investorId)intelligenceById[String(x.investorId)]=x;});
+   applyIntelligenceToRadar();render();
+   setStatus(`Intelligence: ${list.length} lokale Datensätze (Remote-Abruf fehlgeschlagen)`);
+   return list.length;
+  }catch(e2){
+   setStatus("Intelligence: nicht verfügbar");
+   return 0;
+  }
+ }
+}
 const APP_VERSION="4.7-AHK-MASTER";
 const STATUS=["TARGET","PRIORITY","CONTACTED","QUALIFIED","SITE_REVIEW","INVESTMENT_CASE","NEGOTIATION","INVESTMENT"];
 const SEED=[{"id": 1, "company": "XPENG", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 2, "company": "BYD", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 3, "company": "CATL", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 4, "company": "BASF Battery Materials", "tier": "Tier 1", "priority": "A+", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 5, "company": "VinFast", "tier": "Tier 1", "priority": "A", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 6, "company": "Great Wall Motor", "tier": "Tier 1", "priority": "A", "status": "PRIORITY", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 7, "company": "LG Energy Solution", "tier": "Tier 2", "priority": "A", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 8, "company": "Redwood Materials", "tier": "Tier 2", "priority": "A", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 9, "company": "Ascend Elements / AE Elemental", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 10, "company": "WuXi Biologics", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 11, "company": "Samsung Biologics", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 12, "company": "Samsung SDI", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 13, "company": "EVE Energy", "tier": "Tier 2", "priority": "A−", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}, {"id": 14, "company": "Umicore", "tier": "Tier 2", "priority": "B+", "status": "TARGET", "owner": "", "last": "", "next": "", "due": "", "trigger": "", "hypothesis": "", "contact": "", "notes": ""}];
@@ -116,6 +169,107 @@ let currentId=null;
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const today=()=>new Date().toISOString().slice(0,10);
+function intelDisplayValue(v){
+ if(v==null)return "";
+ if(typeof v==="string"||typeof v==="number"||typeof v==="boolean")return String(v);
+ if(v.text!==undefined)return String(v.text??"");
+ if(v.value!==undefined)return String(v.value??"");
+ return JSON.stringify(v,null,2);
+}
+function intelFormValue(v){
+ if(v==null)return "";
+ if(typeof v==="string")return v;
+ if(Array.isArray(v))return v.map(x=>{
+   if(x&&typeof x==="object")return Object.entries(x).map(([k,val])=>{
+     const out=Array.isArray(val)?val.join("; "):(val&&typeof val==="object"?JSON.stringify(val):String(val??""));
+     return k+": "+out;
+   }).join(" · ");
+   return String(x??"");
+ }).join("\n");
+ if(typeof v==="object")return Object.entries(v).map(([k,val])=>{
+   const out=Array.isArray(val)?val.join("; "):(val&&typeof val==="object"?JSON.stringify(val):String(val??""));
+   return k+": "+out;
+ }).join("\n");
+ return String(v);
+}
+function parseIntelField(raw, fallback){
+ let t=String(raw??"").trim();
+ if(!t)return fallback??"";
+ if(/^code\s*:\s*/i.test(t))t=t.replace(/^code\s*:\s*/i,"");
+ try{return JSON.parse(t)}catch{}
+ const lines=t.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+ if(Array.isArray(fallback)){
+   return lines.map(line=>{
+     const parts=line.split(/\s*·\s*/).map(x=>x.trim()).filter(Boolean);
+     if(parts.length>1 && parts.every(x=>x.includes(":"))){
+       const obj={};
+       parts.forEach(x=>{const n=x.indexOf(":");obj[x.slice(0,n).trim()]=x.slice(n+1).trim();});
+       return obj;
+     }
+     return line;
+   });
+ }
+ if(lines.length && lines.every(x=>x.includes(":"))){
+   const obj={}; lines.forEach(x=>{const n=x.indexOf(":"); const k=x.slice(0,n).trim(); const v=x.slice(n+1).trim(); obj[k]=v;});
+   return obj;
+ }
+ return t;
+}
+function renderIntelligenceCards(){
+ const host=$("intelligenceCards"); if(!host)return;
+ const list=intelligenceList();
+ if(!list.length){host.innerHTML='<div class="intel-empty">Keine Strategic-Intelligence-Datensätze geladen.</div>';return;}
+ host.innerHTML=list.map(i=>{
+  const a=i.access||{}; const hyp=i.investmentHypothesis; const q=i.investmentQuestion; const trig=i.strategicTrigger; const na=i.nextAction; const ms=i.meetingSignals||{};
+  const signal=ms.currentSignal||ms.signal||i.signal||'';
+  return `<article class="intel-card" data-intel-id="${esc(i.investorId||'')}"><h3>${esc(i.company||i.investorId)}</h3><div class="intel-meta">${esc(i.investorId||'')}${a.level?' · Access: '+esc(intelDisplayValue(a.level)):''}</div>
+  ${trig?`<div class="intel-field"><b>Strategic Trigger</b><div>${esc(intelDisplayValue(trig))}</div></div>`:''}
+  ${hyp?`<div class="intel-field"><b>Investment Hypothesis</b><div>${esc(intelDisplayValue(hyp))}</div></div>`:''}
+  ${q?`<div class="intel-field"><b>Investment Question</b><div>${esc(intelDisplayValue(q))}</div></div>`:''}
+  ${signal?`<div class="intel-field"><b>Signal</b><div><span class="intel-badge">${esc(intelDisplayValue(signal))}</span></div></div>`:''}
+  ${na?`<div class="intel-field"><b>Next Action</b><div>${esc(intelDisplayValue(na))}</div></div>`:''}
+  </article>`;
+ }).join('');
+}
+function openIntelligenceEditor(investorId){
+ const i=intelligenceById[String(investorId)]; if(!i)return;
+ currentIntelId=String(investorId);
+ $("intelEditorTitle").textContent=(i.company||i.investorId)+" · Strategic Intelligence";
+ $("ieCompany").value=i.company||i.investorId||"";
+ $("ieStatus").value=i.intelligenceStatus||"ACTIVE";
+ $("ieAccess").value=intelFormValue(i.access);
+ $("ieTrigger").value=intelFormValue(i.strategicTrigger);
+ $("ieEvidence").value=intelFormValue(i.evidence);
+ $("ieHypothesis").value=intelFormValue(i.investmentHypothesis);
+ $("ieQuestion").value=intelFormValue(i.investmentQuestion);
+ $("ieAttack").value=intelFormValue(i.attackSheet);
+ $("ieSignals").value=intelFormValue(i.meetingSignals);
+ $("ieDisqualifying").value=intelFormValue(i.disqualifyingEvidence);
+ $("ieNext").value=intelFormValue(i.nextAction);
+ $("ieHistory").value=intelFormValue(i.accessHistory);
+ $("intelEditor").classList.add("open");
+}
+function closeIntelligenceEditor(){$("intelEditor").classList.remove("open");currentIntelId=null}
+function saveIntelligenceEditor(){
+ const i=intelligenceById[String(currentIntelId)]; if(!i)return;
+ i.intelligenceStatus=$("ieStatus").value||i.intelligenceStatus||"ACTIVE";
+ i.access=parseIntelField($("ieAccess").value,i.access||{});
+ i.strategicTrigger=parseIntelField($("ieTrigger").value,i.strategicTrigger||{});
+ i.evidence=parseIntelField($("ieEvidence").value,i.evidence||{});
+ i.investmentHypothesis=parseIntelField($("ieHypothesis").value,i.investmentHypothesis||{});
+ i.investmentQuestion=parseIntelField($("ieQuestion").value,i.investmentQuestion||"");
+ i.attackSheet=parseIntelField($("ieAttack").value,i.attackSheet||{});
+ i.meetingSignals=parseIntelField($("ieSignals").value,i.meetingSignals||{});
+ i.disqualifyingEvidence=parseIntelField($("ieDisqualifying").value,i.disqualifyingEvidence||[]);
+ i.nextAction=parseIntelField($("ieNext").value,i.nextAction||{});
+ i.accessHistory=parseIntelField($("ieHistory").value,i.accessHistory||[]);
+ intelligenceById[String(currentIntelId)]=i;
+ saveIntelligenceLocal(); applyIntelligenceToRadar(); saveLocal(); render();
+ // Schließen bewusst NACH dem Rendern: so kann kein Re-Render den Dialog offen lassen.
+ closeIntelligenceEditor();
+ requestAnimationFrame(()=>closeIntelligenceEditor());
+}
+
 function saveLocal(){localStorage.setItem("SP_V4_DATA",JSON.stringify(data));localStorage.setItem("SP_V4_ACT",JSON.stringify(activities));localStorage.setItem("SP_V4_CONTACTS",JSON.stringify(contacts))}
 function signal(x){if(x.status==="INVESTMENT")return"green";if(x.due&&x.due<today())return"red";if(!x.owner||!x.next||!x.due)return"yellow";return"green"}
 function signalIcon(s){return s==="green"?"🟢":s==="yellow"?"🟡":"🔴"}
@@ -127,6 +281,7 @@ function render(){
  $("funnel").innerHTML=STATUS.map(s=>`<button class="stage ${st===s?"active":""}" data-stage="${s}">${s} <b>${data.filter(x=>x.status===s).length}</b></button>`).join("");
  const attention=data.filter(x=>signal(x)==="yellow").length, overdue=data.filter(x=>signal(x)==="red").length;
  $("kpis").innerHTML=[["Targets",data.length],["Priority",data.filter(x=>x.status==="PRIORITY").length],["Contacted",data.filter(x=>x.status==="CONTACTED").length],["Qualified",data.filter(x=>x.status==="QUALIFIED").length],["Site Review",data.filter(x=>x.status==="SITE_REVIEW").length],["Investment Cases",data.filter(x=>x.status==="INVESTMENT_CASE").length],["🟡 Aufmerksamkeit",attention],["🔴 Überfällig / blockiert",overdue]].map(k=>`<div class="kpi"><b>${k[1]}</b><span>${k[0]}</span></div>`).join("");
+ renderIntelligenceCards();
 }
 function openEditor(id){
  currentId=id;const x=data.find(v=>v.id===id);if(!x)return;
@@ -267,6 +422,7 @@ $("resetBtn").addEventListener("click",()=>{if(confirm("Lokale V3-Daten wirklich
 $("jsonOut").addEventListener("click",exportJSON);$("csvOut").addEventListener("click",exportCSV);$("jsonInBtn").addEventListener("click",()=>$("jsonIn").click());
 $("jsonIn").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);data=normalizeInvestorData(Array.isArray(o)?o:o.investors);data.forEach(x=>{if(!x.investorId)x.investorId=IDS[x.id]||String(x.id)});activities=o.activities||[];if(o.contacts)contacts=o.contacts;if(Array.isArray(o.intelligence)){intelligenceById={};o.intelligence.forEach(x=>{if(x?.investorId)intelligenceById[String(x.investorId)]=x});saveIntelligenceLocal();applyIntelligenceToRadar();}saveLocal();render();alert("Import erfolgreich.")}catch{alert("Ungültige Radar-Datei.")}};r.readAsText(f)});
 $("cancelEdit").addEventListener("click",closeEditor);$("saveEdit").addEventListener("click",saveEditor);$("addAct").addEventListener("click",addActivity);$("eAhkId").addEventListener("change",e=>renderAhkMaster(e.target.value));
+$("cancelIntelEdit").addEventListener("click",closeIntelligenceEditor);$("saveIntelEdit").addEventListener("click",saveIntelligenceEditor);$("intelligenceCards").addEventListener("click",e=>{const card=e.target.closest(".intel-card");if(card)openIntelligenceEditor(card.dataset.intelId)});
 $("syncBtn").addEventListener("click",()=>$("sync").classList.add("open"));$("cancelSync").addEventListener("click",()=>$("sync").classList.remove("open"));
 $("pull").addEventListener("click",pullGitHub);$("push").addEventListener("click",pushGitHub);
 const AHK_ASSIGNMENTS={"XPENG":"AHK-GUANGZHOU","CATL":"AHK-SHANGHAI","VINFAST":"AHK-VIETNAM","GWM":"AHK-BEIJING","LGES":"AHK-KOREA","REDWOOD":"AHK-USA-WASHINGTON","ASCEND-ELEMENTS":"AHK-USA-WASHINGTON","WUXI-BIOLOGICS":"AHK-SHANGHAI","SAMSUNG-BIOLOGICS":"AHK-KOREA","SAMSUNG-SDI":"AHK-KOREA"};
