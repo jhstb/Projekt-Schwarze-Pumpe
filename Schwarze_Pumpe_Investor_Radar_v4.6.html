@@ -75,6 +75,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;
 "use strict";
 const INTELLIGENCE_SCHEMA="Investor Intelligence V1.2";
 let intelligenceById={};
+let currentIntelId=null;
 function intelligenceList(){return Object.values(intelligenceById||{});}
 function saveIntelligenceLocal(){localStorage.setItem("SP_V4_INTELLIGENCE",JSON.stringify({schema:INTELLIGENCE_SCHEMA,lastUpdated:new Date().toISOString().slice(0,10),records:intelligenceList()}));}
 function applyIntelligenceToRadar(){data.forEach(x=>{const i=intelligenceById[String(x.investorId)];if(i){if(i.strategicTrigger?.text!==undefined)x.trigger=i.strategicTrigger.text;if(i.investmentHypothesis?.text!==undefined)x.hypothesis=i.investmentHypothesis.text;}});}
