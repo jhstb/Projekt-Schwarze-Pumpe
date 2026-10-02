@@ -16,7 +16,8 @@
     "ahkAssignment": "Executive access, investor intelligence, European expansion triggers, target introductions",
     "source": "Executive & AHK Contact Book 14-09-2026 v2",
     "confidence": "High",
-    "notes": "Executive route READY; role should be rechecked immediately before dispatch."
+    "notes": "Executive route READY; role should be rechecked immediately before dispatch.",
+    "ahkId": "AHK-GUANGZHOU"
   },
   {
     "investorId": "BYD",
@@ -54,7 +55,8 @@
     "ahkAssignment": "Executive access, investor intelligence, European expansion triggers, target introductions",
     "source": "Executive & AHK Contact Book 14-09-2026 v2",
     "confidence": "High",
-    "notes": "Executive route READY; direct address to be verified before dispatch."
+    "notes": "Executive route READY; direct address to be verified before dispatch.",
+    "ahkId": "AHK-SHANGHAI"
   },
   {
     "investorId": "BASF-BATTERY-MATERIALS",
@@ -92,7 +94,8 @@
     "ahkAssignment": "VinFast reactivation, Vietnam industrial-investment intelligence",
     "source": "Executive & AHK Contact Book 14-09-2026 v2",
     "confidence": "High",
-    "notes": "REACTIVATION. Use personal relationship before cold outreach."
+    "notes": "REACTIVATION. Use personal relationship before cold outreach.",
+    "ahkId": "AHK-VIETNAM"
   },
   {
     "investorId": "GWM",
@@ -111,7 +114,8 @@
     "ahkAssignment": "Executive access, investor intelligence, European expansion triggers, target introductions",
     "source": "Executive & AHK Contact Book 14-09-2026 v2",
     "confidence": "Medium",
-    "notes": "Verify current Europe manufacturing decision owner before direct message."
+    "notes": "Verify current Europe manufacturing decision owner before direct message.",
+    "ahkId": "AHK-BEIJING"
   },
   {
     "investorId": "LGES",
@@ -133,7 +137,8 @@
     "notes": "Company explicitly assigned to AHK Korea network.",
     "ahkLast": "",
     "ahkNext": "",
-    "ahkDue": ""
+    "ahkDue": "",
+    "ahkId": "AHK-KOREA"
   },
   {
     "investorId": "REDWOOD",
@@ -155,7 +160,8 @@
     "notes": "Company explicitly assigned to AHK USA network.",
     "ahkLast": "",
     "ahkNext": "",
-    "ahkDue": ""
+    "ahkDue": "",
+    "ahkId": "AHK-USA-WASHINGTON"
   },
   {
     "investorId": "ASCEND-ELEMENTS",
@@ -174,7 +180,11 @@
     "ahkAssignment": "US investment intelligence; European scaling requirements",
     "source": "Executive & AHK Contact Book 14-09-2026 v2",
     "confidence": "Medium",
-    "notes": "Company explicitly assigned to AHK USA network."
+    "notes": "Company explicitly assigned to AHK USA network.",
+    "ahkLast": "",
+    "ahkNext": "",
+    "ahkDue": "",
+    "ahkId": "AHK-USA-WASHINGTON"
   },
   {
     "investorId": "WUXI-BIOLOGICS",
@@ -193,7 +203,11 @@
     "ahkAssignment": "",
     "source": "Executive & AHK Contact Book 14-09-2026 v2",
     "confidence": "TO VERIFY",
-    "notes": "No company-specific contact entry in current Tier-1/AHK contact book; verify route."
+    "notes": "No company-specific contact entry in current Tier-1/AHK contact book; verify route.",
+    "ahkLast": "",
+    "ahkNext": "",
+    "ahkDue": "",
+    "ahkId": "AHK-SHANGHAI"
   },
   {
     "investorId": "SAMSUNG-BIOLOGICS",
@@ -212,7 +226,11 @@
     "ahkAssignment": "Battery, ESS and biopharma decision chains; investment-trigger intelligence and warm introductions",
     "source": "Executive & AHK Contact Book 14-09-2026 v2",
     "confidence": "Medium",
-    "notes": "Company explicitly assigned to AHK Korea network."
+    "notes": "Company explicitly assigned to AHK Korea network.",
+    "ahkLast": "",
+    "ahkNext": "",
+    "ahkDue": "",
+    "ahkId": "AHK-KOREA"
   },
   {
     "investorId": "SAMSUNG-SDI",
@@ -231,7 +249,8 @@
     "ahkAssignment": "Battery, ESS and biopharma decision chains; investment-trigger intelligence and warm introductions",
     "source": "Executive & AHK Contact Book 14-09-2026 v2",
     "confidence": "Medium",
-    "notes": "Company explicitly assigned to AHK Korea network."
+    "notes": "Company explicitly assigned to AHK Korea network.",
+    "ahkId": "AHK-KOREA"
   },
   {
     "investorId": "EVE-ENERGY",
