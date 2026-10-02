@@ -8,8 +8,16 @@
     "address": "6th Floor, Unit 0601C, DRC Liangmaqiao Diplomatic Office Building, 19 Dongfang East Road, Chaoyang District, Beijing, P.R. China",
     "phone": "+86-10-6539 6688",
     "contacts": [
-      {"name":"Oliver Oehms","email":"crbj@china.ahk.de","role":"Delegierter / Executive Director & Board Member"},
-      {"name":"Kathrin Wolfsgruber","email":"wolfsgruber.kathrin@china.ahk.de","role":"Stellvertretende Leiterin Nordchina"}
+      {
+        "name": "Oliver Oehms",
+        "email": "crbj@china.ahk.de",
+        "role": "Delegierter / Executive Director & Board Member"
+      },
+      {
+        "name": "Kathrin Wolfsgruber",
+        "email": "wolfsgruber.kathrin@china.ahk.de",
+        "role": "Stellvertretende Leiterin Nordchina"
+      }
     ],
     "source": "Official AHK Greater China · verified 30.09.2026",
     "confidence": "VERIFIED"
@@ -23,8 +31,16 @@
     "address": "23/F, North Building, China Merchants Plaza, No. 333 North Chengdu Rd., Jingan District, 200001 Shanghai, P.R. China",
     "phone": "+86-21-5081 2266",
     "contacts": [
-      {"name":"Michael Kern","email":"crsh@china.ahk.de","role":"Delegierter / Executive Director & Board Member"},
-      {"name":"Jonathan Schoo","email":"growth@china.ahk.de","role":"Vice President / Growth"}
+      {
+        "name": "Michael Kern",
+        "email": "crsh@china.ahk.de",
+        "role": "Delegierter / Executive Director & Board Member"
+      },
+      {
+        "name": "Jonathan Schoo",
+        "email": "growth@china.ahk.de",
+        "role": "Vice President / Growth"
+      }
     ],
     "source": "Official AHK Greater China + user-provided contact data · verified 30.09.2026",
     "confidence": "VERIFIED"
@@ -38,8 +54,16 @@
     "address": "1220-1221 GDH BCC, No. 21 Zhujiang West Road, Tianhe District, Guangzhou, P.R. China",
     "phone": "+86-20-2289 9228",
     "contacts": [
-      {"name":"Jan Roennfeld","email":"crgz@china.ahk.de","role":"Delegierter / Executive Director & Board Member"},
-      {"name":"Ingo Xu","email":"growth@china.ahk.de","role":"Vice President / Growth"}
+      {
+        "name": "Jan Roennfeld",
+        "email": "crgz@china.ahk.de",
+        "role": "Delegierter / Executive Director & Board Member"
+      },
+      {
+        "name": "Ingo Xu",
+        "email": "growth@china.ahk.de",
+        "role": "Vice President / Growth"
+      }
     ],
     "source": "Official AHK Greater China · verified 30.09.2026",
     "confidence": "VERIFIED"
@@ -52,10 +76,26 @@
     "address": "41-7, Jahamun-ro 24-gil, Jongno-gu, Seoul 03042, Republic of Korea",
     "phone": "+82-2-3780-4600",
     "contacts": [
-      {"name":"Felix Kalkowsky","email":"fkalkowsky@kgcci.com","role":"Vice President"},
-      {"name":"Young-Min Kim","email":"","role":"Deputy Director / Investment Promotion"},
-      {"name":"Jihee Jeong","email":"","role":"Deputy Director / Energy & Environment"},
-      {"name":"Hyun-Nam Park","email":"","role":"Chairperson KGCCI / Chief Country Officer Deutsche Bank AG Seoul · Personal Access VERIFIED"}
+      {
+        "name": "Felix Kalkowsky",
+        "email": "fkalkowsky@kgcci.com",
+        "role": "Vice President"
+      },
+      {
+        "name": "Young-Min Kim",
+        "email": "",
+        "role": "Deputy Director / Investment Promotion"
+      },
+      {
+        "name": "Jihee Jeong",
+        "email": "",
+        "role": "Deputy Director / Energy & Environment"
+      },
+      {
+        "name": "Hyun-Nam Park",
+        "email": "",
+        "role": "Chairperson KGCCI / Chief Country Officer Deutsche Bank AG Seoul · Personal Access VERIFIED"
+      }
     ],
     "source": "Official KGCCI / AHK Korea + user-provided personal access · verified 30.09.2026",
     "confidence": "VERIFIED"
@@ -68,7 +108,11 @@
     "address": "Sanbancho KS Bldg. 5F, 2-4 Sanbancho, Chiyoda-ku, Tokyo 102-0075, Japan",
     "phone": "+81-(0)3-5276-9811",
     "contacts": [
-      {"name":"Marcus Schürmann","email":"management@dihkj.or.jp","role":"CEO / Delegate of German Industry and Commerce in Japan · Personal Access VERIFIED"}
+      {
+        "name": "Marcus Schürmann",
+        "email": "management@dihkj.or.jp",
+        "role": "CEO / Delegate of German Industry and Commerce in Japan · Personal Access VERIFIED"
+      }
     ],
     "source": "Official AHK Japan + user-provided personal access · verified 30.09.2026",
     "confidence": "VERIFIED"
@@ -81,8 +125,16 @@
     "address": "Ho-Chi-Minh-Stadt: Deutsches Haus, 4. Stock, 33 Le Duan Blvd, Saigon Ward, 71006 Ho-Chi-Minh-Stadt; Hanoi: Lotte Center Hanoi, East Tower, 18. Stock, 1803-1804, 54 Lieu Giai Street, Giang Vo Ward, 11100 Hanoi",
     "phone": "+84 (28) 3823 9775 / +84 (24) 3825 1420",
     "contacts": [
-      {"name":"Peter Kompalla","email":"info@vietnam.ahk.de","role":"Delegierter / Chief Representative"},
-      {"name":"Björn Koslowski","email":"info@vietnam.ahk.de","role":"Stellvertretender Delegierter / Deputy Chief Representative"}
+      {
+        "name": "Peter Kompalla",
+        "email": "info@vietnam.ahk.de",
+        "role": "Delegierter / Chief Representative"
+      },
+      {
+        "name": "Björn Koslowski",
+        "email": "info@vietnam.ahk.de",
+        "role": "Stellvertretender Delegierter / Deputy Chief Representative"
+      }
     ],
     "source": "Official AHK Vietnam · verified 30.09.2026",
     "confidence": "VERIFIED"
@@ -96,9 +148,21 @@
     "address": "1130 Connecticut Ave, Suite 1200, Washington, DC 20036, USA",
     "phone": "+1 202-967-5495",
     "contacts": [
-      {"name":"Dr. Christoph Schemionek","email":"schemionek@washington.ahk.de","role":"President & CEO / Delegate"},
-      {"name":"Daniela Berger-Huza","email":"bergerhuza@washington.ahk.de","role":"Director, Projects and Business Operations"},
-      {"name":"Amal Khaled","email":"khaled@washington.ahk.de","role":"Director, Programs & Trade Missions"}
+      {
+        "name": "Dr. Christoph Schemionek",
+        "email": "schemionek@washington.ahk.de",
+        "role": "President & CEO / Delegate"
+      },
+      {
+        "name": "Daniela Berger-Huza",
+        "email": "bergerhuza@washington.ahk.de",
+        "role": "Director, Projects and Business Operations"
+      },
+      {
+        "name": "Amal Khaled",
+        "email": "khaled@washington.ahk.de",
+        "role": "Director, Programs & Trade Missions"
+      }
     ],
     "source": "Official AHK USA Washington · verified 30.09.2026",
     "confidence": "VERIFIED"
