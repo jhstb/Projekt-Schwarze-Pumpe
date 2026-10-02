@@ -42,13 +42,14 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;
 
 <div class="panel" id="ahkContactCard" style="margin:0 0 14px 0">
 <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-  <div><div style="font-size:18px;font-weight:700">AHK Contact Card</div><div class="muted">AHK Korea · Seoul</div></div>
+  <div><div style="font-size:18px;font-weight:700">AHK Contact Card</div><div id="standaloneAhkSubtitle" class="muted">AHK Korea · Seoul</div></div>
   <span style="font-size:12px;padding:4px 8px;border-radius:999px;background:#eef3f8">AHK MASTER</span>
 </div>
+<div style="margin-top:10px"><label for="standaloneAhkSelect">AHK auswählen</label><select id="standaloneAhkSelect"></select></div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
-  <div><b>Office</b><div>AHK Korea / KGCCI · Seoul</div></div>
-  <div><b>Phone</b><div>+82-2-3780-4600</div></div>
-  <div style="grid-column:1/-1"><b>Address</b><div>41-7, Jahamun-ro 24-gil, Jongno-gu, Seoul 03042, Republic of Korea</div></div>
+  <div><b>Office</b><div id="standaloneAhkOffice">—</div></div>
+  <div><b>Phone</b><div id="standaloneAhkPhone">—</div></div>
+  <div style="grid-column:1/-1"><b>Address</b><div id="standaloneAhkAddress">—</div></div>
 </div>
 <div style="margin-top:14px"><b>Contacts</b></div>
 <div style="display:grid;gap:8px;margin-top:8px">
@@ -69,7 +70,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;
 
 <div id="intelEditor" class="modal"><div class="box"><h2 id="intelEditorTitle">Strategic Intelligence bearbeiten</h2>
 <div class="form">
-<div><label>Company</label><input id="ieCompany" readonly></div><div><label>Intelligence Status</label><select id="ieStatus"><option>ACTIVE</option><option>INACTIVE</option></select></div>
+<div><label>Company</label><input id="ieCompany" readonly></div><div><label>Intelligence Status</label><select id="ieStatus"><option>ACTIVE</option><option>INACTIVE</option></select></div><div><label>AHK-Zuordnung</label><select id="ieAhkId"><option value="">Keine AHK-Zuordnung</option></select></div>
 <div class="full"><label>Access</label><textarea id="ieAccess" rows="4"></textarea></div>
 <div class="full"><label>Strategic Trigger</label><textarea id="ieTrigger" rows="4"></textarea></div>
 <div class="full"><label>Evidence</label><textarea id="ieEvidence" rows="5"></textarea></div>
@@ -90,7 +91,6 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;
 <script>
 "use strict";
 const INTELLIGENCE_SCHEMA="Investor Intelligence V1.2";
-const INTELLIGENCE_SEED=[{"investorId":"REFIRE","company":"REFIRE","intelligenceStatus":"ACTIVE","access":{"type":"PERSONAL","location":"Shanghai","timing":"December 2026","confidence":"HIGH","accessHistory":"Direct personal access; Shanghai meeting planned."},"strategicTrigger":{"text":"Expansion and development of hydrogen mobility and hydrogen technology applications in Europe.","status":"EVIDENCE"},"evidence":[{"text":"REFIRE has a European office/subsidiary in Stuttgart.","type":"CURRENT","confidence":"HIGH"},{"text":"REFIRE describes activities spanning design, testing, prototyping, application engineering and manufacturing at scale.","type":"CURRENT","confidence":"HIGH"},{"text":"A 2025 Hy24/REFIRE partnership was announced to accelerate hydrogen ecosystems in Europe and develop a Sino-European supply chain.","type":"CURRENT","confidence":"HIGH"}],"investmentHypothesis":{"text":"REFIRE could potentially develop its existing European presence into a broader industrial operating platform as European customer demand, localisation requirements and hydrogen infrastructure develop.","status":"HYPOTHESIS"},"investmentQuestion":"What would REFIRE need in Europe to move from its existing European presence towards a larger industrial operating platform?","attackSheet":["How does REFIRE see the long-term role of Europe?","Which functions should remain in China and which need to be localised in Europe?","What European activities could move beyond sales, service and engineering?","What would trigger European assembly, manufacturing or other industrial capacity?","Which location factors would determine such a decision?"],"meetingSignals":{"status":"OPEN","signalStrength":"GREY"},"disqualifyingEvidence":["European activities remain primarily commercial or technical.","No additional European industrial capacity is required.","Manufacturing and assembly remain fully concentrated in existing Asian facilities."],"nextAction":{"type":"MEETING","description":"Qualify the next industrialisation step for Europe during the Shanghai meeting.","owner":"JH"}},{"investorId":"XIAOMI","company":"Xiaomi","intelligenceStatus":"ACTIVE","access":{"type":"PERSONAL_NETWORK","location":"Germany / Europe","confidence":"HIGH","accessHistory":"Direct access through existing German and European network."},"strategicTrigger":{"text":"European EV market entry combined with European R&D and design activity.","status":"EVIDENCE"},"evidence":[{"text":"Xiaomi established an EV R&D and Design Center in Munich in early 2025.","type":"CURRENT","confidence":"HIGH"},{"text":"The Munich team contributed to the development of the Xiaomi YU7 GT.","type":"CURRENT","confidence":"HIGH"},{"text":"Xiaomi's European activity currently provides evidence of market entry and R&D, but not a confirmed European vehicle production site.","type":"ASSESSMENT","confidence":"MEDIUM"}],"investmentHypothesis":{"text":"Xiaomi could potentially develop broader European industrial functions beyond market entry and R&D, including localisation, supply-chain or manufacturing activities.","status":"HYPOTHESIS"},"investmentQuestion":"What role does Xiaomi see for Europe beyond sales, service and R&D?","attackSheet":["How does Xiaomi see the evolution of its European industrial footprint?","What role should Germany play?","What is the long-term role of Munich beyond R&D and design?","Is localisation of components or supply chains being considered?","Is European production part of the long-term perspective?"],"meetingSignals":{"status":"OPEN","signalStrength":"GREY"},"disqualifyingEvidence":["European strategy remains limited to sales, service and R&D.","No European manufacturing or localisation strategy is planned.","Industrial decisions for Europe remain entirely outside Europe."],"nextAction":{"type":"QUALIFICATION","description":"Use existing German/European access to determine whether Xiaomi has an industrialisation question beyond R&D.","owner":"JH"}},{"investorId":"NISSAN","company":"Nissan","intelligenceStatus":"REACTIVATION","access":{"type":"PERSONAL","location":"Japan","confidence":"HIGH","accessHistory":"Personal visit in Japan; electric truck construction was already discussed at that time."},"strategicTrigger":{"text":"Current European electrification and electric commercial vehicle activity provides an opportunity to re-qualify the historic electric-truck discussion.","status":"EVIDENCE"},"evidence":[{"text":"A previous personal discussion in Japan already covered electric truck construction.","type":"HISTORICAL","confidence":"HIGH"},{"text":"Nissan is currently presenting the fully electric Interstar-e and Townstar EV in European commercial-vehicle applications.","type":"CURRENT","confidence":"HIGH"},{"text":"Nissan continues to use European manufacturing capacity for vehicles serving the European market.","type":"CURRENT","confidence":"HIGH"}],"investmentHypothesis":{"text":"Nissan may have an evolving European industrial requirement around electric commercial vehicles, but existing production capacity may also be sufficient.","status":"HYPOTHESIS"},"investmentQuestion":"When we discussed electric trucks in Japan, the subject was already on the table. How has that question evolved within Nissan since then?","attackSheet":["What has changed since we discussed electric trucks in Japan?","How does Nissan see the future of electric commercial vehicles in Europe?","Where are electric commercial vehicles for Europe currently developed and produced?","Does Nissan see a need for additional European production or assembly capacity?","What would determine such a location decision?"],"meetingSignals":{"status":"OPEN","signalStrength":"GREY"},"disqualifyingEvidence":["Existing European production footprint is sufficient.","No additional capacity for electric commercial vehicles is planned.","The historic electric-truck concept is no longer strategically relevant."],"nextAction":{"type":"REACTIVATE","description":"Reconnect through the historical Japan relationship and re-qualify the electric-truck question against Nissan's 2026 European strategy.","owner":"JH"}},{"investorId":"XPENG","company":"XPENG","intelligenceStatus":"CONTROL_CASE","access":{"type":"RADAR_CONTACT","confidence":"MEDIUM"},"strategicTrigger":{"text":"European expansion and potential European industrial/supply-chain development.","status":"WORKING_CONTEXT"},"investmentHypothesis":{"text":"Potential European industrial or supply-chain platform.","status":"HYPOTHESIS"},"investmentQuestion":"What industrial functions would XPENG require in Europe beyond market access?","meetingSignals":{"status":"OPEN","signalStrength":"GREY"},"nextAction":{"type":"RADAR_CONTROL_CASE","description":"Use XPENG to test that Intelligence supplements, rather than replaces, existing Radar data.","owner":"JH"}}];
 let intelligenceById={};
 let currentIntelId=null;
 function intelligenceList(){return Object.values(intelligenceById||{});}
@@ -105,10 +105,7 @@ async function loadInvestorIntelligence(){
   const r=await fetch(url,{cache:"no-store"});
   if(!r.ok)throw new Error("HTTP "+r.status);
   const o=await r.json();
-  const remoteList=Array.isArray(o)?o:(Array.isArray(o.records)?o.records:(Array.isArray(o.investors)?o.investors:[]));
-  const byId=new Map(INTELLIGENCE_SEED.map(x=>[String(x.investorId),x]));
-  remoteList.forEach(x=>{if(x?.investorId)byId.set(String(x.investorId),x);});
-  const list=[...byId.values()];
+  const list=Array.isArray(o)?o:(Array.isArray(o.records)?o.records:(Array.isArray(o.investors)?o.investors:[]));
   intelligenceById={};
   list.forEach(x=>{if(x?.investorId)intelligenceById[String(x.investorId)]=x;});
   saveIntelligenceLocal();
@@ -120,13 +117,9 @@ async function loadInvestorIntelligence(){
   try{
    const raw=localStorage.getItem("SP_V4_INTELLIGENCE");
    const o=raw?JSON.parse(raw):null;
-   const localList=Array.isArray(o)?o:(Array.isArray(o?.records)?o.records:(Array.isArray(o?.investors)?o.investors:[]));
-   const byId=new Map(INTELLIGENCE_SEED.map(x=>[String(x.investorId),x]));
-   localList.forEach(x=>{if(x?.investorId)byId.set(String(x.investorId),x);});
-   const list=[...byId.values()];
+   const list=Array.isArray(o)?o:(Array.isArray(o?.records)?o.records:(Array.isArray(o?.investors)?o.investors:[]));
    intelligenceById={};
    list.forEach(x=>{if(x?.investorId)intelligenceById[String(x.investorId)]=x;});
-   saveIntelligenceLocal();
    applyIntelligenceToRadar();render();
    setStatus(`Intelligence: ${list.length} lokale Datensätze (Remote-Abruf fehlgeschlagen)`);
    return list.length;
@@ -151,16 +144,17 @@ contacts=contacts||CONTACT_SEED;
 const CONTACT_FIELDS=["company","country","sector","decisionMaker","currentFunction","verificationDate","directContactRoute","personalAccess","introducer","ahkId","ahkOffice","ahkContact","ahkAssignment","ahkLast","ahkNext","ahkDue","email","source","confidence","notes"];
 const AHK_SEED=[{"ahkId":"AHK-BEIJING","country":"China","region":"North China","office":"AHK Beijing","city":"Beijing","address":"6th Floor, Unit 0601C, DRC Liangmaqiao Diplomatic Office Building, 19 Dongfang East Road, Chaoyang District, Beijing, P.R. China","phone":"+86-10-6539 6688","contacts":[{"name":"Oliver Oehms","email":"crbj@china.ahk.de","role":"Delegierter / Executive Director & Board Member"},{"name":"Kathrin Wolfsgruber","email":"wolfsgruber.kathrin@china.ahk.de","role":"Stellvertretende Leiterin Nordchina"}],"source":"Official AHK Greater China · verified 30.09.2026","confidence":"VERIFIED"},{"ahkId":"AHK-SHANGHAI","country":"China","region":"East China","office":"AHK Shanghai","city":"Shanghai","address":"23/F, North Building, China Merchants Plaza, No. 333 North Chengdu Rd., Jingan District, 200001 Shanghai, P.R. China","phone":"+86-21-5081 2266","contacts":[{"name":"Michael Kern","email":"crsh@china.ahk.de","role":"Delegierter / Executive Director & Board Member"},{"name":"Jonathan Schoo","email":"growth@china.ahk.de","role":"Vice President / Growth"}],"source":"Official AHK Greater China + user-provided contact data · verified 30.09.2026","confidence":"VERIFIED"},{"ahkId":"AHK-GUANGZHOU","country":"China","region":"South & Southwest China","office":"AHK Guangzhou","city":"Guangzhou","address":"1220-1221 GDH BCC, No. 21 Zhujiang West Road, Tianhe District, Guangzhou, P.R. China","phone":"+86-20-2289 9228","contacts":[{"name":"Jan Roennfeld","email":"crgz@china.ahk.de","role":"Delegierter / Executive Director & Board Member"},{"name":"Ingo Xu","email":"growth@china.ahk.de","role":"Vice President / Growth"}],"source":"Official AHK Greater China · verified 30.09.2026","confidence":"VERIFIED"},{"ahkId":"AHK-KOREA","country":"South Korea","office":"AHK Korea / KGCCI","city":"Seoul","address":"41-7, Jahamun-ro 24-gil, Jongno-gu, Seoul 03042, Republic of Korea","phone":"+82-2-3780-4600","contacts":[{"name":"Felix Kalkowsky","email":"fkalkowsky@kgcci.com","role":"Vice President"},{"name":"Young-Min Kim","email":"","role":"Deputy Director / Investment Promotion"},{"name":"Jihee Jeong","email":"","role":"Deputy Director / Energy & Environment"},{"name":"Hyun-Nam Park","email":"hyun-nam.park@db.com","role":"Chairperson KGCCI / Chief Country Officer Deutsche Bank AG Seoul · Personal Access VERIFIED"}],"source":"Official KGCCI / AHK Korea + user-provided personal access · verified 30.09.2026","confidence":"VERIFIED"},{"ahkId":"AHK-JAPAN","country":"Japan","office":"AHK Japan","city":"Tokyo","address":"Sanbancho KS Bldg. 5F, 2-4 Sanbancho, Chiyoda-ku, Tokyo 102-0075, Japan","phone":"+81-(0)3-5276-9811","contacts":[{"name":"Marcus Schürmann","email":"management@dihkj.or.jp","role":"CEO / Delegate of German Industry and Commerce in Japan · Personal Access VERIFIED"}],"source":"Official AHK Japan + user-provided personal access · verified 30.09.2026","confidence":"VERIFIED"},{"ahkId":"AHK-VIETNAM","country":"Vietnam","office":"AHK Vietnam","city":"Ho Chi Minh City / Hanoi","address":"Ho-Chi-Minh-Stadt: Deutsches Haus, 4. Stock, 33 Le Duan Blvd, Saigon Ward, 71006 Ho-Chi-Minh-Stadt; Hanoi: Lotte Center Hanoi, East Tower, 18. Stock, 1803-1804, 54 Lieu Giai Street, Giang Vo Ward, 11100 Hanoi","phone":"+84 (28) 3823 9775 / +84 (24) 3825 1420","contacts":[{"name":"Peter Kompalla","email":"info@vietnam.ahk.de","role":"Delegierter / Chief Representative"},{"name":"Björn Koslowski","email":"info@vietnam.ahk.de","role":"Stellvertretender Delegierter / Deputy Chief Representative"}],"source":"Official AHK Vietnam · verified 30.09.2026","confidence":"VERIFIED"},{"ahkId":"AHK-USA-WASHINGTON","country":"USA","region":"Washington / federal interface","office":"AHK USA Washington","city":"Washington, DC","address":"1130 Connecticut Ave, Suite 1200, Washington, DC 20036, USA","phone":"+1 202-967-5495","contacts":[{"name":"Dr. Christoph Schemionek","email":"schemionek@washington.ahk.de","role":"President & CEO / Delegate"},{"name":"Daniela Berger-Huza","email":"bergerhuza@washington.ahk.de","role":"Director, Projects and Business Operations"},{"name":"Amal Khaled","email":"khaled@washington.ahk.de","role":"Director, Programs & Trade Missions"}],"source":"Official AHK USA Washington · verified 30.09.2026","confidence":"VERIFIED"}];
 let ahks=AHK_SEED;
+function populateIntelAhkSelect(selected){const el=$("ieAhkId");if(!el)return;el.innerHTML='<option value="">Keine AHK-Zuordnung</option>'+ahks.map(a=>`<option value="${a.ahkId}">${a.office} · ${a.city}</option>`).join("");el.value=selected||"";}
+function renderStandaloneAhk(ahkId){const a=getAhk(ahkId)||getAhk("AHK-KOREA")||ahks[0];if(!a)return;$("standaloneAhkSelect").value=a.ahkId;$("standaloneAhkSubtitle").textContent=a.office+" · "+a.city;$("standaloneAhkOffice").textContent=a.office+" · "+a.city;$("standaloneAhkPhone").textContent=a.phone||"—";$("standaloneAhkAddress").textContent=a.address||"—";const list=$("ahkContactList");if(list)list.innerHTML=(a.contacts||[]).map(c=>`<div class="contactmaster" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><div><b>${c.name}</b><div class="muted">${c.role||""}${c.email?" · "+c.email:""}</div></div>${contactActionButtons(c.email||"",c.name||"",a.office||"",c.role||"")}</div>`).join("");}
+
 function getAhk(ahkId){return ahks.find(a=>a.ahkId===ahkId)||null}
 function populateAhkSelect(selected){const el=$("eAhkId");if(!el)return;el.innerHTML='<option value="">Keine AHK-Zuordnung</option>'+ahks.map(a=>`<option value="${a.ahkId}">${a.office} · ${a.city}</option>`).join("");el.value=selected||"";renderAhkMaster(selected)}
-function mailButton(email){if(email)return `<a class="buttonlike" href="mailto:${encodeURIComponent(email)}">✉ E-Mail</a>`;return `<button type="button" disabled title="Keine E-Mail-Adresse hinterlegt">✉ E-Mail</button>`;}
-function createBrief(name,company,role,email,context){
- const esc=v=>String(v||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
- const html=`<!doctype html><html><head><meta charset="utf-8"><title>Kontaktbrief – ${esc(company||name||"Kontakt")}</title><style>body{font-family:Arial,sans-serif;font-size:11pt;margin:2.2cm;color:#111}h1{font-size:18pt;margin:0 0 18px}h2{font-size:12pt;margin:20px 0 6px}table{border-collapse:collapse;width:100%}td{padding:5px 7px;border-bottom:1px solid #ddd}td:first-child{width:28%;font-weight:bold}</style></head><body><h1>Kontaktbrief</h1><table><tr><td>Kontakt</td><td>${esc(name)}</td></tr><tr><td>Unternehmen / Organisation</td><td>${esc(company)}</td></tr><tr><td>Funktion</td><td>${esc(role)}</td></tr><tr><td>E-Mail</td><td>${esc(email||"Keine E-Mail-Adresse hinterlegt")}</td></tr></table><h2>Notiz</h2><p>${esc(context||"")}</p></body></html>`;
- download((String(company||name||"Kontakt").replace(/[^a-z0-9äöüÄÖÜß_-]+/gi,"_")||"Kontakt")+"_Brief.doc",html,"application/msword");
-}
-function contactActionButtons(email,name="",company="",role="",context=""){return `<div style="display:flex;gap:6px;flex-wrap:wrap">${mailButton(email)}<button type="button" onclick='createBrief(${JSON.stringify(name)},${JSON.stringify(company)},${JSON.stringify(role)},${JSON.stringify(email)},${JSON.stringify(context)})'>▣ Word / Brief</button></div>`;}
-function renderAhkMaster(ahkId){const a=getAhk(ahkId);const list=$("ahkContactList");if(!a){$("mAhkOffice").textContent="—";$("mAhkAddress").textContent="—";$("mAhkPhone").textContent="—";$("mAhkContacts").textContent="—";if(list)list.innerHTML="";return}$("mAhkOffice").textContent=a.office+" · "+a.city;$("mAhkAddress").textContent=a.address||"—";$("mAhkPhone").textContent=a.phone||"—";$("mAhkContacts").textContent=(a.contacts||[]).map(c=>c.name+" · "+c.email+(c.role?" · "+c.role:"" )).join(" | ")||"—";if(list)list.innerHTML=(a.contacts||[]).map(c=>`<div class="contactmaster" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><div><b>${c.name}</b><div class="muted">${c.role||""}${c.email?" · "+c.email:""}</div></div>${contactActionButtons(c.email||"",c.name||"",a.office||"",c.role||"")}</div>`).join("");}
+function cleanEmail(v){return String(v||"").trim();}
+function mailButton(email){const e=cleanEmail(email);if(!e)return `<a class="buttonlike" href="mailto:?subject=${encodeURIComponent("Schwarze Pumpe – Kontakt")}" title="Neue E-Mail ohne vorgegebenen Empfänger">✉ E-Mail</a>`;return `<a class="buttonlike" href="mailto:${esc(e)}" title="E-Mail an ${esc(e)}">✉ E-Mail</a>`;}
+function briefButton(name,email,company,role){const payload={name:name||"",email:email||"",company:company||"",role:role||""};const encoded=encodeURIComponent(JSON.stringify(payload)).replace(/'/g,"%27");return `<button type="button" onclick='downloadBrief("${encoded}")'>▣ Word / Brief</button>`;}
+function contactActionButtons(email,name,company,role){return `<div style="display:flex;gap:6px;flex-wrap:wrap">${mailButton(email)}${briefButton(name,email,company,role)}</div>`;}
+function downloadBrief(encoded){try{const d=JSON.parse(decodeURIComponent(encoded));const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");const html=`<!doctype html><html><head><meta charset="utf-8"><title>Kontaktbrief</title></head><body style="font-family:Arial,sans-serif"><h1>Schwarze Pumpe – Kontaktbrief</h1><p><b>Unternehmen:</b> ${esc(d.company)}</p><p><b>Kontakt:</b> ${esc(d.name)}</p><p><b>Funktion:</b> ${esc(d.role)}</p><p><b>E-Mail:</b> ${esc(d.email)}</p><p><br>Erstellt aus Investor Radar v4.6</p></body></html>`;const blob=new Blob([html],{type:"application/msword"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=((d.company||d.name||"Kontakt").replace(/[^\w\-äöüÄÖÜß ]+/g,"_").trim()||"Kontakt")+"_Brief.doc";a.style.display="none";document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(url);},1000);}catch(e){console.error(e);alert("Word/Brief konnte nicht erzeugt werden.");}}
+function renderAhkMaster(ahkId){const a=getAhk(ahkId);const list=$("ahkContactList");if(!a){$("mAhkOffice").textContent="—";$("mAhkAddress").textContent="—";$("mAhkPhone").textContent="—";$("mAhkContacts").textContent="—";if(list)list.innerHTML="";return}$("mAhkOffice").textContent=a.office+" · "+a.city;$("mAhkAddress").textContent=a.address||"—";$("mAhkPhone").textContent=a.phone||"—";$("mAhkContacts").textContent=(a.contacts||[]).map(c=>c.name+" · "+c.email+(c.role?" · "+c.role:"" )).join(" | ")||"—";if(list)list.innerHTML=(a.contacts||[]).map(c=>`<div class="contactmaster" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><div><b>${c.name}</b><div class="muted">${c.role||""}${c.email?" · "+c.email:""}</div></div>${contactActionButtons(c.email||"",c.name||"",a.company||"",c.role||"")}</div>`).join("");}
 async function loadAhkMaster(){try{const r=await fetch("ahk.json?cb="+Date.now(),{cache:"no-store"});if(r.ok){const o=await r.json();if(Array.isArray(o))ahks=o;else if(Array.isArray(o.records))ahks=o.records;else if(Array.isArray(o.ahks))ahks=o.ahks;}}catch{} if(currentId){const x=data.find(v=>v.id===currentId);if(x)renderContact(x.investorId);}}
 
 const INVESTOR_MASTER={
@@ -254,7 +248,9 @@ function renderIntelligenceCards(){
  host.innerHTML=list.map(i=>{
   const a=i.access||{}; const hyp=i.investmentHypothesis; const q=i.investmentQuestion; const trig=i.strategicTrigger; const na=i.nextAction; const ms=i.meetingSignals||{};
   const signal=ms.currentSignal||ms.signal||i.signal||'';
-  return `<article class="intel-card" data-intel-id="${esc(i.investorId||'')}"><h3>${esc(i.company||i.investorId)}</h3><div class="intel-meta">${esc(i.investorId||'')}${a.level?' · Access: '+esc(intelDisplayValue(a.level)):''}</div>
+  const ahk=getAhk(i.ahkId);
+  const ahkLabel=ahk?(ahk.office+" · "+ahk.city):"Keine AHK-Zuordnung";
+  return `<article class="intel-card" data-intel-id="${esc(i.investorId||'')}"><h3>${esc(i.company||i.investorId)}</h3><div class="intel-meta">${esc(i.investorId||'')}${a.level?' · Access: '+esc(intelDisplayValue(a.level)):''} · AHK: ${esc(ahkLabel)}</div>
   ${trig?`<div class="intel-field"><b>Strategic Trigger</b><div>${esc(intelDisplayValue(trig))}</div></div>`:''}
   ${hyp?`<div class="intel-field"><b>Investment Hypothesis</b><div>${esc(intelDisplayValue(hyp))}</div></div>`:''}
   ${q?`<div class="intel-field"><b>Investment Question</b><div>${esc(intelDisplayValue(q))}</div></div>`:''}
@@ -269,6 +265,7 @@ function openIntelligenceEditor(investorId){
  $("intelEditorTitle").textContent=(i.company||i.investorId)+" · Strategic Intelligence";
  $("ieCompany").value=i.company||i.investorId||"";
  $("ieStatus").value=i.intelligenceStatus||"ACTIVE";
+ populateIntelAhkSelect(i.ahkId||"");
  $("ieAccess").value=intelFormValue(i.access);
  $("ieTrigger").value=intelFormValue(i.strategicTrigger);
  $("ieEvidence").value=intelFormValue(i.evidence);
@@ -285,6 +282,7 @@ function closeIntelligenceEditor(){$("intelEditor").classList.remove("open");cur
 function saveIntelligenceEditor(){
  const i=intelligenceById[String(currentIntelId)]; if(!i)return;
  i.intelligenceStatus=$("ieStatus").value||i.intelligenceStatus||"ACTIVE";
+ i.ahkId=$("ieAhkId").value||"";
  i.access=parseIntelField($("ieAccess").value,i.access||{});
  i.strategicTrigger=parseIntelField($("ieTrigger").value,i.strategicTrigger||{});
  i.evidence=parseIntelField($("ieEvidence").value,i.evidence||{});
@@ -331,8 +329,12 @@ function renderContact(investorId){
  const c=getContact(investorId);
  if(!c){["cDecision","cFunction","cRoute","cAccess","cAhk","cSource","aOffice","aContact","aAssignment"].forEach(id=>$(id).textContent="—");$("cContactActions").innerHTML="";renderAhkMaster("");return}
  const a=getAhk(c.ahkId);
+ const investor=data.find(v=>String(v.investorId||v.id)===String(investorId));
+ const company=(investor&&investor.company)||c.company||"";
+ const contactName=c.decisionMaker||"";
+ const contactRole=c.currentFunction||"";
  $("cDecision").textContent=c.decisionMaker||"Kein verifizierter Entscheider hinterlegt";$("cFunction").textContent=c.currentFunction?" · "+c.currentFunction:"";
- $("cContactActions").innerHTML=contactActionButtons(c.email||"",c.decisionMaker||"",(data.find(v=>v.investorId===investorId)||{}).company||"",c.currentFunction||"");
+ $("cContactActions").innerHTML=contactActionButtons(c.email||"",contactName,company,contactRole);
  $("cRoute").textContent=(c.directContactRoute||"Kein direkter Kontaktweg hinterlegt")+(c.country?" · "+c.country:"");$("cAccess").textContent=c.personalAccess||c.introducer||"Kein persönlicher Zugang hinterlegt";
  $("cAhk").textContent=a?(a.office+" · "+a.city+" · "+(a.contacts||[]).map(v=>v.name+" · "+v.email).join(" / ")):(c.ahkOffice?(c.ahkOffice+" · "+(c.ahkContact||"")):"Keine AHK-Zuordnung hinterlegt");
  $("cSource").textContent=(c.source||"Quelle unbekannt")+" · Confidence: "+(c.confidence||"TO VERIFY");
@@ -396,7 +398,7 @@ function localBundle(){return {investors:data,contacts,activities,intelligence:i
 function mergeThreeWay(base,local,remote){
  const inv=mergeObjectMap(base?.investors||[],local.investors,remote.investors,"investorId",INVESTOR_FIELDS);
  const con=mergeObjectMap(base?.contacts||[],local.contacts,remote.contacts,"investorId",CONTACT_FIELDS);
- const intelFields=["company","intelligenceStatus","access","strategicTrigger","evidence","investmentHypothesis","investmentQuestion","attackSheet","meetingSignals","disqualifyingEvidence","nextAction","accessHistory"];
+ const intelFields=["company","intelligenceStatus","ahkId","access","strategicTrigger","evidence","investmentHypothesis","investmentQuestion","attackSheet","meetingSignals","disqualifyingEvidence","nextAction","accessHistory"];
  const intelBase=Array.isArray(base?.intelligence)?base.intelligence:(remote.intelligence||[]);
  const intel=mergeObjectMap(intelBase,local.intelligence||[],remote.intelligence||[],"investorId",intelFields);
  return {investors:inv.items,contacts:con.items,activities:mergeActivities(base?.activities||[],local.activities,remote.activities),intelligence:intel.items,ahks:local.ahks||remote.ahks||AHK_SEED,conflicts:[...inv.conflicts,...con.conflicts]};
@@ -456,11 +458,14 @@ $("jsonOut").addEventListener("click",exportJSON);$("csvOut").addEventListener("
 $("jsonIn").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);data=normalizeInvestorData(Array.isArray(o)?o:o.investors);data.forEach(x=>{if(!x.investorId)x.investorId=IDS[x.id]||String(x.id)});activities=o.activities||[];if(o.contacts)contacts=o.contacts;if(Array.isArray(o.intelligence)){intelligenceById={};o.intelligence.forEach(x=>{if(x?.investorId)intelligenceById[String(x.investorId)]=x});saveIntelligenceLocal();applyIntelligenceToRadar();}saveLocal();render();alert("Import erfolgreich.")}catch{alert("Ungültige Radar-Datei.")}};r.readAsText(f)});
 $("cancelEdit").addEventListener("click",closeEditor);$("saveEdit").addEventListener("click",saveEditor);$("addAct").addEventListener("click",addActivity);$("eAhkId").addEventListener("change",e=>renderAhkMaster(e.target.value));
 $("cancelIntelEdit").addEventListener("click",closeIntelligenceEditor);$("saveIntelEdit").addEventListener("click",saveIntelligenceEditor);$("intelligenceCards").addEventListener("click",e=>{const card=e.target.closest(".intel-card");if(card)openIntelligenceEditor(card.dataset.intelId)});
+$("standaloneAhkSelect").addEventListener("change",e=>renderStandaloneAhk(e.target.value));
 $("syncBtn").addEventListener("click",()=>$("sync").classList.add("open"));$("cancelSync").addEventListener("click",()=>$("sync").classList.remove("open"));
 $("pull").addEventListener("click",pullGitHub);$("push").addEventListener("click",pushGitHub);
 const AHK_ASSIGNMENTS={"XPENG":"AHK-GUANGZHOU","CATL":"AHK-SHANGHAI","VINFAST":"AHK-VIETNAM","GWM":"AHK-BEIJING","LGES":"AHK-KOREA","REDWOOD":"AHK-USA-WASHINGTON","ASCEND-ELEMENTS":"AHK-USA-WASHINGTON","WUXI-BIOLOGICS":"AHK-SHANGHAI","SAMSUNG-BIOLOGICS":"AHK-KOREA","SAMSUNG-SDI":"AHK-KOREA"};
 contacts.forEach(c=>{const a=AHK_ASSIGNMENTS[c.investorId];if(a&&!c.ahkId)c.ahkId=a;});applyInvestorMasterFields();saveLocal();populateStatus();render();
-renderAhkMaster("AHK-KOREA");
 loadAhkMaster();
+populateIntelAhkSelect("");
+$("standaloneAhkSelect").innerHTML=ahks.map(a=>`<option value="${a.ahkId}">${a.office} · ${a.city}</option>`).join("");
+renderStandaloneAhk("AHK-KOREA");
 loadInvestorIntelligence();
 </script></body></html>
