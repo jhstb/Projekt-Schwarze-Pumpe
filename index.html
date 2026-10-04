@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Schwarze Pumpe · Project Hub V6.4</title>
+<style>
+:root{--bg:#f3f7f8;--card:#fff;--ink:#17323b;--muted:#718187;--line:#d9e3e6;--accent:#176f79;--deep:#174a56}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:1180px;margin:auto;padding:28px}
+header{padding:24px 0 22px}h1{font-size:38px;margin:0 0 5px;letter-spacing:-1px}h2{font-size:17px;margin:0}p{color:var(--muted)}
+.hub-header{display:flex;justify-content:space-between;align-items:flex-end;gap:18px}.hub-chip{font-size:10px;font-weight:850;letter-spacing:.12em;color:var(--accent);border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;white-space:nowrap}
+.postcard{position:relative;min-height:560px;border-radius:26px;overflow:hidden;background:#102b39;box-shadow:0 18px 45px #17323b24;margin-bottom:22px}.postcard-image{position:absolute;inset:0;background-image:url('hero-silhouette.png');background-size:cover;background-position:center center;filter:saturate(.72) contrast(1.06)}.postcard-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,28,39,.93) 0%,rgba(8,28,39,.72) 38%,rgba(8,28,39,.18) 72%,rgba(8,28,39,.12) 100%),linear-gradient(0deg,rgba(8,28,39,.58),transparent 45%)}.postcard-content{position:relative;z-index:2;padding:52px 56px 42px;color:#fff;max-width:930px;min-height:560px;display:flex;flex-direction:column;justify-content:center}.postcard-kicker{font-size:11px;font-weight:850;letter-spacing:.18em;opacity:.88;margin-bottom:18px}.postcard h2{font-size:52px;line-height:1.02;letter-spacing:-2px;margin:0 0 18px}.postcard-sub{font-size:18px;line-height:1.45;color:#e5eff1;max-width:720px;margin:0}.postcard-facts{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}.postcard-facts>div{min-width:175px;padding:13px 16px;border:1px solid #ffffff38;background:#071f2a8f;backdrop-filter:blur(7px);border-radius:12px}.postcard-facts b{display:block;font-size:21px;letter-spacing:.02em}.postcard-facts span{display:block;font-size:10px;color:#d1e2e5;margin-top:4px}.postcard-line{margin-top:30px;font-size:11px;font-weight:800;letter-spacing:.08em;color:#f4fbfc;max-width:760px}.visual-note{position:absolute;z-index:3;right:16px;bottom:12px;font-size:8px;color:#dbe9ebaa;letter-spacing:.03em}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 6px 20px #17323b0b}
+.hero{background:linear-gradient(135deg,var(--deep),var(--accent));color:white;border:0}.hero p{color:#d9edf0}.hero h2{font-size:24px}.big{font-size:34px;font-weight:750;margin:12px 0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{display:inline-block;padding:11px 15px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid var(--line);color:var(--ink);background:#fff}.hero .btn{color:var(--deep);border:0}
+.full{grid-column:1/-1}.metric{font-size:29px;font-weight:750;margin-top:10px}.sub{font-size:12px;color:var(--muted);margin-top:3px}
+.public-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.public-box{border:1px solid var(--line);border-radius:13px;padding:16px;background:#fbfcfc}.public-box b{font-size:18px;display:block}.public-box span{font-size:12px;color:var(--muted);display:block;margin-top:5px;line-height:1.4}
+.network-card{grid-column:1/-1;padding:26px 28px}.network-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}.network-head h2{font-size:25px;margin:0}.network-sub{color:var(--muted);font-size:13px;margin-top:7px;line-height:1.5}.network-badge{background:#edf4f5;color:var(--deep);border:1px solid #d3e1e4;border-radius:999px;padding:8px 11px;font-size:11px;font-weight:800;white-space:nowrap}.network-footer{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-top:18px}.network-note{font-size:12px;color:var(--muted);line-height:1.45}
+.list{list-style:none;padding:0;margin:12px 0 0}.list li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:18px}.pill{font-size:12px;padding:5px 8px;border-radius:99px;background:#edf3f4;color:var(--deep);white-space:nowrap}
+footer{padding:26px 0;color:var(--muted);font-size:12px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.public-grid{grid-template-columns:1fr}.hub-header{align-items:flex-start;flex-direction:column}.hub-chip{display:none}.postcard{min-height:610px;border-radius:20px}.postcard-content{padding:34px 24px 34px;min-height:610px;justify-content:flex-end}.postcard h2{font-size:38px;letter-spacing:-1.4px}.postcard-sub{font-size:15px}.postcard-facts{margin-top:22px}.postcard-facts>div{min-width:145px}.postcard-line{font-size:9px;line-height:1.5;margin-top:20px}.visual-note{font-size:7px;right:10px;bottom:8px}.network-card{padding:20px 18px}.network-head{align-items:flex-start;flex-direction:column}.network-footer{align-items:stretch;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hub-header">
+  <div><h1>SCHWARZE PUMPE · PROJECT HUB</h1><p>International Investor Acquisition · public project platform</p></div>
+  <div class="hub-chip">INVESTMENT OPPORTUNITY</div>
+</header>
+
+<section class="postcard">
+  <div class="postcard-image"></div>
+  <div class="postcard-overlay"></div>
+  <div class="postcard-content">
+    <div class="postcard-kicker">SCHWARZE PUMPE · LUSATIA · GERMANY</div>
+    <h2>YOUR NEXT EUROPEAN<br>INDUSTRIAL INVESTMENT</h2>
+    <p class="postcard-sub">A large-scale industrial transformation platform for the next major European investment.</p>
+    <div class="postcard-facts">
+      <div><b>60 HA</b><span>current project opportunity</span></div>
+      <div><b>110 kV</b><span>industrial power infrastructure</span></div>
+      <div><b>NET-ZERO VALLEY</b><span>Lausitz · Brandenburg–Saxony</span></div>
+    </div>
+    <div class="postcard-line">ONE MAJOR INVESTMENT · ONE EUROPEAN PLATFORM · ONE CONVERSATION TO TEST THE FIT</div>
+  </div>
+  <div class="visual-note">Hero image: visual concept · not a site photograph</div>
+</section>
+
+<div class="grid">
+<section class="card hero">
+  <h2>PROJECT OVERVIEW</h2>
+  <div class="big">A European industrial opportunity</div>
+  <p>The Schwarze Pumpe platform combines industrial land, established infrastructure and the regional transformation context of Lusatia.</p>
+  <div class="actions">
+    <a class="btn" href="netzplan_public_v4.html">OPEN PUBLIC NETWORK PLAN →</a>
+  </div>
+</section>
+
+<section class="card">
+  <h2>PUBLIC PROJECT LOGIC</h2>
+  <div class="public-grid">
+    <div class="public-box"><b>OPPORTUNITY</b><span>60 ha as the current industrial investment opportunity.</span></div>
+    <div class="public-box"><b>PLATFORM</b><span>Industrial infrastructure and the wider Lusatia transformation environment.</span></div>
+    <div class="public-box"><b>PERSPECTIVE</b><span>A major European investment with a long-term industrial footprint.</span></div>
+  </div>
+</section>
+
+<section class="card network-card">
+  <div class="network-head">
+    <div>
+      <h2>🗓 PUBLIC NETWORK PLAN</h2>
+      <div class="network-sub">Public view of the project logic, phases, milestones, decision gates and timing. Detailed internal work allocation, financial data and operational acquisition information are intentionally excluded.</div>
+    </div>
+    <div class="network-badge">PUBLIC · V4</div>
+  </div>
+  <div class="network-footer">
+    <div class="network-note">The public network plan shows <b>WHAT → WHEN → ORDER → DEPENDENCY → RESULT</b> and provides the public project framework for the next phase.</div>
+    <div class="actions"><a class="btn" href="netzplan_public_v4.html">OPEN NETWORK PLAN →</a></div>
+  </div>
+</section>
+
+<section class="card full">
+  <h2>THE OPPORTUNITY</h2>
+  <div class="public-grid">
+    <div class="public-box"><b>60 HA</b><span>Current project opportunity in Schwarze Pumpe.</span></div>
+    <div class="public-box"><b>INDUSTRIAL READY</b><span>Cleared site and an established industrial environment.</span></div>
+    <div class="public-box"><b>LAUSITZ</b><span>Transformation region at the intersection of industry, energy and European investment.</span></div>
+  </div>
+</section>
+
+<section class="card full">
+  <h2>PROJECT STATUS</h2>
+  <ul class="list">
+    <li><span>Project Hub</span><span class="pill">PUBLIC</span></li>
+    <li><span>Public Network Plan</span><span class="pill">V4 · APPROVED</span></li>
+    <li><span>Investment Opportunity</span><span class="pill">60 HA</span></li>
+    <li><span>Investor acquisition workspace</span><span class="pill">PRIVATE</span></li>
+  </ul>
+</section>
+</div>
+
+<footer>Project Hub V6.4 · public project platform · private operational data remain outside the public delivery.</footer>
+</div>
+</body>
+</html>
