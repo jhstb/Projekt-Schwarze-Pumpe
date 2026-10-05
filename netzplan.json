@@ -6,7 +6,7 @@
     {
       "name": "Analyse",
       "start": "2026-12-11",
-      "durationDays": 36,
+      "durationDays": 31,
       "hours": 64,
       "cost": 22400,
       "phase": 0,
@@ -14,7 +14,7 @@
     },
     {
       "name": "Priorisierung",
-      "start": "2027-01-18",
+      "start": "2027-01-11",
       "durationDays": 36,
       "hours": 36,
       "cost": 12600,
@@ -40,6 +40,6 @@
       "activity": "Bearbeitung qualifizierter Investitionschancen, Reisezeit und Vor-Ort-Termine sowie vertiefende Qualifizierung und Vorbereitung; darin 50 h Reise/Vor-Ort und 35 h qualifizierte Investitionschancen."
     }
   ],
-  "exportedAt": "2026-09-29T11:40:39.308Z",
+  "exportedAt": "2026-10-05T10:26:48.956Z",
   "notes": "Operativer Netzplan V4.2; 305 h / 106.750 € netto; Projektstart 11.12.2026."
 }
