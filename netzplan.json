@@ -6,40 +6,48 @@
     {
       "name": "Analyse",
       "start": "2026-12-11",
-      "durationDays": 31,
+      "durationDays": 17,
+      "moduleStart": "2026-12-11",
+      "moduleEnd": "2027-01-10",
       "hours": 64,
       "cost": 22400,
       "phase": 0,
-      "activity": "Fokussierte Markt- und Unternehmensrecherche, Identifikation relevanter Entscheidungsträger und Entwicklung individueller Investitionshypothesen."
+      "activity": "Markt beobachten, Zielunternehmen identifizieren, Investitionsanlässe und Europa-Strategien prüfen."
     },
     {
       "name": "Priorisierung",
-      "start": "2027-01-11",
-      "durationDays": 36,
+      "start": "2026-12-18",
+      "durationDays": 22,
+      "moduleStart": "2027-01-11",
+      "moduleEnd": "2027-02-15",
       "hours": 36,
       "cost": 12600,
       "phase": 0,
-      "activity": "Verdichtung des Zieluniversums, Standort-/Wettbewerbsinformationen, Qualifizierung, Dokumentation und Koordination."
+      "activity": "30 priorisierte Unternehmen bestimmen, A+/A herausarbeiten, Investitionshypothesen entwickeln."
     },
     {
       "name": "Gezielte Ansprache",
-      "start": "2027-02-24",
-      "durationDays": 172,
+      "start": "2026-12-21",
+      "durationDays": 65,
+      "moduleStart": "2027-02-24",
+      "moduleEnd": "2027-08-14",
       "hours": 120,
       "cost": 42000,
       "phase": 1,
-      "activity": "Individuelle Ansprache und Outreach, Relationship Management, Follow-up sowie Gespräche und virtuelle Meetings."
+      "activity": "Entscheidungsträger identifizieren, individuelle Ansprache vorbereiten, Kontakte aufbauen und nachfassen."
     },
     {
       "name": "Qualifizierung & Vorbereitung 2027",
-      "start": "2027-08-18",
-      "durationDays": 101,
+      "start": "2027-01-21",
+      "durationDays": 60,
+      "moduleStart": "2027-08-18",
+      "moduleEnd": "2027-11-26",
       "hours": 85,
       "cost": 29750,
       "phase": 2,
-      "activity": "Bearbeitung qualifizierter Investitionschancen, Reisezeit und Vor-Ort-Termine sowie vertiefende Qualifizierung und Vorbereitung; darin 50 h Reise/Vor-Ort und 35 h qualifizierte Investitionschancen."
+      "activity": "Investorgespräche vorbereiten und nachbereiten, Chancen qualifizieren, Standortanforderungen erfassen und nächste Schritte definieren."
     }
   ],
-  "exportedAt": "2026-10-05T10:26:48.956Z",
+  "exportedAt": "2026-10-05T11:59:35.747Z",
   "notes": "Operativer Netzplan V4.2; 305 h / 106.750 € netto; Projektstart 11.12.2026."
 }
