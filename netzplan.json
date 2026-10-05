@@ -6,7 +6,7 @@
     {
       "name": "Analyse",
       "start": "2026-12-11",
-      "durationDays": 17,
+      "durationDays": 30,
       "moduleStart": "2026-12-11",
       "moduleEnd": "2027-01-10",
       "hours": 64,
@@ -16,8 +16,8 @@
     },
     {
       "name": "Priorisierung",
-      "start": "2026-12-18",
-      "durationDays": 22,
+      "start": "2027-01-11",
+      "durationDays": 35,
       "moduleStart": "2027-01-11",
       "moduleEnd": "2027-02-15",
       "hours": 36,
@@ -27,8 +27,8 @@
     },
     {
       "name": "Gezielte Ansprache",
-      "start": "2026-12-21",
-      "durationDays": 65,
+      "start": "2027-02-24",
+      "durationDays": 171,
       "moduleStart": "2027-02-24",
       "moduleEnd": "2027-08-14",
       "hours": 120,
@@ -38,8 +38,8 @@
     },
     {
       "name": "Qualifizierung & Vorbereitung 2027",
-      "start": "2027-01-21",
-      "durationDays": 60,
+      "start": "2027-08-18",
+      "durationDays": 100,
       "moduleStart": "2027-08-18",
       "moduleEnd": "2027-11-26",
       "hours": 85,
@@ -48,6 +48,6 @@
       "activity": "Investorgespräche vorbereiten und nachbereiten, Chancen qualifizieren, Standortanforderungen erfassen und nächste Schritte definieren."
     }
   ],
-  "exportedAt": "2026-10-05T11:59:35.747Z",
+  "exportedAt": "2026-10-05T12:02:16.357Z",
   "notes": "Operativer Netzplan V4.2; 305 h / 106.750 € netto; Projektstart 11.12.2026."
 }
