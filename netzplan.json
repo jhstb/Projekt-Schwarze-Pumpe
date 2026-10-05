@@ -7,47 +7,47 @@
       "name": "Analyse",
       "start": "2026-12-11",
       "durationDays": 30,
-      "moduleStart": "2026-12-11",
-      "moduleEnd": "2027-01-10",
       "hours": 64,
       "cost": 22400,
       "phase": 0,
-      "activity": "Markt beobachten, Zielunternehmen identifizieren, Investitionsanlässe und Europa-Strategien prüfen."
+      "activity": "Markt beobachten, Zielunternehmen identifizieren, Investitionsanlässe und Europa-Strategien prüfen.",
+      "moduleStart": "2026-12-11",
+      "moduleEnd": "2027-01-10"
     },
     {
       "name": "Priorisierung",
       "start": "2027-01-11",
       "durationDays": 35,
-      "moduleStart": "2027-01-11",
-      "moduleEnd": "2027-02-15",
       "hours": 36,
       "cost": 12600,
       "phase": 0,
-      "activity": "30 priorisierte Unternehmen bestimmen, A+/A herausarbeiten, Investitionshypothesen entwickeln."
+      "activity": "30 priorisierte Unternehmen bestimmen, A+/A herausarbeiten, Investitionshypothesen entwickeln.",
+      "moduleStart": "2027-01-11",
+      "moduleEnd": "2027-02-15"
     },
     {
       "name": "Gezielte Ansprache",
       "start": "2027-02-24",
       "durationDays": 171,
-      "moduleStart": "2027-02-24",
-      "moduleEnd": "2027-08-14",
       "hours": 120,
       "cost": 42000,
       "phase": 1,
-      "activity": "Entscheidungsträger identifizieren, individuelle Ansprache vorbereiten, Kontakte aufbauen und nachfassen."
+      "activity": "Entscheidungsträger identifizieren, individuelle Ansprache vorbereiten, Kontakte aufbauen und nachfassen.",
+      "moduleStart": "2027-02-24",
+      "moduleEnd": "2027-08-14"
     },
     {
       "name": "Qualifizierung & Vorbereitung 2027",
       "start": "2027-08-18",
       "durationDays": 100,
-      "moduleStart": "2027-08-18",
-      "moduleEnd": "2027-11-26",
       "hours": 85,
       "cost": 29750,
       "phase": 2,
-      "activity": "Investorgespräche vorbereiten und nachbereiten, Chancen qualifizieren, Standortanforderungen erfassen und nächste Schritte definieren."
+      "activity": "Investorgespräche vorbereiten und nachbereiten, Chancen qualifizieren, Standortanforderungen erfassen und nächste Schritte definieren.",
+      "moduleStart": "2027-08-18",
+      "moduleEnd": "2027-11-26"
     }
   ],
-  "exportedAt": "2026-10-05T12:02:16.357Z",
+  "exportedAt": "2026-10-05T12:03:33.632Z",
   "notes": "Operativer Netzplan V4.2; 305 h / 106.750 € netto; Projektstart 11.12.2026."
 }
